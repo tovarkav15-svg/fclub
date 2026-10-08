@@ -72,12 +72,7 @@
 
     .plane-track { position: absolute; inset: 0; width: 100%; height: 100%; }
     .plane-track path { fill: none; stroke: rgba(47,134,255,.35); stroke-width: 1.5; stroke-dasharray: 2 8; stroke-linecap: round; }
-    .plane {
-      position: absolute; left: 0; top: 0; width: 34px; height: 34px; color: var(--blue-2);
-      offset-path: path("M -60 520 C 220 380, 380 640, 640 420 S 1000 120, 1500 220");
-      offset-rotate: auto; animation: fly 11s linear infinite;
-    }
-    @keyframes fly { 0% { offset-distance: 0%; opacity: 0; } 6% { opacity: 1; } 92% { opacity: 1; } 100% { offset-distance: 100%; opacity: 0; } }
+    .plane { position: absolute; left: -17px; top: -17px; width: 34px; height: 34px; color: var(--blue-2); opacity: 0; will-change: transform; }
 
     .meta { display: flex; justify-content: space-between; font-size: 13px; color: var(--blue); padding-top: 84px; }
     .hero-grid { flex: 1; display: grid; grid-template-columns: 1.15fr .85fr; gap: 40px; align-items: center; padding-top: 40px; padding-bottom: 80px; }
@@ -220,10 +215,10 @@
     .panel .cap { font-size: 13px; color: var(--muted); display: flex; justify-content: space-between; }
     .panel .big { font-size: clamp(36px, 4vw, 54px); font-weight: 300; letter-spacing: -.05em; margin-top: 8px; }
     .panel .big small { font-size: 16px; color: #28a745; letter-spacing: 0; margin-left: 8px; }
-    .chart { width: 100%; height: 220px; margin-top: 16px; display: block; overflow: visible; }
+    .chart { width: 100%; height: auto; margin-top: 16px; display: block; overflow: visible; }
     .chart .grid line { stroke: var(--line); stroke-dasharray: 3 5; }
     .chart .area { fill: url(#ga); opacity: 0; transition: opacity 1.2s ease .9s; }
-    .chart .ln { fill: none; stroke: var(--blue-2); stroke-width: 3; stroke-linecap: round; stroke-linejoin: round; stroke-dasharray: 1400; stroke-dashoffset: 1400; transition: stroke-dashoffset 2.4s var(--ease) .2s; vector-effect: non-scaling-stroke; }
+    .chart .ln { fill: none; stroke: var(--blue-2); stroke-width: 3; stroke-linecap: round; stroke-linejoin: round; stroke-dasharray: 1400; stroke-dashoffset: 1400; transition: stroke-dashoffset 2.4s var(--ease) .2s; }
     .chart .pt { fill: #fff; stroke: var(--blue-2); stroke-width: 3; opacity: 0; transition: opacity .4s ease 2.4s; }
     .chart .pt-ring { fill: rgba(47,134,255,.25); opacity: 0; transform-box: fill-box; transform-origin: center; }
     .in .chart .area { opacity: 1; }
@@ -368,8 +363,8 @@
       <div class="hero-bg">
         <div class="dots"></div>
         <div class="orb o1"></div><div class="orb o2"></div><div class="orb o3"></div>
-        <svg class="plane-track" viewBox="0 0 1440 900" preserveAspectRatio="none"><path d="M -60 520 C 220 380, 380 640, 640 420 S 1000 120, 1500 220"/></svg>
-        <svg class="plane" viewBox="0 0 24 24" fill="currentColor"><path d="M21.9 4.3 18.7 19.4c-.2 1.1-.9 1.3-1.8.8l-4.9-3.6-2.4 2.3c-.3.3-.5.5-1 .5l.4-5 9.1-8.2c.4-.4-.1-.6-.6-.2L6.2 13.1l-4.8-1.5c-1-.3-1.1-1 .2-1.5L20.5 2.8c.9-.3 1.6.2 1.4 1.5Z" transform="rotate(45 12 12)"/></svg>
+        <svg class="plane-track" viewBox="0 0 1440 900" preserveAspectRatio="none"><path id="planePath" d="M -60 520 C 220 380, 380 640, 640 420 S 1000 120, 1500 220"/></svg>
+        <svg class="plane" id="plane" viewBox="0 0 24 24" fill="currentColor"><path d="M21.9 4.3 18.7 19.4c-.2 1.1-.9 1.3-1.8.8l-4.9-3.6-2.4 2.3c-.3.3-.5.5-1 .5l.4-5 9.1-8.2c.4-.4-.1-.6-.6-.2L6.2 13.1l-4.8-1.5c-1-.3-1.1-1 .2-1.5L20.5 2.8c.9-.3 1.6.2 1.4 1.5Z" transform="rotate(45 12 12)"/></svg>
       </div>
 
       <div class="wrap">
@@ -479,7 +474,7 @@
           <div class="panel" data-reveal style="--d:2">
             <div class="cap"><span>Выручка запуска</span><span>Analytics.app</span></div>
             <div class="big"><span class="count" data-to="842000" data-suffix=" ₽">0 ₽</span><small>▲ рост</small></div>
-            <svg class="chart" viewBox="0 0 600 220" preserveAspectRatio="none">
+            <svg class="chart" viewBox="0 0 600 220">
               <defs><linearGradient id="ga" x1="0" x2="0" y1="0" y2="1"><stop offset="0" stop-color="#2f86ff" stop-opacity=".28"/><stop offset="1" stop-color="#2f86ff" stop-opacity="0"/></linearGradient></defs>
               <g class="grid"><line x1="0" x2="600" y1="55" y2="55"/><line x1="0" x2="600" y1="110" y2="110"/><line x1="0" x2="600" y1="165" y2="165"/></g>
               <path class="area" d="M0 200 C 60 195, 90 180, 140 176 S 220 150, 260 156 S 340 120, 380 110 S 460 70, 500 58 S 570 26, 600 18 L 600 220 L 0 220 Z"/>
@@ -495,7 +490,7 @@
               <div class="bars"><i style="height:35%;transition-delay:.1s"></i><i style="height:50%;transition-delay:.18s"></i><i style="height:42%;transition-delay:.26s"></i><i style="height:68%;transition-delay:.34s"></i><i style="height:60%;transition-delay:.42s"></i><i style="height:85%;transition-delay:.5s"></i><i style="height:100%;transition-delay:.58s"></i></div>
             </div>
             <div class="panel" data-reveal style="--d:4">
-              <div class="cap"><span>Конверсия воронки</span></div>
+              <div class="cap"><span>Доходимость до эфира</span></div>
               <div class="ring-row">
                 <svg class="ringc" viewBox="0 0 100 100"><circle class="bg" cx="50" cy="50" r="40"/><circle class="fg" cx="50" cy="50" r="40"/></svg>
                 <div class="big" style="margin:0"><span class="count" data-to="70" data-suffix="%">0%</span></div>
@@ -707,6 +702,26 @@
         });
         b.addEventListener('mouseleave', () => (b.style.transform = ''));
       });
+    }
+
+    // самолётик летит по пунктирной траектории
+    const plane = document.getElementById('plane');
+    const planePath = document.getElementById('planePath');
+    if (!reduce) {
+      const len = planePath.getTotalLength();
+      const bg = plane.parentElement;
+      const dur = 11000;
+      const fly = (t) => {
+        const p = (t % dur) / dur;
+        const sx = bg.clientWidth / 1440, sy = bg.clientHeight / 900;
+        const a = planePath.getPointAtLength(p * len);
+        const b = planePath.getPointAtLength(Math.min(p * len + 2, len));
+        const ang = Math.atan2((b.y - a.y) * sy, (b.x - a.x) * sx) * 180 / Math.PI;
+        plane.style.transform = `translate(${a.x * sx}px, ${a.y * sy}px) rotate(${ang}deg)`;
+        plane.style.opacity = p < .05 ? p / .05 : p > .93 ? (1 - p) / .07 : 1;
+        requestAnimationFrame(fly);
+      };
+      requestAnimationFrame(fly);
     }
 
     // искры на карточке цены
