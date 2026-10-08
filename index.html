@@ -484,18 +484,18 @@
     const cv = $('#fx'), ctx = cv.getContext('2d');
     const DPR = Math.min(devicePixelRatio || 1, 2);
     const mobile = () => W < 760;
-    const N = innerWidth < 760 ? 900 : 1900;
+    const N = innerWidth < 760 ? 1200 : 2800;
     const P = [];
     for (let i = 0; i < N; i++) P.push({ x: Math.random() * W, y: Math.random() * H, vx: 0, vy: 0, k: .012 + Math.random() * .03, ph: Math.random() * 6.283, ink: Math.random() < .2, s: Math.random() < .12 ? 3 : 2, sx: Math.random(), sy: Math.random() });
     const shapes = {};
     const conf = {
-      hero: { s: 'plane', x: .73, y: .5, k: .7, a: 1 },
+      hero: { s: 'plane', x: .75, y: .5, k: .82, a: 1 },
       manifest: { s: 'F', x: .82, y: .52, k: .62, a: .45 },
       inside: { s: 'scatter', a: .5 },
       path: { s: 'arrow', x: .8, y: .5, k: .55, a: .4 },
       price: { s: 'ruble', x: .5, y: .5, k: .95, a: .22 },
       faq: { s: 'scatter', a: .35 },
-      final: { s: 'plane', x: .5, y: .38, k: .62, a: .85 }
+      final: { s: 'plane', x: .5, y: .3, k: .55, a: .85 }
     };
     const confM = { hero: { s: 'plane', x: .62, y: .3, k: .62, a: .5 }, manifest: { s: 'F', x: .7, y: .25, k: .45, a: .25 }, path: { s: 'arrow', x: .5, y: .2, k: .5, a: .25 }, final: { s: 'plane', x: .5, y: .3, k: .6, a: .6 } };
     let cur = { s: 'scatter', a: .5 }, alpha = 0, curName = '';
