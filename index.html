@@ -307,6 +307,7 @@
       .sel::before { transform: none; } .sel .h { opacity: 1; }
       .dock { transform: none; }
     }
+    /* полноэкранные вкладки без плашек */ html { scroll-snap-type: y mandatory; } .stage { padding: 0; } .win { min-height: 100svh; border-radius: 0; background: transparent; backdrop-filter: none; -webkit-backdrop-filter: none; box-shadow: none; scale: none !important; padding: calc(var(--mb) + 8px) 0 var(--dock); transform: translateY(40px); } .win.in { transform: none; } .win::after { display: none; } .wbody { width: 100%; max-width: 1280px; margin: 0 auto; } .sheet, .spot { background: transparent; box-shadow: none; } .spot .s-bar { border-bottom-color: rgba(255,255,255,.14); } .final { min-height: 100svh; } @media (max-width: 900px) { html { scroll-snap-type: none; } }
   </style>
 </head>
 <body class="loading">
