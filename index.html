@@ -5,313 +5,268 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>F-Producers Club</title>
   <meta name="description" content="F-Producers Club — клуб продюсеров инфопродуктов в Telegram. Вступление 1340 ₽.">
-  <meta name="theme-color" content="#060915">
+  <meta name="theme-color" content="#05070f">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400&display=swap" rel="stylesheet">
   <style>
     :root {
-      --ink: #f1f4fb;
-      --ink-2: rgba(228, 235, 255, .74);
-      --muted: rgba(210, 220, 250, .5);
-      --line: rgba(255, 255, 255, .09);
+      --bg: #05070f;
+      --text: #f2f5fc;
+      --text-2: rgba(226, 234, 255, .72);
+      --muted: rgba(200, 212, 245, .48);
+      --line: rgba(255, 255, 255, .08);
+      --glass: rgba(255, 255, 255, .04);
+      --glass-2: rgba(255, 255, 255, .07);
       --blue: #2f7bff;
-      --blue-2: #5c9dff;
+      --blue-2: #69a6ff;
+      --cyan: #36c6ff;
       --sel: rgba(70, 140, 255, .42);
-      --glass: rgba(14, 18, 34, .46);
       --ease: cubic-bezier(.22, 1, .36, 1);
-      --spring: cubic-bezier(.16, 1, .3, 1);
       --expo: cubic-bezier(.85, 0, .15, 1);
-      --mb: 30px;      /* высота строки меню */
-      --dock: 92px;    /* место под Dock */
+      --wrap: 1200px;
     }
     * { box-sizing: border-box; margin: 0; padding: 0; }
-    html { scroll-behavior: smooth; scroll-snap-type: y proximity; background: #060915; }
-    body { color: var(--ink); font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", Inter, system-ui, sans-serif; font-size: 17px; line-height: 1.5; -webkit-font-smoothing: antialiased; overflow-x: hidden; background: #060915; }
+    html { background: var(--bg); scroll-behavior: smooth; }
+    body { background: var(--bg); color: var(--text); font-family: Inter, -apple-system, system-ui, sans-serif; font-size: 17px; line-height: 1.55; -webkit-font-smoothing: antialiased; overflow-x: hidden; }
     body.loading { overflow: hidden; }
     ::selection { background: var(--sel); }
     a { color: inherit; text-decoration: none; }
-    button { font: inherit; color: inherit; background: none; border: 0; cursor: pointer; }
-    .mono { font-family: "JetBrains Mono", ui-monospace, monospace; font-size: 12px; }
+    .wrap { max-width: var(--wrap); margin: 0 auto; padding: 0 24px; position: relative; }
+    .mono { font-family: "JetBrains Mono", ui-monospace, monospace; font-size: 12.5px; letter-spacing: .04em; text-transform: uppercase; }
 
-    /* ---------- анимированные синие пузыри ---------- */
-    .bubbles { position: fixed; inset: -10%; z-index: 0; pointer-events: none; overflow: hidden; transition: transform 1.2s var(--ease); }
-    .bb { position: absolute; border-radius: 50%; will-change: transform; }
-    .b1 { width: 52vmax; height: 52vmax; left: -8%; top: -12%; background: radial-gradient(circle at 35% 35%, rgba(40,110,255,.85), rgba(40,110,255,0) 68%); animation: f1 22s ease-in-out infinite alternate; }
-    .b2 { width: 44vmax; height: 44vmax; right: -10%; top: 8%; background: radial-gradient(circle at 60% 40%, rgba(0,160,255,.6), rgba(0,160,255,0) 68%); animation: f2 26s ease-in-out infinite alternate; }
-    .b3 { width: 38vmax; height: 38vmax; left: 30%; bottom: -14%; background: radial-gradient(circle, rgba(110,80,255,.55), rgba(110,80,255,0) 68%); animation: f3 30s ease-in-out infinite alternate; }
-    .b4 { width: 22vmax; height: 22vmax; left: 55%; top: 30%; background: radial-gradient(circle, rgba(10,108,255,.7), rgba(10,108,255,0) 66%); animation: f4 18s ease-in-out infinite alternate; }
-    .b5 { width: 16vmax; height: 16vmax; left: 12%; top: 55%; background: radial-gradient(circle, rgba(0,200,255,.65), rgba(0,200,255,0) 66%); animation: f5 16s ease-in-out infinite alternate; }
-    .b6 { width: 12vmax; height: 12vmax; right: 18%; bottom: 12%; background: radial-gradient(circle, rgba(60,120,255,.8), rgba(60,120,255,0) 66%); animation: f1 14s ease-in-out infinite alternate-reverse; }
-    @keyframes f1 { to { transform: translate(14vw, 18vh) scale(1.15); } }
-    @keyframes f2 { to { transform: translate(-18vw, 22vh) scale(.88); } }
-    @keyframes f3 { to { transform: translate(-12vw, -20vh) scale(1.2); } }
-    @keyframes f4 { 50% { transform: translate(-20vw, 10vh) scale(1.3); } to { transform: translate(10vw, -14vh) scale(.9); } }
-    @keyframes f5 { to { transform: translate(24vw, -16vh) scale(1.25); } }
+    /* ---------- фон: северное сияние из синих пузырей ---------- */
+    .aurora { position: fixed; inset: -15%; z-index: 0; pointer-events: none; transition: transform 1.6s var(--ease); }
+    .aurora i { position: absolute; border-radius: 50%; will-change: transform; }
+    .a1 { width: 55vmax; height: 55vmax; left: -10%; top: -15%; background: radial-gradient(circle, rgba(36,100,255,.55), transparent 65%); animation: d1 26s ease-in-out infinite alternate; }
+    .a2 { width: 45vmax; height: 45vmax; right: -12%; top: 10%; background: radial-gradient(circle, rgba(0,170,255,.35), transparent 65%); animation: d2 30s ease-in-out infinite alternate; }
+    .a3 { width: 40vmax; height: 40vmax; left: 25%; bottom: -20%; background: radial-gradient(circle, rgba(110,80,255,.35), transparent 65%); animation: d3 34s ease-in-out infinite alternate; }
+    .a4 { width: 18vmax; height: 18vmax; left: 60%; top: 35%; background: radial-gradient(circle, rgba(60,130,255,.5), transparent 65%); animation: d4 20s ease-in-out infinite alternate; }
+    @keyframes d1 { to { transform: translate(14vw, 16vh) scale(1.12); } }
+    @keyframes d2 { to { transform: translate(-16vw, 20vh) scale(.9); } }
+    @keyframes d3 { to { transform: translate(-10vw, -18vh) scale(1.15); } }
+    @keyframes d4 { 50% { transform: translate(-18vw, 8vh) scale(1.25); } to { transform: translate(8vw, -12vh) scale(.9); } }
+    .noise { position: fixed; inset: 0; z-index: 1; pointer-events: none; opacity: .035;
+      background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>"); }
+    main, footer { position: relative; z-index: 2; }
 
     /* ---------- интро ---------- */
-    .loader { position: fixed; inset: 0; z-index: 200; background: #000; color: #fff; display: flex; flex-direction: column; justify-content: space-between; padding: 22px 24px; clip-path: inset(0 0 0 0); transition: clip-path 1s var(--expo); }
+    .loader { position: fixed; inset: 0; z-index: 200; background: #000; color: #fff; display: flex; flex-direction: column; justify-content: space-between; padding: 22px 24px; clip-path: inset(0 0 0 0); transition: clip-path 1.1s var(--expo); }
     .loader.out { clip-path: inset(0 0 100% 0); }
-    .ld-row { display: flex; justify-content: space-between; color: rgba(255,255,255,.5); text-transform: uppercase; }
+    .ld-row { display: flex; justify-content: space-between; color: rgba(255,255,255,.5); }
     .ld-center { display: grid; place-items: center; flex: 1; }
-    .ld-word { font-family: Inter, sans-serif; font-weight: 400; font-size: clamp(48px, 11vw, 190px); letter-spacing: -.06em; line-height: 1; opacity: 0; transform: translateY(30px); transition: opacity .8s var(--ease), transform .8s var(--ease), font-weight 1s var(--ease); }
-    .ld-word.show { opacity: 1; transform: none; font-weight: 600; }
-    .ld-flood { position: fixed; inset: 0; background: var(--blue); opacity: 0; transition: clip-path .75s var(--expo); }
+    .ld-word { font-weight: 400; font-size: clamp(48px, 11vw, 190px); letter-spacing: -.06em; line-height: 1; opacity: 0; transform: translateY(24px); transition: opacity .9s var(--ease), transform .9s var(--ease), font-weight 1s var(--ease); }
+    .ld-word.show { opacity: 1; transform: none; font-weight: 700; }
+    .ld-flood { position: fixed; inset: 0; background: var(--blue); opacity: 0; transition: clip-path .8s var(--expo); }
     .ld-flood.go { clip-path: inset(0 0 0 0) !important; }
     .ld-bar { height: 1px; background: rgba(255,255,255,.15); margin-top: 10px; }
     .ld-bar i { display: block; height: 100%; background: #fff; transform-origin: left; transform: scaleX(0); }
 
-    /* ---------- выделение как в macOS ---------- */
+    /* ---------- выделение как в iOS ---------- */
     .sel { position: relative; display: inline-block; isolation: isolate; }
-    .sel::before { content: ""; position: absolute; z-index: -1; inset: .06em -.05em -.02em; background: var(--sel); transform: scaleX(0); transform-origin: left; transition: transform .6s var(--ease); transition-delay: var(--sd, .3s); }
-    .sel .h { position: absolute; top: .06em; bottom: 0; width: 2px; background: var(--blue); opacity: 0; transition: opacity .25s; transition-delay: calc(var(--sd, .3s) + .5s); }
-    .sel .h::after { content: ""; position: absolute; left: 50%; width: 9px; height: 9px; border-radius: 50%; background: var(--blue); transform: translateX(-50%); }
-    .sel .h-l { left: -.05em; } .sel .h-l::after { top: -7px; }
-    .sel .h-r { right: -.05em; } .sel .h-r::after { bottom: -7px; }
+    .sel::before { content: ""; position: absolute; z-index: -1; inset: .06em -.05em -.02em; background: var(--sel); transform: scaleX(0); transform-origin: left; transition: transform .8s var(--ease); transition-delay: var(--sd, .3s); }
+    .sel .h { position: absolute; top: .06em; bottom: 0; width: 2px; background: var(--blue-2); opacity: 0; transition: opacity .4s var(--ease); transition-delay: calc(var(--sd, .3s) + .6s); }
+    .sel .h::after { content: ""; position: absolute; left: 50%; width: 10px; height: 10px; border-radius: 50%; background: var(--blue-2); transform: translateX(-50%); }
+    .sel .h-l { left: -.05em; } .sel .h-l::after { top: -8px; }
+    .sel .h-r { right: -.05em; } .sel .h-r::after { bottom: -8px; }
     .in .sel::before, .sel.in::before { transform: scaleX(1); }
     .in .sel .h, .sel.in .h { opacity: 1; }
 
-    /* ---------- строка меню ---------- */
-    .menubar { position: fixed; inset: 0 0 auto 0; height: var(--mb); z-index: 90; display: flex; align-items: center; gap: 20px; padding: 0 16px; font-size: 13.5px; background: rgba(8,11,24,.55); backdrop-filter: blur(30px) saturate(180%); -webkit-backdrop-filter: blur(30px) saturate(180%); border-bottom: .5px solid rgba(255,255,255,.06); }
-    .menubar .logo { width: 16px; height: 16px; border-radius: 4px; background: #fff; color: #000; display: grid; place-items: center; font-size: 10px; font-weight: 700; }
-    .menubar b { font-weight: 700; }
-    .menubar nav { display: flex; gap: 18px; }
-    .menubar nav a { padding: 2px 8px; margin: 0 -8px; border-radius: 5px; transition: background .15s, color .15s; }
-    .menubar nav a:hover, .menubar nav a.on { background: var(--blue); color: #fff; }
-    .menubar .right { margin-left: auto; display: flex; align-items: center; gap: 14px; }
-    .menubar svg { width: 16px; height: 16px; }
+    /* ---------- появление ---------- */
+    .rv { opacity: 0; transform: translateY(16px); transition: opacity 1s var(--ease), transform 1.1s var(--ease); transition-delay: calc(var(--d, 0) * 80ms); }
+    .rv.in { opacity: 1; transform: none; }
 
-    /* ---------- уведомление ---------- */
-    .notif { position: fixed; top: 42px; right: 16px; z-index: 80; width: 350px; display: flex; gap: 12px; padding: 12px 14px; border-radius: 18px; background: rgba(26,30,48,.82); backdrop-filter: blur(30px) saturate(180%); -webkit-backdrop-filter: blur(30px) saturate(180%); box-shadow: 0 0 0 .5px rgba(255,255,255,.12), 0 16px 40px -12px rgba(0,0,0,.6); transform: translateX(calc(100% + 30px)); transition: transform 1s var(--ease); }
-    .notif.show { transform: none; }
-    .notif .ic { flex: none; width: 38px; height: 38px; border-radius: 9px; background: linear-gradient(180deg, #3b8bff, #0a5ce0); color: #fff; display: grid; place-items: center; font-weight: 700; }
-    .notif b { display: block; font-size: 14px; }
-    .notif p { font-size: 13.5px; color: var(--ink-2); line-height: 1.35; }
-    .notif small { position: absolute; right: 14px; top: 12px; color: var(--muted); font-size: 12px; }
-    .notif .x { position: absolute; left: -6px; top: -6px; width: 20px; height: 20px; border-radius: 50%; background: #3a3f55; box-shadow: 0 1px 4px rgba(0,0,0,.25); font-size: 12px; line-height: 20px; text-align: center; opacity: 0; transition: opacity .2s; }
-    .notif:hover .x { opacity: 1; }
+    /* ---------- навигация-капсула ---------- */
+    .nav { position: fixed; top: 16px; left: 50%; z-index: 90; display: flex; align-items: center; gap: 4px; padding: 6px; border-radius: 999px; background: rgba(14, 18, 34, .55); backdrop-filter: blur(24px) saturate(180%); -webkit-backdrop-filter: blur(24px) saturate(180%); box-shadow: 0 0 0 1px var(--line), 0 20px 40px -20px rgba(0,0,0,.8); transform: translate(-50%, -140%); transition: transform 1s var(--ease); }
+    .nav.show { transform: translate(-50%, 0); }
+    .nav .logo { width: 34px; height: 34px; border-radius: 50%; background: linear-gradient(180deg, #4a90ff, #1d5fe6); display: grid; place-items: center; font-weight: 800; font-size: 15px; margin-right: 6px; box-shadow: 0 6px 16px -6px rgba(47,123,255,.8); }
+    .nav .links { position: relative; display: flex; }
+    .nav .links a { position: relative; z-index: 1; padding: 8px 14px; font-size: 14px; color: var(--text-2); border-radius: 999px; transition: color .4s var(--ease); }
+    .nav .links a.on, .nav .links a:hover { color: var(--text); }
+    .nav .pill { position: absolute; top: 0; height: 100%; border-radius: 999px; background: rgba(255,255,255,.09); transition: left .6s var(--ease), width .6s var(--ease), opacity .4s; opacity: 0; }
+    .nav .btn { margin-left: 6px; padding: 9px 16px; font-size: 14px; }
 
-    /* ---------- полноэкранные окна ---------- */
-    .stage { position: relative; z-index: 10; min-height: 100svh; padding: calc(var(--mb) + 10px) 10px var(--dock); display: flex; scroll-snap-align: start; }
-    .win { position: relative; flex: 1; display: flex; flex-direction: column; min-height: calc(100svh - var(--mb) - 10px - var(--dock)); border-radius: 16px; overflow: hidden; isolation: isolate;
-      background: var(--glass); backdrop-filter: blur(34px) saturate(190%); -webkit-backdrop-filter: blur(34px) saturate(190%);
-      box-shadow: 0 0 0 .5px rgba(255,255,255,.12), 0 1px 0 rgba(255,255,255,.08) inset, 0 40px 90px -30px rgba(0,0,0,.7);
-      opacity: 0; transform: translateY(28px) scale(.985); transform-origin: 50% 100%;
-      scale: var(--leave, 1);
-      transition: opacity 1.1s var(--ease), transform 1.3s var(--spring), margin .6s var(--spring), border-radius .6s; }
-    .win.in { opacity: 1; transform: none; }
-    .win.windowed { margin: 4vh 8vw; border-radius: 14px; }
-    .win.min { opacity: 0 !important; transform: translate(var(--tx, 0), var(--ty, 60vh)) scale(.06) !important; transition: opacity .45s ease .12s, transform .6s var(--expo) !important; pointer-events: none; }
-    /* блик стекла за курсором */
-    .win::after { content: ""; position: absolute; inset: 0; z-index: 5; pointer-events: none; border-radius: inherit; background: radial-gradient(700px circle at var(--gx, 50%) var(--gy, -20%), rgba(120,170,255,.18), transparent 45%); mix-blend-mode: screen; opacity: 1; }
-    .tb { position: relative; flex: none; height: 44px; display: flex; align-items: center; padding: 0 16px; border-bottom: .5px solid var(--line); background: rgba(250,250,252,.55); user-select: none; }
-    .lights { display: flex; gap: 8px; position: relative; z-index: 2; }
-    .lights button { width: 12px; height: 12px; border-radius: 50%; display: grid; place-items: center; font-size: 9px; line-height: 1; color: rgba(0,0,0,.55); box-shadow: inset 0 0 0 .5px rgba(0,0,0,.15); transition: transform .2s; }
-    .lights button:hover { transform: scale(1.15); }
-    .lights button:nth-child(1) { background: #ff5f57; } .lights button:nth-child(2) { background: #febc2e; } .lights button:nth-child(3) { background: #28c840; }
-    .lights button span { opacity: 0; font-weight: 700; }
-    .lights:hover button span { opacity: 1; }
-    .tb .title { position: absolute; inset: 0; display: grid; place-items: center; font-size: 13.5px; font-weight: 600; color: var(--ink-2); pointer-events: none; }
-    .tb .tools { margin-left: auto; display: flex; gap: 6px; color: var(--muted); font-size: 13px; position: relative; z-index: 2; }
-    .wbody { flex: 1; display: flex; min-height: 0; }
+    /* ---------- кнопки ---------- */
+    .btn { position: relative; overflow: hidden; display: inline-flex; align-items: center; gap: 10px; padding: 15px 26px; border-radius: 999px; font-size: 16px; font-weight: 600; background: var(--blue); color: #fff; box-shadow: 0 10px 30px -10px rgba(47,123,255,.9), inset 0 1px 0 rgba(255,255,255,.25); transition: transform .5s var(--ease), box-shadow .5s var(--ease), background .4s; }
+    .btn::after { content: ""; position: absolute; top: 0; bottom: 0; width: 45%; left: -70%; background: linear-gradient(100deg, transparent, rgba(255,255,255,.35), transparent); transform: skewX(-20deg); transition: left .9s var(--ease); }
+    .btn:hover { transform: translateY(-1px); box-shadow: 0 16px 40px -12px rgba(47,123,255,1), inset 0 1px 0 rgba(255,255,255,.25); }
+    .btn:hover::after { left: 130%; }
+    .btn .arr { transition: transform .5s var(--ease); }
+    .btn:hover .arr { transform: translateX(4px); }
+    .btn.ghost { background: var(--glass-2); box-shadow: inset 0 0 0 1px rgba(255,255,255,.12); }
+    .btn.ghost:hover { background: rgba(255,255,255,.12); }
 
-    /* появление содержимого */
-    .st { opacity: 0; transform: translateY(12px); transition: opacity 1s var(--ease), transform 1.1s var(--spring); transition-delay: calc(var(--k, 0) * 70ms + 300ms); }
-    .win.in .st { opacity: 1; transform: none; }
+    /* ---------- стеклянная карточка ---------- */
+    .glass { position: relative; background: var(--glass); border-radius: 24px; box-shadow: inset 0 0 0 1px var(--line), inset 0 1px 0 rgba(255,255,255,.06); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); overflow: hidden; isolation: isolate; }
+    .glass::before { content: ""; position: absolute; inset: 0; z-index: -1; background: radial-gradient(420px circle at var(--x, 50%) var(--y, -30%), rgba(80,140,255,.16), transparent 60%); opacity: 0; transition: opacity .6s var(--ease); }
+    .glass::after { content: ""; position: absolute; inset: 0; border-radius: inherit; padding: 1px; pointer-events: none; background: radial-gradient(300px circle at var(--x, 50%) var(--y, -30%), rgba(120,170,255,.6), transparent 60%); -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0); -webkit-mask-composite: xor; mask-composite: exclude; opacity: 0; transition: opacity .6s var(--ease); }
+    .glass:hover::before, .glass:hover::after { opacity: 1; }
 
     /* ---------- hero ---------- */
-    .hero-body { flex: 1; display: flex; flex-direction: column; justify-content: center; gap: 30px; padding: clamp(28px, 6vw, 90px); max-width: 1200px; }
-    .app-row { display: flex; align-items: center; gap: 14px; }
-    .app-ic { width: 60px; height: 60px; border-radius: 15px; background: linear-gradient(180deg, #3b8bff, #0a5ce0); color: #fff; display: grid; place-items: center; font-size: 28px; font-weight: 700; box-shadow: 0 8px 18px -6px rgba(10,92,224,.7), inset 0 1px 0 rgba(255,255,255,.4); }
-    .app-row b { display: block; font-size: 17px; }
-    .app-row span { color: var(--muted); font-size: 14px; }
-    h1 { font-family: Inter, -apple-system, sans-serif; font-size: clamp(44px, 8vw, 128px); line-height: .98; letter-spacing: -.05em; font-weight: 700; }
+    .hero { min-height: 100svh; display: flex; align-items: center; padding: 110px 0 60px; }
+    .hero .wrap { display: grid; grid-template-columns: 1.15fr .85fr; gap: 50px; align-items: center; width: 100%; }
+    .chip { display: inline-flex; align-items: center; gap: 10px; padding: 7px 14px 7px 8px; border-radius: 999px; background: var(--glass-2); box-shadow: inset 0 0 0 1px var(--line); font-size: 14px; color: var(--text-2); margin-bottom: 26px; }
+    .chip b { background: var(--blue); color: #fff; padding: 2px 10px; border-radius: 999px; font-size: 12px; font-weight: 600; }
+    .live { width: 7px; height: 7px; border-radius: 50%; background: #3ddc84; box-shadow: 0 0 0 0 rgba(61,220,132,.5); animation: ping 2.4s var(--ease) infinite; }
+    @keyframes ping { 70% { box-shadow: 0 0 0 8px rgba(61,220,132,0); } 100% { box-shadow: 0 0 0 0 rgba(61,220,132,0); } }
+    h1 { font-size: clamp(46px, 7vw, 108px); line-height: .98; letter-spacing: -.05em; font-weight: 800; }
     h1 .ln { display: block; overflow: hidden; padding: .1em .12em .06em; margin: -.1em -.12em -.06em; }
-    h1 .ln > span { display: inline-block; transform: translateY(105%); transition: transform 1.4s var(--spring); transition-delay: calc(var(--i) * 110ms + 200ms); }
-    .win.in h1 .ln > span { transform: none; }
-    h1 .grad { background: linear-gradient(90deg, #3d8bff, #7cc4ff 50%, #8f7dff); -webkit-background-clip: text; background-clip: text; color: transparent; background-size: 200% 100%; animation: shimmer 6s ease-in-out infinite alternate; }
-    @keyframes shimmer { to { background-position: 100% 0; } }
+    h1 .ln > span { display: inline-block; transform: translateY(105%); transition: transform 1.5s var(--ease); transition-delay: calc(var(--i) * 120ms + 150ms); }
+    .hero.in h1 .ln > span { transform: none; }
+    .grad { background: linear-gradient(90deg, #5a9bff, #8fd3ff 45%, #9a85ff); -webkit-background-clip: text; background-clip: text; color: transparent; background-size: 200% 100%; animation: sheen 8s ease-in-out infinite alternate; }
+    @keyframes sheen { to { background-position: 100% 0; } }
     .cycle { --sd: 0s; }
-    .cycle .w { display: inline-block; transition: opacity .45s var(--ease), filter .45s var(--ease), transform .55s var(--ease); }
+    .cycle .w { display: inline-block; transition: opacity .5s var(--ease), filter .5s var(--ease), transform .6s var(--ease); }
     .cycle.swap .w { opacity: 0; filter: blur(3px); transform: translateY(-5px); }
-    .lead { font-size: clamp(18px, 1.7vw, 22px); color: var(--ink-2); max-width: 640px; }
-    .actions { display: flex; gap: 12px; flex-wrap: wrap; align-items: center; }
-    .btn { position: relative; overflow: hidden; display: inline-flex; align-items: center; gap: 8px; padding: 13px 24px; border-radius: 12px; font-size: 16px; font-weight: 600; background: var(--blue); color: #fff; box-shadow: 0 1px 0 rgba(255,255,255,.3) inset, 0 8px 20px -8px rgba(10,108,255,.8); transition: transform .25s var(--spring), background .2s; }
-    .btn::after { content: ""; position: absolute; top: 0; bottom: 0; width: 40%; left: -60%; background: linear-gradient(100deg, transparent, rgba(255,255,255,.4), transparent); transform: skewX(-20deg); transition: left .6s var(--ease); }
-    .btn:hover::after { left: 130%; }
-    .btn:hover { background: #0058e0; transform: translateY(-1px); }
-    .btn:active { transform: scale(.96); }
-    .btn.sec { background: rgba(255,255,255,.08); color: var(--ink); box-shadow: 0 0 0 .5px rgba(255,255,255,.16); }
-    .btn.sec:hover { background: rgba(255,255,255,.16); }
-    .scroll-hint { color: var(--muted); font-size: 14px; display: flex; align-items: center; gap: 8px; }
-    .scroll-hint i { width: 18px; height: 28px; border-radius: 10px; border: 1.5px solid var(--muted); position: relative; }
-    .scroll-hint i::after { content: ""; position: absolute; left: 50%; top: 5px; width: 3px; height: 6px; margin-left: -1.5px; border-radius: 2px; background: var(--muted); animation: wheel 1.6s ease-in-out infinite; }
-    @keyframes wheel { 0% { transform: translateY(0); opacity: 1; } 70% { transform: translateY(8px); opacity: 0; } 100% { opacity: 0; } }
+    .lead { margin-top: 28px; font-size: clamp(18px, 1.6vw, 21px); color: var(--text-2); max-width: 560px; }
+    .actions { margin-top: 36px; display: flex; gap: 12px; flex-wrap: wrap; }
+    .proof { margin-top: 28px; display: flex; gap: 22px; flex-wrap: wrap; color: var(--muted); font-size: 14px; }
+    .proof span { display: inline-flex; align-items: center; gap: 8px; }
+    .proof span::before { content: ""; width: 5px; height: 5px; border-radius: 50%; background: var(--blue-2); }
 
-    /* ---------- Finder ---------- */
-    .side { flex: none; width: 210px; background: rgba(240,242,248,.45); border-right: .5px solid var(--line); padding: 14px 10px; font-size: 14px; }
-    .side p { color: var(--muted); font-size: 11.5px; font-weight: 600; padding: 4px 10px; }
-    .side a { display: flex; align-items: center; gap: 8px; padding: 6px 10px; border-radius: 7px; color: var(--ink); cursor: default; transition: background .15s; }
-    .side a:hover { background: rgba(0,0,0,.05); }
-    .side a.on { background: rgba(0,0,0,.08); }
-    .side a i { width: 14px; height: 11px; border-radius: 2px; background: var(--blue-2); }
-    .f-main { flex: 1; padding: clamp(20px, 3vw, 40px); display: flex; flex-direction: column; }
-    .f-main h2 { font-size: clamp(26px, 3vw, 38px); letter-spacing: -.03em; }
-    .f-main > p { color: var(--muted); font-size: 14.5px; margin: 4px 0 22px; }
-    .files { flex: 1; display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; align-content: center; }
-    .file { display: grid; justify-items: center; align-content: start; text-align: center; gap: 8px; padding: 18px 10px; border-radius: 14px; cursor: default; transition: background .2s, transform .3s var(--spring), opacity .6s var(--ease); }
-    .file svg { width: 76px; height: 62px; filter: drop-shadow(0 8px 14px rgba(0,40,140,.55)); transition: transform .6s var(--ease); }
-    .file b { font-size: 15px; font-weight: 600; padding: 1px 7px; border-radius: 5px; transition: background .15s, color .15s; }
-    .file p { font-size: 14px; color: var(--ink-2); line-height: 1.35; }
-    .file:hover { background: rgba(90,150,255,.12); }
-    .file:hover b { background: var(--blue); color: #fff; }
-    .file:hover svg { transform: translateY(-3px) scale(1.03); }
+    /* телефон */
+    .stage { position: relative; height: 640px; display: grid; place-items: center; }
+    .phone { position: relative; width: 300px; height: 610px; border-radius: 50px; padding: 10px; background: linear-gradient(160deg, #2a2f3f, #0c0e16 40%); box-shadow: 0 0 0 1px rgba(255,255,255,.08), 0 60px 120px -40px rgba(20,60,200,.6); animation: floatY 7s ease-in-out infinite; }
+    @keyframes floatY { 50% { transform: translateY(-12px); } }
+    .screen { position: relative; height: 100%; border-radius: 40px; overflow: hidden; background: #0e1420; display: flex; flex-direction: column; }
+    .island { position: absolute; top: 10px; left: 50%; transform: translateX(-50%); width: 94px; height: 27px; border-radius: 20px; background: #000; z-index: 3; }
+    .tg-head { padding: 46px 16px 12px; display: flex; align-items: center; gap: 10px; background: rgba(20,26,40,.9); border-bottom: 1px solid rgba(255,255,255,.05); }
+    .ava { width: 38px; height: 38px; border-radius: 50%; background: linear-gradient(180deg, #5aa3ff, #2563eb); display: grid; place-items: center; font-weight: 700; flex: none; }
+    .tg-head b { display: block; font-size: 14.5px; } .tg-head small { font-size: 12px; color: var(--muted); }
+    .feed { flex: 1; display: flex; flex-direction: column; justify-content: flex-end; gap: 8px; padding: 12px 10px 14px; overflow: hidden; background: radial-gradient(rgba(255,255,255,.035) 1.2px, transparent 1.2px) 0 0 / 18px 18px; }
+    .post { flex: none; background: #1b2232; border-radius: 16px 16px 16px 5px; padding: 10px 12px 8px; font-size: 12.5px; line-height: 1.42; color: #e6ecfa; animation: postIn .9s var(--ease) both; }
+    .post .t { font-weight: 600; margin-bottom: 2px; }
+    .post .m { display: flex; justify-content: space-between; margin-top: 6px; font-size: 11px; color: var(--muted); }
+    .post .r span { background: rgba(80,140,255,.16); color: #9cc2ff; border-radius: 999px; padding: 1px 7px; margin-right: 4px; }
+    .post.img .pic { height: 78px; border-radius: 10px; margin: -2px -4px 8px; background: linear-gradient(135deg, #3b82f6, #1e40af 60%, #312e81); position: relative; }
+    .post.img .pic::after { content: "LIVE · эфир"; position: absolute; left: 10px; bottom: 8px; font-size: 11px; font-weight: 600; }
+    @keyframes postIn { from { opacity: 0; transform: translateY(14px); } }
+    .notif { position: absolute; z-index: 4; display: flex; align-items: center; gap: 10px; padding: 10px 14px 10px 10px; border-radius: 18px; min-width: 220px; background: rgba(24,30,48,.72); backdrop-filter: blur(18px) saturate(180%); -webkit-backdrop-filter: blur(18px) saturate(180%); box-shadow: inset 0 0 0 1px rgba(255,255,255,.08), 0 20px 40px -20px rgba(0,0,0,.8); font-size: 13px; opacity: 0; transform: translateY(12px) scale(.98); transition: opacity .9s var(--ease), transform 1s var(--ease); }
+    .notif.show { opacity: 1; transform: none; }
+    .notif .ic { width: 34px; height: 34px; border-radius: 10px; display: grid; place-items: center; font-size: 16px; flex: none; background: rgba(80,140,255,.18); }
+    .notif b { display: block; font-size: 13px; } .notif small { color: var(--text-2); }
+    .n1 { left: -50px; top: 100px; } .n2 { right: -40px; top: 270px; } .n3 { left: -30px; bottom: 90px; }
 
-    /* ---------- Заметки ---------- */
-    .n-list { flex: none; width: 260px; background: rgba(246,246,250,.4); border-right: .5px solid var(--line); padding: 10px; }
-    .n-item { padding: 11px 12px; border-radius: 9px; margin-bottom: 4px; }
-    .n-item.on { background: #ffd95a; }
-    .n-item b { display: block; font-size: 14px; }
-    .n-item span { font-size: 12.5px; color: var(--ink-2); }
-    .n-body { flex: 1; padding: clamp(22px, 4vw, 56px); display: flex; flex-direction: column; justify-content: center; max-width: 900px; }
-    .n-body .date { color: var(--muted); font-size: 13px; margin-bottom: 10px; }
-    .n-body h2 { font-size: clamp(30px, 4vw, 52px); letter-spacing: -.035em; margin-bottom: 16px; }
-    .check { display: grid; grid-template-columns: 30px 1fr; gap: 14px; padding: 14px 0; border-bottom: .5px solid var(--line); }
-    .check:last-child { border-bottom: 0; }
-    .check .box { width: 24px; height: 24px; margin-top: 3px; border-radius: 50%; border: 1.5px solid rgba(255,255,255,.35); display: grid; place-items: center; transition: background .5s var(--ease), border-color .5s var(--ease), transform .6s var(--ease); }
-    .check .box svg { width: 14px; height: 14px; stroke: #fff; stroke-width: 3; fill: none; stroke-dasharray: 20; stroke-dashoffset: 20; transition: stroke-dashoffset .35s ease .12s; }
-    .check.done .box { background: var(--blue); border-color: var(--blue); transform: scale(1.04); }
-    .check.done .box svg { stroke-dashoffset: 0; }
-    .check b { font-size: clamp(18px, 1.6vw, 21px); }
-    .check p { color: var(--ink-2); font-size: 16px; }
+    /* ---------- секции ---------- */
+    section.sec { padding: 130px 0; }
+    .head { max-width: 780px; margin-bottom: 56px; }
+    .kicker { color: var(--blue-2); display: inline-flex; align-items: center; gap: 10px; margin-bottom: 18px; }
+    .kicker::before { content: ""; width: 22px; height: 1px; background: currentColor; }
+    h2 { font-size: clamp(36px, 5vw, 66px); line-height: 1.02; letter-spacing: -.045em; font-weight: 700; }
+    .head p { margin-top: 18px; color: var(--text-2); font-size: 19px; max-width: 600px; }
 
-    /* ---------- Telegram ---------- */
-    .tg-list { flex: none; width: 280px; background: rgba(255,255,255,.45); border-right: .5px solid var(--line); padding: 10px 8px; }
-    .tg-search { margin: 2px 6px 10px; padding: 7px 10px; border-radius: 9px; background: rgba(0,0,0,.05); color: var(--muted); font-size: 13.5px; }
-    .chat { display: grid; grid-template-columns: 46px 1fr; gap: 10px; align-items: center; padding: 8px 10px; border-radius: 11px; }
-    .chat.on { background: var(--blue); color: #fff; }
-    .chat .av { width: 46px; height: 46px; border-radius: 50%; display: grid; place-items: center; color: #fff; font-weight: 700; background: linear-gradient(180deg, #5eb5f7, #2a86e0); }
-    .chat:nth-child(3) .av { background: linear-gradient(180deg, #ffb35c, #f07a2a); }
-    .chat:nth-child(4) .av { background: linear-gradient(180deg, #8fe07a, #3fb24a); }
-    .chat b { display: block; font-size: 14.5px; }
-    .chat span { font-size: 13px; opacity: .7; }
-    .tg-room { flex: 1; display: flex; flex-direction: column; background: radial-gradient(rgba(255,255,255,.05) 1.4px, transparent 1.4px) 0 0 / 22px 22px; }
-    .tg-head { padding: 22px clamp(16px, 4vw, 60px) 0; }
-    .tg-head b { display: block; font-size: clamp(22px, 2.4vw, 30px); letter-spacing: -.02em; } .tg-head span { font-size: 13px; color: var(--muted); }
-    .tg-msgs { flex: 1; padding: 22px clamp(16px, 4vw, 60px); display: flex; flex-direction: column; gap: 10px; justify-content: flex-end; }
-    .bub { max-width: min(560px, 80%); padding: 10px 14px 7px; border-radius: 18px 18px 18px 5px; background: #20263a; color: var(--ink); font-size: 16px; line-height: 1.42; box-shadow: 0 1px 1px rgba(0,0,0,.3); opacity: 0; transform: translateY(8px) scale(.985); transform-origin: bottom left; transition: opacity .6s var(--ease), transform .8s var(--spring); }
-    .bub.me { align-self: flex-end; background: #2f6bec; color: #fff; border-radius: 18px 18px 5px 18px; transform-origin: bottom right; }
-    .bub small { display: block; text-align: right; font-size: 11.5px; color: var(--muted); margin-top: 2px; }
-    .bub.me small { color: rgba(255,255,255,.75); }
-    .bub.show { opacity: 1; transform: none; }
-    .typing { align-self: flex-start; display: none; gap: 4px; padding: 13px 16px; background: #20263a; border-radius: 18px 18px 18px 5px; }
-    .typing.show { display: inline-flex; }
-    .typing i { width: 7px; height: 7px; border-radius: 50%; background: #9aa0aa; animation: tdot 1s infinite; }
-    .typing i:nth-child(2) { animation-delay: .15s; } .typing i:nth-child(3) { animation-delay: .3s; }
-    @keyframes tdot { 0%, 80%, 100% { transform: none; opacity: .4; } 40% { transform: translateY(-4px); opacity: 1; } }
-    .tg-input { margin: 0 16px 16px; padding: 11px 16px; border-radius: 22px; background: #fff; color: var(--muted); font-size: 15px; }
+    /* бенто модулей */
+    .bento { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; }
+    .mod { padding: 28px; min-height: 220px; display: flex; flex-direction: column; justify-content: space-between; gap: 28px; }
+    .mod.w2 { grid-column: span 2; }
+    .mod .top { display: flex; justify-content: space-between; align-items: flex-start; }
+    .mod .ico { width: 46px; height: 46px; border-radius: 14px; display: grid; place-items: center; background: linear-gradient(180deg, rgba(80,140,255,.25), rgba(80,140,255,.08)); box-shadow: inset 0 0 0 1px rgba(120,170,255,.25); color: #a9c8ff; transition: transform .7s var(--ease); }
+    .mod:hover .ico { transform: translateY(-3px); }
+    .mod .ico svg { width: 22px; height: 22px; }
+    .mod .n { color: var(--muted); }
+    .mod h3 { font-size: 23px; letter-spacing: -.02em; font-weight: 600; margin-bottom: 6px; }
+    .mod p { color: var(--text-2); font-size: 15.5px; }
+    .mod.w2 h3 { font-size: 28px; }
 
-    /* ---------- Оплата: системный лист ---------- */
-    .pay-body { flex: 1; display: grid; place-items: center; padding: 30px 20px; position: relative; }
-    .pay-bg { position: absolute; inset: 0; display: grid; place-items: center; font-family: Inter, sans-serif; font-weight: 700; font-size: 34vw; letter-spacing: -.08em; color: rgba(90,150,255,.07); pointer-events: none; user-select: none; }
-    .sheet { position: relative; width: min(560px, 100%); background: rgba(22,26,44,.86); border-radius: 18px; box-shadow: 0 0 0 .5px rgba(255,255,255,.12), 0 40px 80px -30px rgba(0,0,0,.8); padding: 34px 34px 26px; display: grid; justify-items: center; text-align: center; gap: 14px; transform: translateY(16px) scale(.985); opacity: 0; transition: transform 1.2s var(--spring) .25s, opacity .9s var(--ease) .25s; }
-    .win.in .sheet { transform: none; opacity: 1; }
-    .sheet .app-ic { width: 76px; height: 76px; font-size: 36px; border-radius: 19px; }
-    .sheet h2 { font-size: 22px; letter-spacing: -.01em; }
-    .sheet .amount { font-family: Inter, sans-serif; font-size: clamp(60px, 8vw, 92px); font-weight: 700; letter-spacing: -.05em; line-height: 1; }
-    .sheet .amount span { color: var(--blue-2); }
-    .sheet ul { list-style: none; text-align: left; display: grid; gap: 9px; margin: 6px 0; width: 100%; }
-    .sheet li { display: flex; gap: 10px; font-size: 16px; color: var(--ink-2); opacity: 0; transform: translateX(-6px); transition: opacity .8s var(--ease), transform .8s var(--ease); transition-delay: calc(var(--k) * 80ms + 700ms); }
-    .win.in .sheet li { opacity: 1; transform: none; }
-    .sheet li::before { content: "✓"; color: var(--blue-2); font-weight: 700; }
-    .a-btns { display: grid; grid-template-columns: 1fr 1.4fr; gap: 10px; width: 100%; margin-top: 6px; }
-    .a-btns .btn { justify-content: center; padding: 14px 16px; }
-    .pulse { animation: pulse 2.4s ease-in-out infinite; }
-    @keyframes pulse { 0%, 100% { box-shadow: 0 8px 20px -8px rgba(10,108,255,.8), 0 0 0 0 rgba(10,108,255,.4); } 50% { box-shadow: 0 8px 20px -8px rgba(10,108,255,.8), 0 0 0 12px rgba(10,108,255,0); } }
+    /* путь */
+    .path { position: relative; display: grid; gap: 14px; padding-left: 60px; }
+    .rail { position: absolute; left: 21px; top: 26px; bottom: 26px; width: 2px; border-radius: 2px; background: rgba(255,255,255,.07); overflow: hidden; }
+    .rail i { position: absolute; inset: 0; background: linear-gradient(var(--cyan), var(--blue)); transform-origin: top; transform: scaleY(var(--p, 0)); box-shadow: 0 0 12px rgba(60,140,255,.8); }
+    .step { display: grid; grid-template-columns: 1fr 1.3fr; gap: 24px; align-items: center; padding: 26px 30px; }
+    .step::marker { content: none; }
+    .step .dotp { position: absolute; left: -48px; top: 50%; width: 20px; height: 20px; margin-top: -10px; border-radius: 50%; background: var(--bg); box-shadow: inset 0 0 0 2px rgba(255,255,255,.18); transition: background .8s var(--ease), box-shadow .8s var(--ease); }
+    .step { overflow: visible; }
+    .step.lit .dotp { background: var(--blue); box-shadow: 0 0 0 6px rgba(47,123,255,.18), 0 0 22px rgba(47,123,255,.9); }
+    .step .n { color: var(--blue-2); display: block; margin-bottom: 6px; }
+    .step h3 { font-size: clamp(22px, 2.3vw, 28px); letter-spacing: -.025em; font-weight: 600; }
+    .step p { color: var(--text-2); }
+    .step { transition: box-shadow .8s var(--ease); }
+    .step.lit { box-shadow: inset 0 0 0 1px rgba(90,150,255,.28), inset 0 1px 0 rgba(255,255,255,.06); }
 
-    /* ---------- Spotlight ---------- */
-    .spot-body { flex: 1; display: flex; justify-content: center; align-items: flex-start; padding: clamp(30px, 10vh, 120px) 16px 30px; }
-    .spot { width: min(780px, 100%); background: rgba(22,26,44,.86); border-radius: 18px; box-shadow: 0 0 0 .5px rgba(255,255,255,.12), 0 30px 70px -30px rgba(0,0,0,.8); overflow: hidden; transform: translateY(12px) scale(.985); opacity: 0; transition: transform 1.1s var(--spring) .2s, opacity .8s var(--ease) .2s; }
-    .win.in .spot { transform: none; opacity: 1; }
-    .s-bar { display: flex; align-items: center; gap: 12px; padding: 18px 22px; font-size: 24px; border-bottom: .5px solid var(--line); }
-    .s-bar svg { width: 24px; height: 24px; flex: none; color: var(--muted); }
-    .s-bar .typed { flex: 1; }
-    .s-bar .caret { display: inline-block; width: 2px; height: 26px; background: var(--blue); vertical-align: -4px; animation: blink 1s steps(1) infinite; }
-    @keyframes blink { 50% { opacity: 0; } }
-    .s-res { padding: 8px; }
-    .s-res .grp { font-size: 12px; font-weight: 600; color: var(--muted); padding: 6px 12px; }
-    .s-res .grp, .s-res details { opacity: 0; transform: translateY(6px); transition: opacity .7s var(--ease), transform .8s var(--spring); transition-delay: calc(var(--k, 0) * 90ms); }
-    .s-res.show .grp, .s-res.show details { opacity: 1; transform: none; }
-    details { border-radius: 11px; }
-    summary { list-style: none; cursor: pointer; display: flex; align-items: center; gap: 12px; padding: 13px 12px; border-radius: 11px; font-size: 17px; font-weight: 500; transition: background .15s, color .15s; }
+    /* для кого */
+    .who { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
+    .who .glass { padding: 26px; display: flex; flex-direction: column; gap: 18px; }
+    .q { align-self: flex-start; max-width: 92%; padding: 10px 14px; border-radius: 18px 18px 18px 5px; background: #1b2232; font-size: 15px; color: #e6ecfa; }
+    .a { align-self: flex-end; max-width: 92%; padding: 10px 14px; border-radius: 18px 18px 5px 18px; background: var(--blue); font-size: 15px; }
+    .who h3 { font-size: 21px; font-weight: 600; letter-spacing: -.02em; }
+
+    /* цена */
+    .price { display: grid; grid-template-columns: 1.1fr .9fr; }
+    .price::after { opacity: 1 !important; background: conic-gradient(from var(--ang, 0deg), transparent 0 70%, rgba(110,170,255,.9) 82%, transparent 94%); animation: spinb 6s linear infinite; }
+    @property --ang { syntax: "<angle>"; initial-value: 0deg; inherits: false; }
+    @keyframes spinb { to { --ang: 360deg; } }
+    .price-l { padding: clamp(28px, 4vw, 52px); display: flex; flex-direction: column; gap: 16px; }
+    .amount { font-size: clamp(76px, 10vw, 140px); font-weight: 800; letter-spacing: -.06em; line-height: .9; }
+    .amount span { color: var(--blue-2); }
+    .price-l p { color: var(--text-2); }
+    .price-l .btn { align-self: flex-start; margin-top: 18px; }
+    .price-r { padding: clamp(28px, 4vw, 52px); border-left: 1px solid var(--line); }
+    .price-r h3 { font-size: 19px; font-weight: 600; margin-bottom: 20px; }
+    .price-r ul { list-style: none; display: grid; gap: 16px; }
+    .price-r li { display: flex; gap: 12px; color: var(--text-2); font-size: 17px; }
+    .price-r li::before { content: ""; flex: none; width: 22px; height: 22px; margin-top: 2px; border-radius: 50%; background: rgba(47,123,255,.2) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20'%3E%3Cpath d='M5.5 10.5l3 3 6-7' fill='none' stroke='%2369a6ff' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") center/100% no-repeat; }
+
+    /* вопросы */
+    .faq { max-width: 860px; display: grid; gap: 10px; }
+    details.glass { border-radius: 18px; }
+    summary { list-style: none; cursor: pointer; display: flex; justify-content: space-between; align-items: center; gap: 20px; padding: 22px 26px; font-size: 18px; font-weight: 500; }
     summary::-webkit-details-marker { display: none; }
-    summary .q { flex: none; width: 32px; height: 32px; border-radius: 9px; background: rgba(255,255,255,.08); display: grid; place-items: center; font-size: 15px; }
-    summary .chev { margin-left: auto; color: var(--muted); transition: transform .3s var(--ease); }
-    summary:hover, details[open] summary { background: var(--blue); color: #fff; }
-    summary:hover .q, details[open] summary .q { background: rgba(255,255,255,.2); }
-    summary:hover .chev, details[open] summary .chev { color: #fff; }
-    details[open] summary .chev { transform: rotate(90deg); }
-    details p { padding: 10px 12px 14px 56px; color: var(--ink-2); }
+    summary i { flex: none; width: 28px; height: 28px; border-radius: 50%; background: var(--glass-2); position: relative; transition: transform .6s var(--ease), background .4s; }
+    summary i::before, summary i::after { content: ""; position: absolute; left: 8px; top: 13px; width: 12px; height: 2px; border-radius: 2px; background: var(--text); }
+    summary i::after { transform: rotate(90deg); }
+    details[open] summary i { transform: rotate(45deg); background: var(--blue); }
+    .ans { display: grid; grid-template-rows: 0fr; transition: grid-template-rows .6s var(--ease); }
+    details[open] .ans { grid-template-rows: 1fr; }
+    .ans > div { overflow: hidden; }
+    .ans p { padding: 0 26px 22px; color: var(--text-2); }
 
-    /* ---------- финал ---------- */
-    .final { position: relative; z-index: 10; min-height: 80svh; display: grid; place-items: center; text-align: center; padding: 80px 24px var(--dock); scroll-snap-align: start; }
-    .final h2 { font-family: Inter, sans-serif; font-size: clamp(42px, 7vw, 110px); line-height: 1; letter-spacing: -.05em; font-weight: 700; max-width: 1100px; margin: 0 auto; }
-    .final p { margin: 18px auto 30px; color: var(--ink-2); font-size: 20px; }
-    .final .btn { font-size: 18px; padding: 16px 30px; }
-    .rv { opacity: 0; transform: translateY(16px); transition: opacity 1.1s var(--ease), transform 1.2s var(--spring); }
-    .rv.in { opacity: 1; transform: none; }
-    footer { position: relative; z-index: 10; text-align: center; color: var(--ink-2); font-size: 14px; padding: 0 0 110px; }
-    footer a { color: var(--blue); }
+    /* финал */
+    .final { text-align: center; padding: 150px 0 120px; overflow: hidden; }
+    .final h2 { font-size: clamp(42px, 7vw, 104px); max-width: 1000px; margin: 0 auto; }
+    .final p { margin: 20px auto 38px; color: var(--text-2); font-size: 19px; }
+    .plane { position: absolute; left: 0; top: 0; width: 46px; height: 46px; color: #fff; filter: drop-shadow(0 0 12px rgba(80,150,255,.9)); offset-path: path("M -100 340 C 200 120, 520 420, 800 220 S 1200 80, 1500 180"); offset-rotate: auto 45deg; offset-distance: 0%; opacity: 0; }
+    .final.in .plane { animation: fly 3.4s var(--ease) .4s forwards; }
+    @keyframes fly { 0% { offset-distance: 0%; opacity: 0; } 12% { opacity: 1; } 85% { opacity: 1; } 100% { offset-distance: 100%; opacity: 0; } }
+    .plane-path { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; }
+    .plane-path path { fill: none; stroke: rgba(120,170,255,.25); stroke-width: 1.5; stroke-dasharray: 2 9; stroke-linecap: round; }
 
-    /* ---------- Dock ---------- */
-    .dock-wrap { position: fixed; left: 0; right: 0; bottom: 10px; z-index: 95; display: flex; justify-content: center; pointer-events: none; }
-    .dock { pointer-events: auto; display: flex; align-items: flex-end; gap: 6px; padding: 6px 8px; height: 70px; border-radius: 22px; background: rgba(20,24,42,.5); backdrop-filter: blur(30px) saturate(180%); -webkit-backdrop-filter: blur(30px) saturate(180%); box-shadow: 0 0 0 .5px rgba(255,255,255,.14) inset, 0 20px 40px -14px rgba(0,0,0,.6); transform: translateY(140%); transition: transform .9s var(--spring); }
-    .dock.show { transform: none; }
-    .dk { position: relative; width: 54px; height: 54px; flex: none; display: grid; place-items: end center; transition: width .28s var(--ease), height .28s var(--ease); }
-    .dk .ico { width: 100%; height: 100%; border-radius: 23%; display: grid; place-items: center; color: #fff; box-shadow: 0 4px 10px -3px rgba(0,0,0,.35), inset 0 1px 0 rgba(255,255,255,.35); }
-    .dk .ico svg { width: 56%; height: 56%; }
-    .dk .tip { position: absolute; bottom: calc(100% + 14px); left: 50%; transform: translateX(-50%) translateY(4px); white-space: nowrap; padding: 4px 10px; border-radius: 7px; font-size: 13px; background: rgba(34,38,56,.95); box-shadow: 0 0 0 .5px rgba(255,255,255,.12), 0 6px 14px -6px rgba(0,0,0,.5); opacity: 0; pointer-events: none; transition: opacity .15s, transform .2s; }
-    .dk:hover .tip { opacity: 1; transform: translateX(-50%); }
-    .dk .dot { position: absolute; bottom: -5px; left: 50%; width: 4px; height: 4px; margin-left: -2px; border-radius: 50%; background: rgba(255,255,255,.75); opacity: 0; transition: opacity .3s; }
-    .dk.active .dot { opacity: 1; }
-    .dk.bounce .ico { animation: bounce .9s var(--ease) 1; }
-    @keyframes bounce { 35% { transform: translateY(-9px); } 70% { transform: translateY(-2px); } }
-    .dock .sep { width: 1px; height: 46px; align-self: center; background: rgba(255,255,255,.15); margin: 0 4px; }
-    .i-home { background: linear-gradient(180deg, #3b8bff, #0a5ce0); font-weight: 700; font-size: 22px; }
-    .i-finder { background: linear-gradient(180deg, #6ac1ff, #1a7cf0); }
-    .i-notes { background: linear-gradient(180deg, #fff 0 28%, #ffd34d 28% 100%); color: #8a6a00 !important; }
-    .i-tg { background: linear-gradient(180deg, #4fb8ff, #1f8de6); }
-    .i-wallet { background: linear-gradient(180deg, #2b2b30, #0f0f12); font-weight: 700; font-size: 22px; }
-    .i-spot { background: linear-gradient(180deg, #c9cbd2, #8e9099); }
+    footer { border-top: 1px solid var(--line); padding: 28px 0; color: var(--muted); font-size: 14px; }
+    footer .wrap { display: flex; justify-content: space-between; flex-wrap: wrap; gap: 12px; }
+    footer a { color: var(--blue-2); }
 
-    @media (max-width: 900px) {
-      :root { --dock: 78px; }
-      html { scroll-snap-type: none; }
-      .menubar nav { display: none; }
-      .notif { width: auto; left: 10px; right: 10px; }
-      .side, .n-list, .tg-list { display: none; }
-      .files { grid-template-columns: repeat(2, 1fr); }
-      .stage { padding: calc(var(--mb) + 8px) 6px var(--dock); }
-      .win { border-radius: 14px; }
-      .win.windowed { margin: 2vh 3vw; }
-      .dk { width: 42px; height: 42px; }
-      .dock { height: 56px; gap: 4px; }
-      .dock .sep { height: 36px; }
-      .a-btns { grid-template-columns: 1fr; }
-      .pay-bg { font-size: 60vw; }
+    @media (max-width: 980px) {
+      .hero .wrap { grid-template-columns: 1fr; }
+      .stage { height: 600px; }
+      .bento { grid-template-columns: repeat(2, 1fr); }
+      .mod.w2 { grid-column: span 2; }
+      .who, .price { grid-template-columns: 1fr; }
+      .price-r { border-left: 0; border-top: 1px solid var(--line); }
+      .step { grid-template-columns: 1fr; gap: 8px; }
+      .nav .links { display: none; }
+    }
+    @media (max-width: 560px) {
+      body { font-size: 16px; }
+      section.sec { padding: 90px 0; }
+      .bento { grid-template-columns: 1fr; }
+      .mod.w2 { grid-column: span 1; }
+      .phone { width: 262px; height: 540px; }
+      .stage { height: 580px; }
+      .n1 { left: -4px; } .n2 { right: -4px; } .n3 { left: -4px; }
+      .notif { min-width: 0; }
+      .path { padding-left: 44px; } .rail { left: 13px; } .step .dotp { left: -40px; }
     }
     @media (prefers-reduced-motion: reduce) {
-      *, *::before, *::after { transition: none !important; animation: none !important; }
-      .win, .st, .bub, .rv, .sheet, .sheet li, .spot, .s-res .grp, .s-res details { opacity: 1 !important; transform: none !important; }
-      h1 .ln > span { transform: none !important; }
+      *, *::before, *::after { animation: none !important; transition: none !important; }
+      .rv, .notif { opacity: 1; transform: none; }
+      h1 .ln > span { transform: none; }
       .sel::before { transform: none; } .sel .h { opacity: 1; }
-      .dock { transform: none; }
+      .nav { transform: translate(-50%, 0); }
     }
   </style>
 </head>
 <body class="loading">
-  <!-- синие пузыри -->
-  <div class="bubbles" id="bubbles" aria-hidden="true"><i class="bb b1"></i><i class="bb b2"></i><i class="bb b3"></i><i class="bb b4"></i><i class="bb b5"></i><i class="bb b6"></i></div>
+  <div class="aurora" id="aurora" aria-hidden="true"><i class="a1"></i><i class="a2"></i><i class="a3"></i><i class="a4"></i></div>
+  <div class="noise" aria-hidden="true"></div>
 
   <!-- интро -->
   <div class="loader" id="loader" aria-hidden="true">
@@ -324,186 +279,167 @@
     <div class="ld-flood" id="ldFlood"></div>
   </div>
 
-  <!-- строка меню -->
-  <header class="menubar">
-    <span class="logo">F</span>
-    <b>F-Producers</b>
-    <nav id="menuNav">
+  <!-- навигация -->
+  <header class="nav" id="nav">
+    <a href="#top" class="logo" aria-label="Наверх">F</a>
+    <nav class="links" id="links">
+      <span class="pill" id="pill"></span>
       <a href="#modules" data-for="modules">Модули</a>
       <a href="#path" data-for="path">Путь</a>
       <a href="#who" data-for="who">Для кого</a>
       <a href="#price" data-for="price">Цена</a>
       <a href="#faq" data-for="faq">Вопросы</a>
     </nav>
-    <div class="right">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M2 8.8a15 15 0 0 1 20 0"/><path d="M5 12.6a10 10 0 0 1 14 0"/><path d="M8.5 16.4a5 5 0 0 1 7 0"/><circle cx="12" cy="20" r=".6" fill="currentColor"/></svg>
-      <svg viewBox="0 0 28 14" style="width:24px"><rect x=".5" y=".5" width="23" height="13" rx="3.5" fill="none" stroke="currentColor" opacity=".5"/><rect x="2.5" y="2.5" width="17" height="9" rx="2" fill="currentColor"/><rect x="25" y="4.5" width="2" height="5" rx="1" fill="currentColor" opacity=".5"/></svg>
-      <span id="clock"></span>
-    </div>
+    <a class="btn" href="#price">Вступить</a>
   </header>
-
-  <!-- уведомление -->
-  <div class="notif" id="notif" role="status">
-    <button class="x" id="notifX" aria-label="Закрыть">×</button>
-    <div class="ic">F</div>
-    <div><b>F-Producers Club</b><p>Добро пожаловать! Листай вниз — каждое окно это часть клуба.</p></div>
-    <small>сейчас</small>
-  </div>
 
   <main>
     <!-- HERO -->
-    <section class="stage" id="top">
-      <div class="win" data-win="home">
-        <div class="wbody">
-          <div class="hero-body">
-            <div class="app-row st" style="--k:0"><div class="app-ic">F</div><div><b>F-Producers Club</b><span>Клуб продюсеров · Telegram</span></div></div>
-            <h1 aria-label="Продюсируй инфопродукты в Telegram">
-              <span class="ln"><span style="--i:0"><span class="sel cycle" id="cycle"><span class="w" id="cycleW">Продюсируй</span><i class="h h-l"></i><i class="h h-r"></i></span></span></span>
-              <span class="ln"><span style="--i:1">инфопродукты</span></span>
-              <span class="ln"><span style="--i:2">в <span class="grad">Telegram.</span></span></span>
-            </h1>
-            <p class="lead st" style="--k:5">Клуб для тех, кто зарабатывает на запусках экспертов. Вся система — от упаковки до продаж — собрана в одном месте.</p>
-            <div class="actions st" style="--k:6">
-              <a class="btn" href="#price">Вступить за 1 340 ₽</a>
-              <a class="btn sec" href="#modules">Открыть модули</a>
-              <span class="scroll-hint"><i></i>листай</span>
+    <section class="hero" id="top">
+      <div class="wrap">
+        <div>
+          <div class="chip rv" style="--d:1"><b>F-Producers Club</b><span class="live"></span>продюсирование в Telegram</div>
+          <h1 aria-label="Продюсируй инфопродукты в Telegram">
+            <span class="ln"><span style="--i:0"><span class="sel cycle" id="cycle"><span class="w" id="cycleW">Продюсируй</span><i class="h h-l"></i><i class="h h-r"></i></span></span></span>
+            <span class="ln"><span style="--i:1">инфопродукты</span></span>
+            <span class="ln"><span style="--i:2">в <span class="grad">Telegram.</span></span></span>
+          </h1>
+          <p class="lead rv" style="--d:6">Клуб для тех, кто зарабатывает на запусках экспертов. Упаковка, прогревы, воронки и продажи — одной системой, без хаоса и догадок.</p>
+          <div class="actions rv" style="--d:7">
+            <a class="btn" href="#price">Вступить за 1 340 ₽ <span class="arr">→</span></a>
+            <a class="btn ghost" href="#modules">Что внутри</a>
+          </div>
+          <div class="proof rv" style="--d:8"><span>8 модулей</span><span>чат продюсеров</span><span>разовый платёж</span></div>
+        </div>
+
+        <div class="stage rv" style="--d:4" aria-hidden="true">
+          <div class="phone">
+            <div class="screen">
+              <div class="island"></div>
+              <div class="tg-head"><div class="ava">Э</div><div><b>Канал эксперта</b><small><span id="subs">12 480</span> подписчиков</small></div></div>
+              <div class="feed" id="feed"></div>
             </div>
           </div>
+          <div class="notif n1"><div class="ic">💸</div><div><b>Новая оплата</b><small>тариф «Старт»</small></div></div>
+          <div class="notif n2"><div class="ic">📈</div><div><b>+214 подписчиков</b><small>после посева</small></div></div>
+          <div class="notif n3"><div class="ic">🚀</div><div><b>Запуск стартовал</b><small>продажи открыты</small></div></div>
         </div>
       </div>
     </section>
 
-    <!-- МОДУЛИ: Finder -->
-    <section class="stage" id="modules">
-      <div class="win" data-win="modules">
-        <div class="wbody">
-          <div class="f-main">
-            <h2 class="st" style="--k:0">Модули клуба</h2>
-            <p class="st" style="--k:1">8 объектов · весь цикл работы с экспертом</p>
-            <div class="files">
-              <div class="file st" style="--k:2"><svg viewBox="0 0 64 52"><path d="M4 8a4 4 0 0 1 4-4h16l5 5h27a4 4 0 0 1 4 4v3H4z" fill="#3d9bf5"/><rect x="4" y="13" width="56" height="35" rx="4" fill="#62b3ff"/></svg><b>01 Упаковка</b><p>Позиционирование, продуктовая линейка, оформление канала</p></div>
-              <div class="file st" style="--k:3"><svg viewBox="0 0 64 52"><path d="M4 8a4 4 0 0 1 4-4h16l5 5h27a4 4 0 0 1 4 4v3H4z" fill="#3d9bf5"/><rect x="4" y="13" width="56" height="35" rx="4" fill="#62b3ff"/></svg><b>02 Прогревы</b><p>Контент-план, сторителлинг, эфиры</p></div>
-              <div class="file st" style="--k:4"><svg viewBox="0 0 64 52"><path d="M4 8a4 4 0 0 1 4-4h16l5 5h27a4 4 0 0 1 4 4v3H4z" fill="#3d9bf5"/><rect x="4" y="13" width="56" height="35" rx="4" fill="#62b3ff"/></svg><b>03 Воронки</b><p>Чат-боты, лид-магниты, цепочки</p></div>
-              <div class="file st" style="--k:5"><svg viewBox="0 0 64 52"><path d="M4 8a4 4 0 0 1 4-4h16l5 5h27a4 4 0 0 1 4 4v3H4z" fill="#3d9bf5"/><rect x="4" y="13" width="56" height="35" rx="4" fill="#62b3ff"/></svg><b>04 Запуски</b><p>Сценарий, продажи, дожим</p></div>
-              <div class="file st" style="--k:6"><svg viewBox="0 0 64 52"><path d="M4 8a4 4 0 0 1 4-4h16l5 5h27a4 4 0 0 1 4 4v3H4z" fill="#3d9bf5"/><rect x="4" y="13" width="56" height="35" rx="4" fill="#62b3ff"/></svg><b>05 Трафик</b><p>Посевы, закупы, Telegram Ads</p></div>
-              <div class="file st" style="--k:7"><svg viewBox="0 0 64 52"><path d="M4 8a4 4 0 0 1 4-4h16l5 5h27a4 4 0 0 1 4 4v3H4z" fill="#3d9bf5"/><rect x="4" y="13" width="56" height="35" rx="4" fill="#62b3ff"/></svg><b>06 Аналитика</b><p>Метрики, юнит-экономика</p></div>
-              <div class="file st" style="--k:8"><svg viewBox="0 0 64 52"><path d="M4 8a4 4 0 0 1 4-4h16l5 5h27a4 4 0 0 1 4 4v3H4z" fill="#3d9bf5"/><rect x="4" y="13" width="56" height="35" rx="4" fill="#62b3ff"/></svg><b>07 Договор</b><p>Проценты и условия с экспертом</p></div>
-              <div class="file st" style="--k:9"><svg viewBox="0 0 64 52"><path d="M4 8a4 4 0 0 1 4-4h16l5 5h27a4 4 0 0 1 4 4v3H4z" fill="#3d9bf5"/><rect x="4" y="13" width="56" height="35" rx="4" fill="#62b3ff"/></svg><b>08 Команда</b><p>Найм под запуск, бюджет</p></div>
-            </div>
-          </div>
+    <!-- МОДУЛИ -->
+    <section class="sec" id="modules">
+      <div class="wrap">
+        <div class="head rv">
+          <span class="kicker mono">01 · модули</span>
+          <h2>Вся система продюсирования <span class="sel">в одном месте<i class="h h-l"></i><i class="h h-r"></i></span></h2>
+          <p>Восемь модулей, которые закрывают весь цикл работы с экспертом — от первой встречи до масштаба.</p>
+        </div>
+        <div class="bento">
+          <article class="glass mod w2 rv" style="--d:0"><div class="top"><span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 8 12 3 3 8l9 5 9-5Z"/><path d="M3 8v8l9 5 9-5V8"/><path d="M12 13v8"/></svg></span><span class="n mono">01</span></div><div><h3>Упаковка</h3><p>Позиционирование эксперта, продуктовая линейка, оформление канала и оффер, который покупают.</p></div></article>
+          <article class="glass mod rv" style="--d:1"><div class="top"><span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22c4 0 7-3 7-7 0-5-4-7-5-11-2 2-3 4-3 6-1-1-2-2-2-4-2 2-4 5-4 9 0 4 3 7 7 7Z"/></svg></span><span class="n mono">02</span></div><div><h3>Прогревы</h3><p>Контент-план, сторителлинг, эфиры.</p></div></article>
+          <article class="glass mod rv" style="--d:2"><div class="top"><span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 4h18l-7 9v6l-4 2v-8L3 4Z"/></svg></span><span class="n mono">03</span></div><div><h3>Воронки</h3><p>Чат-боты, лид-магниты, цепочки.</p></div></article>
+          <article class="glass mod rv" style="--d:0"><div class="top"><span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 15c-1 2-1 4-1 5 1 0 3 0 5-1"/><path d="M9 15 15 9"/><path d="M14 4c3 0 6 3 6 6l-7 7-6-6 7-7Z"/></svg></span><span class="n mono">04</span></div><div><h3>Запуски</h3><p>Сценарий, продажи, дожим.</p></div></article>
+          <article class="glass mod w2 rv" style="--d:1"><div class="top"><span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11v2a1 1 0 0 0 1 1h2l5 4V6L6 10H4a1 1 0 0 0-1 1Z"/><path d="M15 9a4 4 0 0 1 0 6"/><path d="M18 6a8 8 0 0 1 0 12"/></svg></span><span class="n mono">05</span></div><div><h3>Трафик</h3><p>Посевы в каналах, закупка рекламы и Telegram Ads — где брать аудиторию и сколько это стоит.</p></div></article>
+          <article class="glass mod rv" style="--d:2"><div class="top"><span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/></svg></span><span class="n mono">06</span></div><div><h3>Аналитика</h3><p>Метрики и юнит-экономика.</p></div></article>
+          <article class="glass mod w2 rv" style="--d:0"><div class="top"><span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M14 3H6a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9l-6-6Z"/><path d="M14 3v6h6M8 13h8M8 17h5"/></svg></span><span class="n mono">07</span></div><div><h3>Договор</h3><p>Как договориться с экспертом о процентах, зафиксировать условия и не остаться ни с чем.</p></div></article>
+          <article class="glass mod w2 rv" style="--d:1"><div class="top"><span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="8" r="3.5"/><path d="M2.5 20a6.5 6.5 0 0 1 13 0"/><path d="M16 4.5a3.5 3.5 0 0 1 0 7M18 14a6 6 0 0 1 3.5 6"/></svg></span><span class="n mono">08</span></div><div><h3>Команда</h3><p>Кого нанять под запуск, как распределить роли и посчитать бюджет.</p></div></article>
         </div>
       </div>
     </section>
 
-    <!-- ПУТЬ: Заметки -->
-    <section class="stage" id="path">
-      <div class="win" data-win="path">
-        <div class="wbody">
-          <div class="n-body">
-            <div class="date st" style="--k:0">Сегодня</div>
-            <h2 class="st" style="--k:1">Путь продюсера</h2>
-            <div class="check st" style="--k:2"><span class="box"><svg viewBox="0 0 14 14"><path d="M2.5 7.5l3 3 6-7"/></svg></span><div><b>Найти эксперта</b><p>Где искать, как оценить нишу и предложить партнёрство.</p></div></div>
-            <div class="check st" style="--k:3"><span class="box"><svg viewBox="0 0 14 14"><path d="M2.5 7.5l3 3 6-7"/></svg></span><div><b>Упаковать</b><p>Смыслы, позиционирование, линейка продуктов, оформление канала.</p></div></div>
-            <div class="check st" style="--k:4"><span class="box"><svg viewBox="0 0 14 14"><path d="M2.5 7.5l3 3 6-7"/></svg></span><div><b>Прогреть</b><p>Контент и эфиры, которые собирают тёплую аудиторию.</p></div></div>
-            <div class="check st" style="--k:5"><span class="box"><svg viewBox="0 0 14 14"><path d="M2.5 7.5l3 3 6-7"/></svg></span><div><b>Запустить</b><p>Воронка, бот, открытие продаж и работа с возражениями.</p></div></div>
-            <div class="check st" style="--k:6"><span class="box"><svg viewBox="0 0 14 14"><path d="M2.5 7.5l3 3 6-7"/></svg></span><div><b>Масштабировать</b><p>Трафик, команда и повторные запуски.</p></div></div>
-          </div>
+    <!-- ПУТЬ -->
+    <section class="sec" id="path">
+      <div class="wrap">
+        <div class="head rv">
+          <span class="kicker mono">02 · путь продюсера</span>
+          <h2>Пять шагов от нуля до <span class="sel">первого запуска<i class="h h-l"></i><i class="h h-r"></i></span></h2>
+        </div>
+        <div class="path" id="pathList">
+          <div class="rail"><i id="rail"></i></div>
+          <div class="glass step rv"><span class="dotp"></span><div><span class="n mono">Шаг 01</span><h3>Найти эксперта</h3></div><p>Где искать, как оценить нишу и предложить партнёрство.</p></div>
+          <div class="glass step rv"><span class="dotp"></span><div><span class="n mono">Шаг 02</span><h3>Упаковать</h3></div><p>Смыслы, позиционирование, линейка продуктов и оформление канала.</p></div>
+          <div class="glass step rv"><span class="dotp"></span><div><span class="n mono">Шаг 03</span><h3>Прогреть</h3></div><p>Контент и эфиры, которые собирают тёплую аудиторию.</p></div>
+          <div class="glass step rv"><span class="dotp"></span><div><span class="n mono">Шаг 04</span><h3>Запустить</h3></div><p>Воронка, бот, открытие продаж и работа с возражениями.</p></div>
+          <div class="glass step rv"><span class="dotp"></span><div><span class="n mono">Шаг 05</span><h3>Масштабировать</h3></div><p>Трафик, команда и повторные запуски.</p></div>
         </div>
       </div>
     </section>
 
-    <!-- ДЛЯ КОГО: Telegram -->
-    <section class="stage" id="who">
-      <div class="win" data-win="who">
-        <div class="wbody">
-          <div class="tg-room">
-            <div class="tg-head"><b>Кому подойдёт клуб</b><span id="tgStatus">F-Producers Club · в сети</span></div>
-            <div class="tg-msgs" id="msgs">
-              <div class="bub">Я только начинаю, мне подойдёт?<small>12:01</small></div>
-              <div class="bub me">Да. Всё идёт от основ профессии до первого запуска по понятной схеме.<small>12:01 ✓✓</small></div>
-              <div class="bub">А если я уже продюсирую?<small>12:02</small></div>
-              <div class="bub me">Систематизируешь запуски: шаблоны, разборы, чат с другими продюсерами.<small>12:02 ✓✓</small></div>
-              <div class="bub">Я эксперт. Мне это зачем?<small>12:03</small></div>
-              <div class="bub me">Поймёшь, как продюсер упакует и продаст твой продукт — и с кем работать.<small>12:03 ✓✓</small></div>
-              <div class="typing" id="typing"><i></i><i></i><i></i></div>
-            </div>
-          </div>
+    <!-- ДЛЯ КОГО -->
+    <section class="sec" id="who">
+      <div class="wrap">
+        <div class="head rv">
+          <span class="kicker mono">03 · для кого</span>
+          <h2>Клуб подойдёт, если ты</h2>
+        </div>
+        <div class="who">
+          <div class="glass rv" style="--d:0"><h3>Только начинаешь</h3><div class="q">Я никогда не продюсировал. Мне подойдёт?</div><div class="a">Да. Всё идёт от основ до первого запуска по понятной схеме.</div></div>
+          <div class="glass rv" style="--d:1"><h3>Уже продюсируешь</h3><div class="q">Запуски есть, но каждый раз с нуля.</div><div class="a">Соберёшь систему: шаблоны, разборы и чат с другими продюсерами.</div></div>
+          <div class="glass rv" style="--d:2"><h3>Эксперт</h3><div class="q">Зачем это мне, я же эксперт?</div><div class="a">Поймёшь, как продюсер упакует и продаст твой продукт — и с кем работать.</div></div>
         </div>
       </div>
     </section>
 
     <!-- ЦЕНА -->
-    <section class="stage" id="price">
-      <div class="win" data-win="price">
-        <div class="wbody">
-          <div class="pay-body">
-            <div class="pay-bg">₽</div>
-            <div class="sheet">
-              <div class="app-ic">F</div>
-              <h2>Вступить в F-Producers Club?</h2>
-              <div class="amount"><span id="amount">1 340</span> <span>₽</span></div>
-              <p style="color:var(--muted)">Разовый платёж. Без подписок.</p>
-              <ul>
-                <li style="--k:0">Все 8 модулей системы</li>
-                <li style="--k:1">Шаблоны: договор, контент-план, воронки</li>
-                <li style="--k:2">Закрытый чат продюсеров</li>
-                <li style="--k:3">Разборы запусков</li>
-                <li style="--k:4">Эфиры и ответы на вопросы</li>
-              </ul>
-              <div class="a-btns">
-                <a class="btn sec" href="#faq">Есть вопросы</a>
-                <a class="btn pulse" href="https://t.me/fedonko" target="_blank" rel="noopener">Вступить — 1 340 ₽</a>
-              </div>
-            </div>
+    <section class="sec" id="price">
+      <div class="wrap">
+        <div class="head rv">
+          <span class="kicker mono">04 · стоимость</span>
+          <h2>Один платёж. <span class="sel">Без подписок.<i class="h h-l"></i><i class="h h-r"></i></span></h2>
+        </div>
+        <div class="glass price rv">
+          <div class="price-l">
+            <span class="mono" style="color:var(--muted)">F-Producers Club · доступ</span>
+            <div class="amount"><span id="amount">1 340</span> <span>₽</span></div>
+            <p>Разовый платёж. Доступ ко всем материалам клуба.</p>
+            <a class="btn" href="https://t.me/fedonko" target="_blank" rel="noopener">Вступить в клуб <span class="arr">→</span></a>
+          </div>
+          <div class="price-r">
+            <h3>Что входит</h3>
+            <ul>
+              <li>Все 8 модулей системы</li>
+              <li>Шаблоны: договор, контент-план, воронки</li>
+              <li>Закрытый чат продюсеров</li>
+              <li>Разборы запусков</li>
+              <li>Эфиры и ответы на вопросы</li>
+            </ul>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- ВОПРОСЫ: Spotlight -->
-    <section class="stage" id="faq">
-      <div class="win" data-win="faq">
-        <div class="wbody">
-          <div class="spot-body">
-            <div class="spot">
-              <div class="s-bar"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><circle cx="10.5" cy="10.5" r="6.5"/><path d="M15.5 15.5 21 21"/></svg><span class="typed"><span id="typed"></span><span class="caret"></span></span></div>
-              <div class="s-res" id="sres">
-                <div class="grp" style="--k:0">Частые вопросы</div>
-                <details style="--k:1"><summary><span class="q">?</span>Как получить доступ после оплаты?<span class="chev">›</span></summary><p>Напиши в Telegram — пришлём ссылку на клуб и все материалы.</p></details>
-                <details style="--k:2"><summary><span class="q">?</span>Подойдёт, если я никогда не продюсировал?<span class="chev">›</span></summary><p>Да. Материалы идут от основ профессии к запускам и масштабированию.</p></details>
-                <details style="--k:3"><summary><span class="q">?</span>Это подписка?<span class="chev">›</span></summary><p>Нет, это разовый платёж 1 340 ₽.</p></details>
-                <details style="--k:4"><summary><span class="q">?</span>Нужен ли свой эксперт, чтобы начать?<span class="chev">›</span></summary><p>Нет. В клубе разбираем, где найти эксперта и как договориться о партнёрстве.</p></details>
-              </div>
-            </div>
-          </div>
+    <!-- ВОПРОСЫ -->
+    <section class="sec" id="faq" style="padding-top:40px">
+      <div class="wrap">
+        <div class="head rv"><span class="kicker mono">05 · вопросы</span><h2>Частые вопросы</h2></div>
+        <div class="faq">
+          <details class="glass rv"><summary>Как получить доступ после оплаты?<i></i></summary><div class="ans"><div><p>Напиши в Telegram — пришлём ссылку на клуб и все материалы.</p></div></div></details>
+          <details class="glass rv" style="--d:1"><summary>Подойдёт, если я никогда не продюсировал?<i></i></summary><div class="ans"><div><p>Да. Материалы идут от основ профессии к запускам и масштабированию.</p></div></div></details>
+          <details class="glass rv" style="--d:2"><summary>Это подписка?<i></i></summary><div class="ans"><div><p>Нет, это разовый платёж 1 340 ₽.</p></div></div></details>
+          <details class="glass rv" style="--d:3"><summary>Нужен ли свой эксперт, чтобы начать?<i></i></summary><div class="ans"><div><p>Нет. В клубе разбираем, где найти эксперта и как договориться о партнёрстве.</p></div></div></details>
         </div>
       </div>
     </section>
 
     <!-- ФИНАЛ -->
-    <section class="final">
-      <div class="rv">
+    <section class="final" id="final">
+      <svg class="plane-path" viewBox="0 0 1400 500" preserveAspectRatio="none" aria-hidden="true"><path d="M -100 340 C 200 120, 520 420, 800 220 S 1200 80, 1500 180"/></svg>
+      <svg class="plane" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M21.9 4.3 18.7 19.4c-.2 1.1-.9 1.3-1.8.8l-4.9-3.6-2.4 2.3c-.3.3-.5.5-1 .5l.4-5 9.1-8.2c.4-.4-.1-.6-.6-.2L6.2 13.1l-4.8-1.5c-1-.3-1.1-1 .2-1.5L20.5 2.8c.9-.3 1.6.2 1.4 1.5Z"/></svg>
+      <div class="wrap rv">
         <h2>Твой первый запуск ближе, <span class="sel">чем кажется<i class="h h-l"></i><i class="h h-r"></i></span></h2>
-        <p>Открой клуб — и начни с первого модуля уже сегодня.</p>
-        <a class="btn pulse" href="https://t.me/fedonko" target="_blank" rel="noopener">Вступить за 1 340 ₽</a>
+        <p>Вступай в клуб и начни с первого модуля уже сегодня.</p>
+        <a class="btn" href="https://t.me/fedonko" target="_blank" rel="noopener">Вступить за 1 340 ₽ <span class="arr">→</span></a>
       </div>
     </section>
   </main>
 
-  <footer>© <span id="fy"></span> F-Producers Club · <a href="https://t.me/fedonko" target="_blank" rel="noopener">Telegram: @fedonko</a></footer>
-
-  <!-- Dock -->
-  <div class="dock-wrap">
-    <nav class="dock" id="dock" aria-label="Навигация">
-      <a class="dk" href="#top" data-for="home"><span class="ico i-home">F</span><span class="tip">F-Producers</span><i class="dot"></i></a>
-      <span class="sep"></span>
-      <a class="dk" href="#modules" data-for="modules"><span class="ico i-finder"><svg viewBox="0 0 24 24" fill="#fff"><path d="M3 7a2 2 0 0 1 2-2h4l2 2h8a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg></span><span class="tip">Модули</span><i class="dot"></i></a>
-      <a class="dk" href="#path" data-for="path"><span class="ico i-notes"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M6 12h12M6 16h8"/></svg></span><span class="tip">Путь продюсера</span><i class="dot"></i></a>
-      <a class="dk" href="#who" data-for="who"><span class="ico i-tg"><svg viewBox="0 0 24 24" fill="#fff"><path d="M21.9 4.3 18.7 19.4c-.2 1.1-.9 1.3-1.8.8l-4.9-3.6-2.4 2.3c-.3.3-.5.5-1 .5l.4-5 9.1-8.2c.4-.4-.1-.6-.6-.2L6.2 13.1l-4.8-1.5c-1-.3-1.1-1 .2-1.5L20.5 2.8c.9-.3 1.6.2 1.4 1.5Z"/></svg></span><span class="tip">Для кого</span><i class="dot"></i></a>
-      <a class="dk" href="#price" data-for="price"><span class="ico i-wallet">₽</span><span class="tip">Цена</span><i class="dot"></i></a>
-      <a class="dk" href="#faq" data-for="faq"><span class="ico i-spot"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.6" stroke-linecap="round"><circle cx="10.5" cy="10.5" r="6"/><path d="M15.5 15.5 20 20"/></svg></span><span class="tip">Вопросы</span><i class="dot"></i></a>
-    </nav>
-  </div>
+  <footer>
+    <div class="wrap">
+      <span>© <span id="fy"></span> F-Producers Club</span>
+      <a href="https://t.me/fedonko" target="_blank" rel="noopener">Telegram: @fedonko</a>
+    </div>
+  </footer>
 
   <script>
     const $ = (s) => document.querySelector(s);
@@ -512,68 +448,13 @@
     const fine = matchMedia('(pointer: fine)').matches;
     $('#fy').textContent = new Date().getFullYear();
 
-    // часы в строке меню
-    const clock = $('#clock');
-    const tick = () => { clock.textContent = new Date().toLocaleString('ru-RU', { weekday: 'short', day: 'numeric', month: 'short', hour: '2-digit', minute: '2-digit' }).replace(',', ''); };
-    tick(); setInterval(tick, 15000);
-
-    const wins = $$('.win');
-    const dockIcon = (id) => $(`.dk[data-for="${id}"]`);
-    const bounce = (id) => { const d = dockIcon(id); if (!d || reduce) return; d.classList.add('bounce'); setTimeout(() => d.classList.remove('bounce'), 1150); };
-
-    /* ---------- окна: открытие при прокрутке ---------- */
+    /* ---------- появление ---------- */
     const io = new IntersectionObserver((es) => es.forEach((e) => {
       if (!e.isIntersecting) return;
-      const w = e.target, id = w.dataset.win;
-      w.classList.add('in');
-      w.querySelectorAll('.sel').forEach((s) => s.classList.add('in'));
-      bounce(id);
-      if (id === 'path') checkOff(w);
-      if (id === 'who') playChat();
-      if (id === 'faq') typeSearch();
-      if (id === 'price') countPrice();
-      io.unobserve(w);
-    }), { threshold: 0, rootMargin: '0px 0px -18% 0px' });
-    const rio = new IntersectionObserver((es) => es.forEach((e) => { if (e.isIntersecting) { e.target.classList.add('in'); e.target.querySelectorAll('.sel').forEach((s) => s.classList.add('in')); rio.unobserve(e.target); } }), { threshold: .3 });
-
-    // заметки: пункты отмечаются по очереди
-    function checkOff(w) { w.querySelectorAll('.check').forEach((c, i) => setTimeout(() => c.classList.add('done'), reduce ? 0 : 900 + i * 420)); }
-
-    // telegram: «печатает…» перед входящими
-    function playChat() {
-      const bubs = $$('#msgs .bub'), typing = $('#typing'), status = $('#tgStatus'), box = $('#msgs');
-      if (reduce) { bubs.forEach((b) => b.classList.add('show')); return; }
-      let t = 500;
-      bubs.forEach((b) => {
-        if (!b.classList.contains('me')) {
-          setTimeout(() => { typing.classList.add('show'); box.appendChild(typing); status.textContent = 'F-Producers Club · печатает…'; }, t);
-          t += 900;
-          setTimeout(() => { typing.classList.remove('show'); status.textContent = 'F-Producers Club · в сети'; b.classList.add('show'); }, t);
-          t += 650;
-        } else {
-          setTimeout(() => b.classList.add('show'), t);
-          t += 750;
-        }
-      });
-    }
-
-    // spotlight: печатаем запрос, затем показываем результаты
-    let typedDone = false;
-    function typeSearch() {
-      if (typedDone) return; typedDone = true;
-      const el = $('#typed'), text = 'вопросы о клубе', res = $('#sres');
-      if (reduce) { el.textContent = text; res.classList.add('show'); return; }
-      [...text].forEach((ch, i) => setTimeout(() => (el.textContent += ch), 500 + i * 55));
-      setTimeout(() => res.classList.add('show'), 500 + text.length * 55 + 200);
-    }
-
-    // счётчик цены
-    function countPrice() {
-      const a = $('#amount'); if (reduce) return;
-      const t0 = performance.now() + 400;
-      const st = (t) => { const p = Math.max(0, Math.min((t - t0) / 1300, 1)); a.textContent = Math.round(1340 * (1 - Math.pow(1 - p, 4))).toLocaleString('ru-RU'); if (p < 1) requestAnimationFrame(st); };
-      requestAnimationFrame(st);
-    }
+      e.target.classList.add('in');
+      e.target.querySelectorAll('.sel').forEach((s) => s.classList.add('in'));
+      io.unobserve(e.target);
+    }), { threshold: .12, rootMargin: '0px 0px -8% 0px' });
 
     /* ---------- слово-перевёртыш ---------- */
     const words = ['Продюсируй', 'Запускай', 'Упаковывай', 'Продавай', 'Масштабируй'];
@@ -581,97 +462,107 @@
     let wi = 0;
     const nextWord = () => {
       cycle.classList.remove('in'); cycle.classList.add('swap');
-      setTimeout(() => { wi = (wi + 1) % words.length; cycleW.textContent = words[wi]; cycle.classList.remove('swap'); cycle.classList.add('in'); }, 520);
+      setTimeout(() => { wi = (wi + 1) % words.length; cycleW.textContent = words[wi]; cycle.classList.remove('swap'); cycle.classList.add('in'); }, 560);
     };
 
-    /* ---------- светофор: свернуть в Dock / оконный режим ---------- */
-    const minimize = (w) => {
-      const icon = dockIcon(w.dataset.win);
-      const wr = w.getBoundingClientRect(), ir = icon.getBoundingClientRect();
-      w.style.setProperty('--tx', `${ir.left + ir.width / 2 - (wr.left + wr.width / 2)}px`);
-      w.style.setProperty('--ty', `${ir.top + ir.height / 2 - (wr.top + wr.height / 2)}px`);
-      w.style.transformOrigin = '50% 50%';
-      w.classList.add('min');
-      setTimeout(() => bounce(w.dataset.win), 450);
+    /* ---------- канал в телефоне ---------- */
+    const posts = [
+      { t: '🔥 Старт прогрева', b: 'Через 3 дня открываем продажи. Включите уведомления.', v: '3,2K', r: ['🔥 248', '❤️ 96'] },
+      { img: true, t: 'Эфир сегодня в 19:00', b: 'Разберём, как выйти на первые продажи в Telegram.', v: '4,1K', r: ['👍 312', '🙏 41'] },
+      { t: 'Вопросы после эфира 💬', b: 'Собрали самые частые — отвечаю в комментариях.', v: '5,6K', r: ['❤️ 401', '🤯 58'] },
+      { t: '🚀 Продажи открыты', b: 'Тариф «Старт» уже в боте 👇', v: '7,9K', r: ['🔥 530', '💸 87'] }
+    ];
+    const feed = $('#feed'); let pi = 0;
+    const addPost = () => {
+      const p = posts[pi++ % posts.length];
+      const el = document.createElement('div');
+      el.className = 'post' + (p.img ? ' img' : '');
+      el.innerHTML = `${p.img ? '<div class="pic"></div>' : ''}<div class="t">${p.t}</div><div>${p.b}</div><div class="m"><span class="r">${p.r.map((x) => `<span>${x}</span>`).join('')}</span><span>👁 ${p.v}</span></div>`;
+      feed.appendChild(el);
+      while (feed.children.length > 4) feed.removeChild(feed.firstChild);
     };
-    const restore = (w) => { w.classList.remove('min'); setTimeout(() => (w.style.transformOrigin = ''), 700); };
-    $$('.lights button').forEach((b) => b.addEventListener('click', (e) => {
-      const w = e.currentTarget.closest('.win');
-      if (b.dataset.act === 'min') minimize(w); else w.classList.toggle('windowed');
-    }));
+    addPost(); addPost();
+    const subs = $('#subs'); let subN = 12480;
 
-    /* ---------- Dock: увеличение и навигация ---------- */
-    const dock = $('#dock'), dks = $$('.dk');
-    const BASE = () => (innerWidth <= 900 ? 42 : 54);
-    if (fine && !reduce) {
-      dock.addEventListener('mousemove', (e) => {
-        dks.forEach((d) => {
-          const r = d.getBoundingClientRect();
-          const dist = Math.abs(e.clientX - (r.left + r.width / 2));
-          const s = 1 + .5 * Math.max(0, 1 - dist / 170);
-          d.style.width = d.style.height = BASE() * s + 'px';
-        });
-      });
-      dock.addEventListener('mouseleave', () => dks.forEach((d) => (d.style.width = d.style.height = '')));
-    }
-    dks.forEach((d) => d.addEventListener('click', () => {
-      const w = $(`.win[data-win="${d.dataset.for}"]`);
-      if (w && w.classList.contains('min')) setTimeout(() => restore(w), 400);
-      bounce(d.dataset.for);
-    }));
+    /* ---------- уведомления по очереди ---------- */
+    const notifs = $$('.notif');
+    const playNotifs = () => {
+      if (reduce) { notifs.forEach((n) => n.classList.add('show')); return; }
+      notifs.forEach((n, i) => setTimeout(() => n.classList.add('show'), 1200 + i * 900));
+      let ni = 0;
+      setTimeout(() => setInterval(() => {
+        const n = notifs[ni++ % notifs.length];
+        n.classList.remove('show');
+        setTimeout(() => n.classList.add('show'), 1100);
+      }, 3800), 5000);
+    };
 
-    /* ---------- текущий раздел: точка в Dock и пункт меню ---------- */
+    /* ---------- навигация: капсула едет к текущему разделу ---------- */
+    const links = $$('#links a'), pill = $('#pill');
+    const movePill = (a) => {
+      if (!a) { pill.style.opacity = 0; return; }
+      pill.style.opacity = 1; pill.style.left = a.offsetLeft + 'px'; pill.style.width = a.offsetWidth + 'px';
+    };
     const secIO = new IntersectionObserver((es) => es.forEach((e) => {
       if (!e.isIntersecting) return;
-      const id = e.target.querySelector('.win')?.dataset.win;
-      dks.forEach((d) => d.classList.toggle('active', d.dataset.for === id));
-      $$('#menuNav a').forEach((a) => a.classList.toggle('on', a.dataset.for === id));
-    }), { threshold: .5 });
-    $$('.stage').forEach((s) => secIO.observe(s));
+      const a = links.find((l) => l.dataset.for === e.target.id);
+      links.forEach((l) => l.classList.toggle('on', l === a));
+      movePill(a);
+    }), { rootMargin: '-45% 0px -50% 0px' });
+    $$('main section').forEach((s) => secIO.observe(s));
 
-    /* ---------- уходящее окно уменьшается (как смена рабочих столов) ---------- */
-    let ticking = false;
+    /* ---------- путь: линия заполняется ---------- */
+    const pathList = $('#pathList'), rail = $('#rail'), steps = $$('.step');
+    let tk = false;
     const onScroll = () => {
-      if (ticking) return; ticking = true;
+      if (tk) return; tk = true;
       requestAnimationFrame(() => {
-        wins.forEach((w) => {
-          const r = w.getBoundingClientRect();
-          const p = r.top < 0 ? Math.min(-r.top / (innerHeight * .9), 1) : 0;
-          w.style.setProperty('--leave', (1 - p * .035).toFixed(4));
-        });
-        ticking = false;
+        const r = pathList.getBoundingClientRect();
+        const p = Math.min(Math.max((innerHeight * .6 - r.top) / r.height, 0), 1);
+        rail.style.setProperty('--p', p.toFixed(3));
+        steps.forEach((s) => { const sr = s.getBoundingClientRect(); s.classList.toggle('lit', sr.top + sr.height / 2 < innerHeight * .6); });
+        tk = false;
       });
     };
-    if (!reduce) addEventListener('scroll', onScroll, { passive: true });
+    addEventListener('scroll', onScroll, { passive: true });
 
-    /* ---------- блик стекла и параллакс пузырей ---------- */
+    /* ---------- свечение карточек за курсором и параллакс фона ---------- */
     if (fine && !reduce) {
-      const bubbles = $('#bubbles');
-      addEventListener('mousemove', (e) => {
-        const x = e.clientX / innerWidth - .5, y = e.clientY / innerHeight - .5;
-        bubbles.style.transform = `translate(${x * -40}px, ${y * -40}px)`;
-      }, { passive: true });
-      wins.forEach((w) => w.addEventListener('mousemove', (e) => {
-        const r = w.getBoundingClientRect();
-        w.style.setProperty('--gx', `${e.clientX - r.left}px`);
-        w.style.setProperty('--gy', `${e.clientY - r.top}px`);
+      $$('.glass').forEach((c) => c.addEventListener('pointermove', (e) => {
+        const r = c.getBoundingClientRect();
+        c.style.setProperty('--x', `${e.clientX - r.left}px`);
+        c.style.setProperty('--y', `${e.clientY - r.top}px`);
       }, { passive: true }));
+      const aurora = $('#aurora');
+      addEventListener('pointermove', (e) => {
+        aurora.style.transform = `translate(${(e.clientX / innerWidth - .5) * -30}px, ${(e.clientY / innerHeight - .5) * -30}px)`;
+      }, { passive: true });
     }
 
-    /* ---------- уведомление ---------- */
-    const notif = $('#notif');
-    $('#notifX').addEventListener('click', () => notif.classList.remove('show'));
+    /* ---------- счётчик цены ---------- */
+    const amount = $('#amount');
+    const aio = new IntersectionObserver(([e]) => {
+      if (!e.isIntersecting) return; aio.disconnect(); if (reduce) return;
+      const t0 = performance.now() + 200;
+      const st = (t) => { const p = Math.max(0, Math.min((t - t0) / 1600, 1)); amount.textContent = Math.round(1340 * (1 - Math.pow(1 - p, 4))).toLocaleString('ru-RU'); if (p < 1) requestAnimationFrame(st); };
+      requestAnimationFrame(st);
+    }, { threshold: .5 });
+    aio.observe(amount);
 
     /* ---------- старт ---------- */
     const start = () => {
       document.body.classList.remove('loading');
-      wins.forEach((w) => io.observe(w));
-      $$('.rv').forEach((el) => rio.observe(el));
-      setTimeout(() => $('#dock').classList.add('show'), 500);
-      setTimeout(() => cycle.classList.add('in'), 1200);
-      if (!reduce) setInterval(nextWord, 2600);
-      setTimeout(() => notif.classList.add('show'), 1800);
-      setTimeout(() => notif.classList.remove('show'), 9500);
+      $('#top').classList.add('in');
+      $$('.rv, .final').forEach((el) => io.observe(el));
+      setTimeout(() => $('#nav').classList.add('show'), 400);
+      setTimeout(() => cycle.classList.add('in'), 1300);
+      playNotifs();
+      if (!reduce) {
+        setInterval(nextWord, 2800);
+        setInterval(addPost, 3200);
+        setInterval(() => { subN += Math.floor(Math.random() * 5) + 1; subs.textContent = subN.toLocaleString('ru-RU'); }, 1500);
+      }
+      onScroll();
     };
     const loader = $('#loader');
     if (reduce) { loader.remove(); start(); }
@@ -687,8 +578,8 @@
         flood.style.clipPath = `inset(${r.top}px ${innerWidth - r.right}px ${innerHeight - r.bottom}px ${r.left}px)`;
         flood.style.opacity = 1; flood.getBoundingClientRect(); flood.classList.add('go');
       }, 2150);
-      setTimeout(() => { loader.classList.add('out'); start(); }, 2900);
-      setTimeout(() => loader.remove(), 4000);
+      setTimeout(() => { loader.classList.add('out'); start(); }, 2950);
+      setTimeout(() => loader.remove(), 4100);
     }
   </script>
 </body>
