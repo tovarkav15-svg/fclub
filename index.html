@@ -108,8 +108,23 @@
     .card:hover { box-shadow: 0 0 0 1px rgba(31,157,85,.25), 0 26px 50px -30px rgba(15,90,51,.4); }
 
     /* ---------- hero ---------- */
-    .hero { min-height: 100svh; display: flex; align-items: center; padding: 110px 0 60px; }
-    .hero .wrap { display: grid; grid-template-columns: 1.15fr .85fr; gap: 50px; align-items: center; width: 100%; }
+    .hero { position: relative; min-height: 100svh; display: flex; flex-direction: column; overflow: hidden; --land: clamp(230px, 40vh, 400px); }
+    .hero .wrap { position: relative; z-index: 3; width: 100%; text-align: center; padding-top: clamp(120px, 17vh, 170px); padding-bottom: calc(var(--land) * .62); display: flex; flex-direction: column; align-items: center; }
+    .hero h1 { font-size: clamp(46px, 7.4vw, 116px); }
+    .hero .lead { margin-left: auto; margin-right: auto; }
+    .hero .actions, .hero .proof { justify-content: center; }
+    .sun { position: absolute; z-index: 0; right: 12%; top: 18%; width: 34vmax; height: 34vmax; border-radius: 50%; background: radial-gradient(circle, rgba(255,236,170,.55), rgba(255,236,170,0) 62%); animation: breathe 9s ease-in-out infinite alternate; pointer-events: none; }
+    @keyframes breathe { to { transform: scale(1.12); opacity: .75; } }
+    .land { position: absolute; z-index: 2; left: 0; right: 0; bottom: 0; height: var(--land); pointer-events: none; }
+    .land svg { position: absolute; inset: 0; width: 100%; height: 100%; will-change: transform; }
+    .tw { transform-box: fill-box; transform-origin: 50% 100%; animation: tsway var(--d) ease-in-out var(--dl) infinite alternate; }
+    @keyframes tsway { from { transform: rotate(-1.6deg) skewX(-1deg); } to { transform: rotate(1.8deg) skewX(1deg); } }
+    .plane { position: absolute; z-index: 2; top: 24%; left: 0; width: 34px; color: var(--green); animation: fly 26s linear infinite; pointer-events: none; }
+    .plane svg { width: 100%; display: block; animation: bob 3s ease-in-out infinite alternate; }
+    @keyframes fly { from { transform: translateX(-60px); } to { transform: translateX(calc(100vw + 60px)); } }
+    @keyframes bob { from { transform: translateY(-8px) rotate(-6deg); } to { transform: translateY(8px) rotate(4deg); } }
+    .birds { position: absolute; z-index: 1; top: 14%; left: 8%; width: 70px; color: rgba(14,16,13,.35); animation: drift 40s linear infinite; pointer-events: none; }
+    @keyframes drift { to { transform: translateX(80vw); } }
     .chip { display: inline-flex; align-items: center; gap: 10px; padding: 7px 14px 7px 8px; border-radius: 999px; background: #fff; box-shadow: 0 0 0 1px var(--line); font-size: 14px; color: var(--ink-2); margin-bottom: 26px; }
     .chip b { background: var(--ink); color: #fff; padding: 2px 10px; border-radius: 999px; font-size: 12px; font-weight: 600; }
     .live { width: 7px; height: 7px; border-radius: 50%; background: var(--green-2); box-shadow: 0 0 0 0 rgba(47,191,108,.5); animation: ping 2.4s var(--ease) infinite; }
@@ -129,28 +144,12 @@
     .proof span { display: inline-flex; align-items: center; gap: 8px; }
     .proof span::before { content: ""; width: 5px; height: 5px; border-radius: 50%; background: var(--green-2); }
 
-    /* телефон в светлой теме Telegram */
-    .stage { position: relative; height: 640px; display: grid; place-items: center; }
-    .phone { position: relative; width: 300px; height: 610px; border-radius: 50px; padding: 10px; background: #0e100d; box-shadow: 0 0 0 1px rgba(0,0,0,.1), 0 50px 100px -40px rgba(15,60,30,.45); animation: floatY 7s ease-in-out infinite; }
-    @keyframes floatY { 50% { transform: translateY(-12px); } }
-    .screen { position: relative; height: 100%; border-radius: 40px; overflow: hidden; background: #eef3ea; display: flex; flex-direction: column; }
-    .island { position: absolute; top: 10px; left: 50%; transform: translateX(-50%); width: 94px; height: 27px; border-radius: 20px; background: #000; z-index: 3; }
-    .tg-head { padding: 46px 16px 12px; display: flex; align-items: center; gap: 10px; background: rgba(255,255,255,.92); border-bottom: 1px solid var(--line); }
-    .ava { width: 38px; height: 38px; border-radius: 50%; background: linear-gradient(180deg, #3cc779, #1f9d55); color: #fff; display: grid; place-items: center; font-weight: 700; flex: none; }
-    .tg-head b { display: block; font-size: 14.5px; } .tg-head small { font-size: 12px; color: var(--muted); }
-    .feed { flex: 1; display: flex; flex-direction: column; justify-content: flex-end; gap: 8px; padding: 12px 10px 14px; overflow: hidden; background: radial-gradient(rgba(31,157,85,.08) 1.2px, transparent 1.2px) 0 0 / 18px 18px; }
-    .post { flex: none; background: #fff; border-radius: 16px 16px 16px 5px; padding: 10px 12px 8px; font-size: 12.5px; line-height: 1.42; box-shadow: 0 1px 1px rgba(0,0,0,.05); animation: postIn .9s var(--ease) both; }
-    .post .t { font-weight: 600; margin-bottom: 2px; }
-    .post .m { display: flex; justify-content: space-between; margin-top: 6px; font-size: 11px; color: var(--muted); }
-    .post .r span { background: var(--mint); color: var(--green-deep); border-radius: 999px; padding: 1px 7px; margin-right: 4px; }
-    .post.img .pic { height: 78px; border-radius: 10px; margin: -2px -4px 8px; background: linear-gradient(135deg, #2fbf6c, #0f5a33); position: relative; color: #fff; }
-    .post.img .pic::after { content: "LIVE · эфир"; position: absolute; left: 10px; bottom: 8px; font-size: 11px; font-weight: 600; }
-    @keyframes postIn { from { opacity: 0; transform: translateY(14px); } }
     .notif { position: absolute; z-index: 4; display: flex; align-items: center; gap: 10px; padding: 10px 14px 10px 10px; border-radius: 18px; min-width: 220px; background: rgba(255,255,255,.82); backdrop-filter: blur(16px) saturate(180%); -webkit-backdrop-filter: blur(16px) saturate(180%); box-shadow: 0 0 0 1px var(--line), 0 20px 40px -22px rgba(15,40,20,.45); font-size: 13px; opacity: 0; transform: translateY(12px) scale(.98); transition: opacity .9s var(--ease), transform 1s var(--ease); }
     .notif.show { opacity: 1; transform: none; }
     .notif .ic { width: 34px; height: 34px; border-radius: 10px; display: grid; place-items: center; font-size: 16px; flex: none; background: var(--mint); }
     .notif b { display: block; font-size: 13px; } .notif small { color: var(--ink-2); }
-    .n1 { left: -50px; top: 100px; } .n2 { right: -40px; top: 270px; } .n3 { left: -30px; bottom: 90px; }
+    .hero .notif { z-index: 4; text-align: left; }
+    .n1 { left: 5%; bottom: calc(var(--land) * .55); } .n2 { right: 5%; bottom: calc(var(--land) * .7); } .n3 { right: 22%; bottom: calc(var(--land) * .28); }
 
     /* ---------- секции ---------- */
     section.sec { padding: 130px 0; }
@@ -182,82 +181,39 @@
     .st b em { font-style: normal; color: var(--green); }
     .st span { display: block; margin-top: 10px; color: var(--ink-2); font-size: 15px; }
 
-    /* бенто модулей */
-    .bento { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; }
-    .mod { padding: 12px 12px 24px; display: flex; flex-direction: column; gap: 20px; }
-    .mod:hover { transform: translateY(-3px); }
-    .mod.w2 { grid-column: span 2; }
-    .mod .txt { padding: 0 12px; }
-    .mod .top { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; margin-bottom: 6px; }
-    .mod .n { color: var(--muted); }
-    .mod h3 { font-size: 23px; letter-spacing: -.02em; font-weight: 600; }
-    .mod p { color: var(--ink-2); font-size: 15.5px; }
-    .mod.w2 h3 { font-size: 27px; }
-    .mod.dark { background: var(--ink); color: #fff; }
-    .mod.dark p { color: rgba(255,255,255,.68); }
-    .mod.dark .n { color: rgba(255,255,255,.45); }
-    .viz { position: relative; height: 136px; border-radius: 16px; padding: 16px; overflow: hidden; display: flex; align-items: center; justify-content: center; gap: 14px; background: #f3f6f0 radial-gradient(rgba(31,157,85,.12) 1px, transparent 1px) 0 0 / 14px 14px; }
-    .dark .viz { background: rgba(255,255,255,.045) radial-gradient(rgba(255,255,255,.08) 1px, transparent 1px) 0 0 / 14px 14px; }
-    .pop { opacity: 0; transform: translateY(8px); transition: opacity .8s var(--ease), transform .9s var(--ease); transition-delay: calc(var(--k, 0) * 140ms + .45s); }
-    .in .pop { opacity: 1; transform: none; }
-    .chipx { display: inline-flex; align-items: center; gap: 6px; padding: 6px 11px; border-radius: 999px; font-size: 12.5px; white-space: nowrap; background: #fff; box-shadow: 0 0 0 1px var(--line), 0 4px 10px -6px rgba(15,40,20,.25); }
-    .chipx b { color: var(--green); font-weight: 600; }
-    .dark .chipx { background: rgba(47,191,108,.16); color: #a6ecc2; box-shadow: none; }
-
-    .v-pack { justify-content: space-between; }
-    .prof { display: flex; align-items: center; gap: 10px; padding: 10px 14px 10px 10px; border-radius: 14px; background: rgba(255,255,255,.07); box-shadow: inset 0 0 0 1px rgba(255,255,255,.08); }
-    .prof .ava { width: 40px; height: 40px; }
-    .prof b { display: block; font-size: 14px; } .prof small { font-size: 12px; color: rgba(255,255,255,.5); }
-    .stack { display: flex; flex-direction: column; align-items: flex-end; gap: 6px; }
-
-    .v-heat { flex-direction: column; align-items: stretch; }
-    .heat { position: relative; height: 14px; border-radius: 999px; background: #e2eadf; }
-    .heat i { position: absolute; inset: 0 14% 0 0; border-radius: inherit; background: linear-gradient(90deg, #b9e39a, #2fbf6c 60%, #0f5a33); transform: scaleX(0); transform-origin: left; transition: transform 1.8s var(--ease) .4s; }
-    .heat i::after { content: "86°"; position: absolute; right: -6px; top: -30px; padding: 2px 7px; border-radius: 8px; background: var(--ink); color: #fff; font-size: 11px; font-weight: 600; transform: translateX(50%); }
-    .in .heat i { transform: none; }
-    .hl { display: flex; justify-content: space-between; color: var(--muted); font-size: 11px; }
-
-    .v-fun { flex-direction: column; gap: 6px; }
-    .fn { position: relative; width: 100%; height: 26px; display: flex; justify-content: center; align-items: center; }
-    .fn i { position: absolute; top: 0; bottom: 0; width: var(--w); left: calc((100% - var(--w)) / 2); border-radius: 8px; background: var(--c); transform: scaleX(0); transition: transform 1.2s var(--ease); transition-delay: calc(var(--k) * 160ms + .4s); }
-    .in .fn i { transform: none; }
-    .fn span { position: relative; font-size: 11.5px; font-weight: 600; color: var(--green-deep); font-variant-numeric: tabular-nums; }
-    .fn:last-child span { color: #fff; }
-
-    .v-launch { flex-direction: column; gap: 6px; }
-    .v-launch .lbl { color: var(--muted); font-size: 11px; }
-    .cd { font-size: 32px; font-weight: 700; letter-spacing: -.02em; font-variant-numeric: tabular-nums; }
-    .go { display: inline-flex; align-items: center; gap: 8px; font-size: 12.5px; color: var(--green-deep); background: var(--mint); padding: 4px 11px 4px 9px; border-radius: 999px; }
-
-    .v-traffic { justify-content: space-between; }
-    .v-traffic .stack { align-items: flex-start; }
-    .spark { width: 170px; height: 90px; flex: none; overflow: visible; }
-    .spark path { fill: none; stroke: var(--green); stroke-width: 2.5; stroke-linecap: round; stroke-dasharray: 260; stroke-dashoffset: 260; transition: stroke-dashoffset 2s var(--ease) .5s; }
-    .spark .area { fill: url(#sparkG); stroke: none; opacity: 0; transition: opacity 1.2s var(--ease) 1.4s; }
-    .spark circle { fill: var(--green); opacity: 0; transition: opacity .6s var(--ease) 2.2s; }
-    .in .spark path { stroke-dashoffset: 0; } .in .spark .area { opacity: 1; } .in .spark circle { opacity: 1; }
-
-    .v-bars { align-items: flex-end; gap: 7px; padding-top: 40px; }
-    .v-bars i { flex: 1; height: var(--h); border-radius: 6px 6px 3px 3px; background: #cfe8d7; transform: scaleY(0); transform-origin: bottom; transition: transform 1.2s var(--ease); transition-delay: calc(var(--k) * 90ms + .4s); }
-    .v-bars i:last-of-type { background: var(--green); }
-    .in .v-bars i { transform: none; }
-    .kpi { position: absolute; top: 14px; left: 16px; font-size: 11px; color: var(--ink-2); }
-    .kpi b { color: var(--green); }
-
-    .doc { flex: 1; max-width: 300px; align-self: stretch; display: flex; flex-direction: column; gap: 7px; padding: 12px 14px; border-radius: 12px; background: #fff; box-shadow: 0 0 0 1px var(--line), 0 10px 20px -14px rgba(15,40,20,.35); }
-    .doc b { font-size: 12.5px; margin-bottom: 2px; }
-    .doc i { height: 5px; width: var(--w); border-radius: 3px; background: #e7ece4; }
-    .sign { width: 110px; height: 30px; margin-top: auto; }
-    .sign path { fill: none; stroke: var(--ink); stroke-width: 1.8; stroke-linecap: round; stroke-dasharray: 300; stroke-dashoffset: 300; transition: stroke-dashoffset 2.2s var(--ease) .7s; }
-    .in .sign path { stroke-dashoffset: 0; }
-    .stamp { flex: none; width: 92px; height: 92px; border-radius: 50%; display: grid; place-items: center; text-align: center; line-height: 1.1; color: var(--green); border: 2px dashed currentColor; box-shadow: inset 0 0 0 5px #f3f6f0, inset 0 0 0 6.5px rgba(31,157,85,.5); opacity: 0; transform: rotate(-14deg) scale(1.25); transition: opacity .7s var(--ease) 1.9s, transform .9s var(--ease) 1.9s; }
-    .stamp b { display: block; font-size: 22px; letter-spacing: -.03em; } .stamp span { font-size: 10px; }
-    .in .stamp { opacity: 1; transform: rotate(-10deg); }
-
-    .v-team { justify-content: space-between; }
-    .avs { display: flex; padding-left: 10px; }
-    .avs span { width: 46px; height: 46px; margin-left: -10px; border-radius: 50%; display: grid; place-items: center; font-weight: 700; color: var(--ink); background: var(--c); box-shadow: 0 0 0 3px #1c1f1a; }
-    .roles { display: flex; flex-wrap: wrap; justify-content: flex-end; gap: 6px; max-width: 250px; }
+    /* модули: список + карточка + дерево */
+    .mods { display: grid; grid-template-columns: 330px 1fr; gap: 18px; align-items: stretch; }
+    .mod-list { display: flex; flex-direction: column; gap: 6px; }
+    .mi { position: relative; overflow: hidden; display: flex; align-items: center; gap: 16px; width: 100%; text-align: left; padding: 15px 18px; border: 0; border-radius: 16px; background: transparent; color: var(--ink-2); font: inherit; font-size: 18px; font-weight: 500; cursor: pointer; transition: background .5s var(--ease), color .4s, box-shadow .5s var(--ease); }
+    .mi .mono { color: var(--muted); transition: color .4s; }
+    .mi:hover { background: rgba(255,255,255,.7); color: var(--ink); }
+    .mi.on { background: #fff; color: var(--ink); box-shadow: 0 0 0 1px var(--line), 0 14px 30px -22px rgba(15,40,20,.4); }
+    .mi.on .mono { color: var(--green); }
+    .mi .bar { position: absolute; left: 18px; right: 18px; bottom: 7px; height: 2px; border-radius: 2px; background: var(--green); transform: scaleX(0); transform-origin: left; }
+    .mi.on .bar { animation: fillb var(--dur, 7s) linear forwards; }
+    .mods.paused .mi.on .bar { animation: none; transform: scaleX(0); }
+    @keyframes fillb { to { transform: scaleX(1); } }
+    .mi .dot { margin-left: auto; width: 8px; height: 8px; border-radius: 50%; background: rgba(14,16,13,.12); transition: background .5s; }
+    .mi.done .dot, .mi.on .dot { background: var(--green-2); }
+    .mod-panel { display: grid; grid-template-columns: 1.2fr .8fr; min-height: 520px; }
+    .mp-txt { padding: clamp(28px, 4vw, 52px); display: flex; flex-direction: column; transition: opacity .45s var(--ease), transform .55s var(--ease); }
+    .mp-txt.swap { opacity: 0; transform: translateY(10px); }
+    .mp-txt .mono { color: var(--green); }
+    .mp-txt h3 { font-size: clamp(36px, 4.4vw, 58px); letter-spacing: -.045em; line-height: 1; font-weight: 700; margin: 16px 0 16px; }
+    .mp-txt > p { font-size: 19px; color: var(--ink-2); max-width: 470px; }
+    .mp-txt ul { list-style: none; display: grid; gap: 12px; margin-top: 30px; }
+    .mp-txt li { display: flex; gap: 12px; align-items: flex-start; font-size: 17px; }
+    .mp-txt li::before { content: ""; flex: none; width: 22px; height: 22px; margin-top: 1px; border-radius: 50%; background: var(--mint) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20'%3E%3Cpath d='M5.5 10.5l3 3 6-7' fill='none' stroke='%231f9d55' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") center/100% no-repeat; }
+    .mp-tree { position: relative; display: flex; flex-direction: column; align-items: center; justify-content: flex-end; padding: 24px 20px 26px; background: linear-gradient(180deg, #f3f8f0, #e6f3e7); border-left: 1px solid var(--line); }
+    .mp-tree svg { width: 100%; max-width: 330px; height: auto; overflow: visible; }
+    .mp-tree .tree-g { transform-box: fill-box; transform-origin: 50% 100%; animation: tsway 6s ease-in-out infinite alternate; }
+    .cl { transform-box: fill-box; transform-origin: center; transform: scale(.15); opacity: 0; transition: transform 1.1s var(--ease), opacity .8s var(--ease), filter .8s; }
+    .cl.on { transform: none; opacity: 1; }
+    .cl.cur { filter: brightness(1.12) drop-shadow(0 0 10px rgba(47,191,108,.55)); }
+    .fruit { opacity: 0; transform-box: fill-box; transform-origin: center; transform: scale(0); transition: transform .9s var(--ease), opacity .6s; }
+    .fruit.on { opacity: 1; transform: none; }
+    .grow { margin-top: 14px; color: var(--green-deep); font-size: 11.5px; }
+    .grow b { color: var(--green); }
 
     /* путь */
     .path { position: relative; display: grid; gap: 14px; padding-left: 60px; }
@@ -339,6 +295,8 @@
 
     /* финал */
     .final { position: relative; text-align: center; padding: 150px 0 190px; overflow: hidden; }
+    .ftree { position: absolute; bottom: 20px; width: clamp(110px, 14vw, 200px); pointer-events: none; overflow: visible; }
+    .ftree.l { left: 3%; } .ftree.r { right: 4%; width: clamp(90px, 11vw, 160px); }
     .grass { position: absolute; left: 0; right: 0; bottom: -2px; height: 120px; width: 100%; pointer-events: none; }
     .grass path { transform-box: fill-box; transform-origin: 50% 100%; animation: blow var(--g) ease-in-out var(--gd) infinite alternate; }
     @keyframes blow { from { transform: rotate(-5deg); } to { transform: rotate(6deg); } }
@@ -356,10 +314,15 @@
     footer a { color: var(--green); }
 
     @media (max-width: 980px) {
-      .hero .wrap { grid-template-columns: 1fr; }
-      .stage { height: 600px; }
-      .bento { grid-template-columns: repeat(2, 1fr); }
-      .mod.w2 { grid-column: span 2; }
+      .mods { grid-template-columns: 1fr; }
+      .mod-list { flex-direction: row; overflow-x: auto; scrollbar-width: none; margin: 0 -24px; padding: 4px 24px 8px; }
+      .mod-list::-webkit-scrollbar { display: none; }
+      .mi { width: auto; flex: none; font-size: 16px; padding: 12px 16px; }
+      .mi .dot { display: none; }
+      .mod-panel { grid-template-columns: 1fr; min-height: 0; }
+      .mp-tree { order: -1; border-left: 0; border-bottom: 1px solid var(--line); padding: 18px 20px; }
+      .mp-tree svg { max-width: 220px; }
+      .n3 { display: none; }
       .who, .price { grid-template-columns: 1fr; }
       .step { grid-template-columns: 1fr; gap: 8px; padding-right: 96px; }
       .plant { position: absolute; right: 20px; top: 50%; margin-top: -30px; width: 60px; height: 60px; }
@@ -371,16 +334,10 @@
     @media (max-width: 560px) {
       body { font-size: 16px; }
       section.sec { padding: 90px 0; }
-      .bento { grid-template-columns: 1fr; }
-      .mod.w2 { grid-column: span 1; }
-      .phone { width: 262px; height: 540px; }
-      .stage { height: 580px; }
-      .n1 { left: -4px; } .n2 { right: -4px; } .n3 { left: -4px; }
-      .notif { min-width: 0; }
-      .spark, .prof small { display: none; }
+      .hero .notif { display: none; }
+      .hero { --land: 220px; }
+      .ftree.r { display: none; }
       .badge { width: 84px; height: 84px; top: 18px; right: 18px; }
-      .stamp { width: 78px; height: 78px; }
-      .v-team { flex-direction: column; height: auto; } .roles { max-width: none; justify-content: center; }
       .who .card { padding: 22px; }
       .path { padding-left: 44px; } .rail { left: 13px; } .step .dotp { left: -40px; }
     }
@@ -391,7 +348,7 @@
       .sel::before { transform: none; } .sel .h { opacity: 1; }
       .nav { transform: translate(-50%, 0); }
       .leaves { display: none; }
-      .who .a, .pop, .stamp { opacity: 1; transform: none; }
+      .who .a, .cl, .fruit { opacity: 1; transform: none; }
     }
   </style>
 </head>
@@ -427,35 +384,31 @@
   <main>
     <!-- HERO -->
     <section class="hero" id="top">
+      <div class="sun" aria-hidden="true"></div>
+      <svg class="birds" viewBox="0 0 70 24" aria-hidden="true"><path d="M2 10q6-7 12 0q6-7 12 0M40 16q5-6 10 0q5-6 10 0M28 4q4-4 8 0q4-4 8 0" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
+      <div class="plane" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M21.5 3.5 2.8 10.7c-1 .4-1 1.8 0 2.1l4.6 1.5 1.8 5.6c.2.7 1.1.9 1.6.4l2.6-2.5 4.8 3.5c.6.4 1.4.1 1.6-.6l3.2-15.4c.2-1-.8-1.8-1.5-1.8Z" fill="currentColor"/><path d="m8 14 9.5-7.5" stroke="#fff" stroke-width="1.2" stroke-linecap="round"/></svg></div>
       <div class="wrap">
-        <div>
-          <div class="chip rv" style="--d:1"><b>F-Producers Club</b><span class="live"></span>продюсирование в Telegram</div>
-          <h1 aria-label="Продюсируй инфопродукты в Telegram">
-            <span class="ln"><span style="--i:0"><span class="sel cycle" id="cycle"><span class="w" id="cycleW">Продюсируй</span><i class="h h-l"></i><i class="h h-r"></i></span></span></span>
-            <span class="ln"><span style="--i:1">инфопродукты</span></span>
-            <span class="ln"><span style="--i:2">в <span class="grad">Telegram.</span></span></span>
-          </h1>
-          <p class="lead rv" style="--d:6">Клуб для тех, кто растит экспертов и их продукты в Telegram. Упаковка, прогревы, воронки и продажи — одной системой, без хаоса и догадок.</p>
-          <div class="actions rv" style="--d:7">
-            <a class="btn" href="#price">Вступить за 1 340 ₽ <span class="arr">→</span></a>
-            <a class="btn ghost" href="#modules">Что внутри</a>
-          </div>
-          <div class="proof rv" style="--d:8"><span>8 модулей</span><span>чат продюсеров</span><span>разовый платёж</span></div>
+        <div class="chip rv" style="--d:1"><b>F-Producers Club</b><span class="live"></span>продюсирование в Telegram</div>
+        <h1 aria-label="Продюсируй инфопродукты в Telegram">
+          <span class="ln"><span style="--i:0"><span class="sel cycle" id="cycle"><span class="w" id="cycleW">Продюсируй</span><i class="h h-l"></i><i class="h h-r"></i></span></span></span>
+          <span class="ln"><span style="--i:1">инфопродукты</span></span>
+          <span class="ln"><span style="--i:2">в <span class="grad">Telegram.</span></span></span>
+        </h1>
+        <p class="lead rv" style="--d:6">Клуб для тех, кто растит экспертов и их продукты в Telegram. Упаковка, прогревы, воронки и продажи — одной системой, без хаоса и догадок.</p>
+        <div class="actions rv" style="--d:7">
+          <a class="btn" href="#price">Вступить за 1 340 ₽ <span class="arr">→</span></a>
+          <a class="btn ghost" href="#modules">Что внутри</a>
         </div>
-
-        <div class="stage rv" style="--d:4" aria-hidden="true">
-          <div class="phone">
-            <div class="screen">
-              <div class="island"></div>
-              <div class="tg-head"><div class="ava">Э</div><div><b>Канал эксперта</b><small><span id="subs">12 480</span> подписчиков</small></div></div>
-              <div class="feed" id="feed"></div>
-            </div>
-          </div>
-          <div class="notif n1"><div class="ic">💸</div><div><b>Новая оплата</b><small>тариф «Старт»</small></div></div>
-          <div class="notif n2"><div class="ic">🌱</div><div><b>+214 подписчиков</b><small>после посева</small></div></div>
-          <div class="notif n3"><div class="ic">🚀</div><div><b>Запуск стартовал</b><small>продажи открыты</small></div></div>
-        </div>
+        <div class="proof rv" style="--d:8"><span>8 модулей</span><span>чат продюсеров</span><span>разовый платёж</span></div>
       </div>
+      <div class="land" id="land" aria-hidden="true">
+        <svg viewBox="0 0 1440 400" preserveAspectRatio="xMidYMax slice" data-k=".32"><path class="hill" d="M0 250C220 196 420 214 640 204S1100 150 1440 214V400H0Z" fill="#dcecd8"/><g class="trees" data-layer="0"></g></svg>
+        <svg viewBox="0 0 1440 400" preserveAspectRatio="xMidYMax slice" data-k=".18"><path class="hill" d="M0 300C200 258 430 272 700 262S1210 236 1440 276V400H0Z" fill="#b8dfbe"/><g class="trees" data-layer="1"></g></svg>
+        <svg viewBox="0 0 1440 400" preserveAspectRatio="xMidYMax slice" data-k=".06"><path class="hill" d="M0 352C250 318 520 334 780 326S1240 306 1440 334V400H0Z" fill="#7fca8f"/><g class="trees" data-layer="2"></g></svg>
+      </div>
+      <div class="notif n1"><div class="ic">💸</div><div><b>Новая оплата</b><small>тариф «Старт»</small></div></div>
+      <div class="notif n2"><div class="ic">🌱</div><div><b>+214 подписчиков</b><small>после посева</small></div></div>
+      <div class="notif n3"><div class="ic">🚀</div><div><b>Запуск стартовал</b><small>продажи открыты</small></div></div>
     </section>
 
     <!-- ЛЕНТЫ -->
@@ -482,39 +435,12 @@
           <h2>Вся система продюсирования <span class="sel">в одном месте<i class="h h-l"></i><i class="h h-r"></i></span></h2>
           <p>Восемь модулей, которые закрывают весь цикл работы с экспертом — от первой встречи до масштаба.</p>
         </div>
-        <div class="bento">
-          <article class="card mod w2 dark rv" style="--d:0">
-            <div class="viz v-pack"><div class="prof pop"><span class="ava">Э</span><div><b>Канал эксперта</b><small>психология · 12K</small></div></div><div class="stack"><span class="chipx pop" style="--k:1">Мини-курс · 990 ₽</span><span class="chipx pop" style="--k:2">Наставничество</span><span class="chipx pop" style="--k:3">Закрытый клуб</span></div></div>
-            <div class="txt"><div class="top"><h3>Упаковка</h3><span class="n mono">01</span></div><p>Позиционирование эксперта, продуктовая линейка, оформление канала и оффер, который покупают.</p></div>
-          </article>
-          <article class="card mod rv" style="--d:1">
-            <div class="viz v-heat"><div class="heat"><i></i></div><div class="hl mono"><span>холодные</span><span>горячие</span></div></div>
-            <div class="txt"><div class="top"><h3>Прогревы</h3><span class="n mono">02</span></div><p>Контент-план, сторителлинг, эфиры.</p></div>
-          </article>
-          <article class="card mod rv" style="--d:2">
-            <div class="viz v-fun"><div class="fn" style="--w:100%;--k:0;--c:#d6efdf"><i></i><span>1 000 подписчиков</span></div><div class="fn" style="--w:66%;--k:1;--c:#8edcae"><i></i><span>340 в боте</span></div><div class="fn" style="--w:36%;--k:2;--c:#1f9d55"><i></i><span>62 оплаты</span></div></div>
-            <div class="txt"><div class="top"><h3>Воронки</h3><span class="n mono">03</span></div><p>Чат-боты, лид-магниты, цепочки.</p></div>
-          </article>
-          <article class="card mod rv" style="--d:0">
-            <div class="viz v-launch"><span class="lbl mono">до старта продаж</span><b class="cd" id="cd">02:14:37</b><span class="go"><span class="live"></span>бот готов</span></div>
-            <div class="txt"><div class="top"><h3>Запуски</h3><span class="n mono">04</span></div><p>Сценарий, продажи, дожим.</p></div>
-          </article>
-          <article class="card mod w2 rv" style="--d:1">
-            <div class="viz v-traffic"><div class="stack"><span class="chipx pop" style="--k:0">📣 Посев в канале <b>+1 240</b></span><span class="chipx pop" style="--k:1">🎯 Telegram Ads <b>+2 380</b></span><span class="chipx pop" style="--k:2">🤝 Взаимопиар <b>+640</b></span></div><svg class="spark" viewBox="0 0 170 90" aria-hidden="true"><defs><linearGradient id="sparkG" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#2fbf6c" stop-opacity=".25"/><stop offset="1" stop-color="#2fbf6c" stop-opacity="0"/></linearGradient></defs><path class="area" d="M4 80C22 76 32 66 50 68S76 50 94 52 122 30 140 30 160 14 166 10V90H4Z"/><path d="M4 80C22 76 32 66 50 68S76 50 94 52 122 30 140 30 160 14 166 10"/><circle cx="166" cy="10" r="4.5"/></svg></div>
-            <div class="txt"><div class="top"><h3>Трафик</h3><span class="n mono">05</span></div><p>Посевы в каналах, закупка рекламы и Telegram Ads — где брать аудиторию и сколько это стоит.</p></div>
-          </article>
-          <article class="card mod rv" style="--d:2">
-            <div class="viz v-bars"><span class="kpi mono">окупаемость <b>×3,1</b></span><i style="--h:30%;--k:0"></i><i style="--h:44%;--k:1"></i><i style="--h:38%;--k:2"></i><i style="--h:58%;--k:3"></i><i style="--h:52%;--k:4"></i><i style="--h:76%;--k:5"></i><i style="--h:100%;--k:6"></i></div>
-            <div class="txt"><div class="top"><h3>Аналитика</h3><span class="n mono">06</span></div><p>Метрики и юнит-экономика.</p></div>
-          </article>
-          <article class="card mod w2 rv" style="--d:0">
-            <div class="viz v-doc"><div class="doc"><b>Договор о партнёрстве</b><i style="--w:94%"></i><i style="--w:78%"></i><i style="--w:86%"></i><svg class="sign" viewBox="0 0 110 30" aria-hidden="true"><path d="M3 22c8-12 13-17 17-12s-5 14 2 10 10-15 15-13-3 12 4 10 9-9 14-7 5 7 12 3 12-5 19-3 10 2 18-1"/></svg></div><div class="stamp"><div><b>50/50</b><span class="mono">доля</span></div></div></div>
-            <div class="txt"><div class="top"><h3>Договор</h3><span class="n mono">07</span></div><p>Как договориться с экспертом о процентах, зафиксировать условия и не остаться ни с чем.</p></div>
-          </article>
-          <article class="card mod w2 dark rv" style="--d:1">
-            <div class="viz v-team"><div class="avs"><span class="pop" style="--c:#2fbf6c;--k:0">А</span><span class="pop" style="--c:#6cc94a;--k:1">М</span><span class="pop" style="--c:#9ad86e;--k:2">К</span><span class="pop" style="--c:#fff;--k:3">+</span></div><div class="roles"><span class="chipx pop" style="--k:2">таргетолог</span><span class="chipx pop" style="--k:3">копирайтер</span><span class="chipx pop" style="--k:4">дизайнер</span><span class="chipx pop" style="--k:5">техспец</span></div></div>
-            <div class="txt"><div class="top"><h3>Команда</h3><span class="n mono">08</span></div><p>Кого нанять под запуск, как распределить роли и посчитать бюджет.</p></div>
-          </article>
+        <div class="mods" id="mods">
+          <div class="mod-list rv" role="tablist"><button class="mi on" role="tab" data-i="0"><span class="mono">01</span>Упаковка<span class="dot"></span><i class="bar"></i></button><button class="mi" role="tab" data-i="1"><span class="mono">02</span>Прогревы<span class="dot"></span><i class="bar"></i></button><button class="mi" role="tab" data-i="2"><span class="mono">03</span>Воронки<span class="dot"></span><i class="bar"></i></button><button class="mi" role="tab" data-i="3"><span class="mono">04</span>Запуски<span class="dot"></span><i class="bar"></i></button><button class="mi" role="tab" data-i="4"><span class="mono">05</span>Трафик<span class="dot"></span><i class="bar"></i></button><button class="mi" role="tab" data-i="5"><span class="mono">06</span>Аналитика<span class="dot"></span><i class="bar"></i></button><button class="mi" role="tab" data-i="6"><span class="mono">07</span>Договор<span class="dot"></span><i class="bar"></i></button><button class="mi" role="tab" data-i="7"><span class="mono">08</span>Команда<span class="dot"></span><i class="bar"></i></button></div>
+          <div class="card mod-panel rv" style="--d:1">
+            <div class="mp-txt" id="mpTxt"><span class="mono" id="mpN">Модуль 01 / 08</span><h3 id="mpT">Упаковка</h3><p id="mpD">Позиционирование эксперта, продуктовая линейка и оффер, который покупают.</p><ul id="mpL"><li>Разбор эксперта: сильные стороны и ниша</li><li>Линейка продуктов: от лид-магнита до флагмана</li><li>Оформление канала и закреп</li><li>Оффер, понятный за 5 секунд</li></ul></div>
+            <div class="mp-tree"><svg viewBox="0 0 300 330" aria-hidden="true"><ellipse cx="150" cy="314" rx="120" ry="12" fill="rgba(15,90,51,.12)"/><g class="tree-g"><path d="M140 312C144 262 146 212 147 160h6c1 52 3 102 7 152Z" fill="#7a5a33"/><g fill="none" stroke="#7a5a33" stroke-width="6" stroke-linecap="round"><path d="M148 232C130 214 112 204 96 186"/><path d="M152 212C170 198 190 186 206 170"/><path d="M149 176C138 156 122 140 112 124"/><path d="M151 170C164 150 182 132 195 116"/><path d="M150 160C146 120 132 96 124 78"/><path d="M150 160C158 120 172 96 180 76"/></g><circle class="cl" data-c="0" cx="95" cy="182" r="34" fill="#2fbf6c"/><circle class="cl" data-c="1" cx="207" cy="166" r="36" fill="#1f9d55"/><circle class="cl" data-c="2" cx="110" cy="120" r="38" fill="#3aa845"/><circle class="cl" data-c="3" cx="196" cy="112" r="38" fill="#2fbf6c"/><circle class="cl" data-c="4" cx="151" cy="146" r="42" fill="#1f9d55"/><circle class="cl" data-c="5" cx="124" cy="74" r="40" fill="#6cc94a"/><circle class="cl" data-c="6" cx="181" cy="72" r="40" fill="#3aa845"/><circle class="cl" data-c="7" cx="152" cy="40" r="36" fill="#9ad86e"/><circle class="fruit" cx="92" cy="190" r="5.5" fill="#f26b4c" style="transition-delay:0ms"/><circle class="fruit" cx="210" cy="172" r="5.5" fill="#f26b4c" style="transition-delay:90ms"/><circle class="fruit" cx="118" cy="112" r="5.5" fill="#f26b4c" style="transition-delay:180ms"/><circle class="fruit" cx="190" cy="120" r="5.5" fill="#f26b4c" style="transition-delay:270ms"/><circle class="fruit" cx="148" cy="150" r="5.5" fill="#f26b4c" style="transition-delay:360ms"/><circle class="fruit" cx="130" cy="70" r="5.5" fill="#f26b4c" style="transition-delay:450ms"/><circle class="fruit" cx="176" cy="64" r="5.5" fill="#f26b4c" style="transition-delay:540ms"/><circle class="fruit" cx="158" cy="36" r="5.5" fill="#f26b4c" style="transition-delay:630ms"/><circle class="fruit" cx="104" cy="140" r="5.5" fill="#f26b4c" style="transition-delay:720ms"/><circle class="fruit" cx="200" cy="96" r="5.5" fill="#f26b4c" style="transition-delay:810ms"/></g></svg><span class="grow mono">система растёт · <b id="mpG">1</b> / 8</span></div>
+          </div>
         </div>
       </div>
     </section>
@@ -606,6 +532,8 @@
         <p>Посади зерно сегодня — вступай в клуб и начни с первого модуля.</p>
         <a class="btn" href="https://t.me/fedonko" target="_blank" rel="noopener">Вступить за 1 340 ₽ <span class="arr">→</span></a>
       </div>
+      <svg class="ftree l" id="ftL" viewBox="-60 -150 120 152" aria-hidden="true"></svg>
+      <svg class="ftree r" id="ftR" viewBox="-60 -150 120 152" aria-hidden="true"></svg>
       <svg class="grass" id="grass" viewBox="0 0 1200 120" preserveAspectRatio="none" aria-hidden="true"></svg>
     </section>
   </main>
@@ -663,24 +591,77 @@
       setTimeout(() => { wi = (wi + 1) % words.length; cycleW.textContent = words[wi]; cycle.classList.remove('swap'); cycle.classList.add('in'); }, 560);
     };
 
-    /* ---------- канал в телефоне ---------- */
-    const posts = [
-      { t: '🌱 Старт прогрева', b: 'Через 3 дня открываем продажи. Включите уведомления.', v: '3,2K', r: ['🔥 248', '❤️ 96'] },
-      { img: true, t: 'Эфир сегодня в 19:00', b: 'Разберём, как выйти на первые продажи в Telegram.', v: '4,1K', r: ['👍 312', '🙏 41'] },
-      { t: 'Вопросы после эфира 💬', b: 'Собрали самые частые — отвечаю в комментариях.', v: '5,6K', r: ['❤️ 401', '🤯 58'] },
-      { t: '🚀 Продажи открыты', b: 'Тариф «Старт» уже в боте 👇', v: '7,9K', r: ['🔥 530', '💸 87'] }
-    ];
-    const feed = $('#feed'); let pi = 0;
-    const addPost = () => {
-      const p = posts[pi++ % posts.length];
-      const el = document.createElement('div');
-      el.className = 'post' + (p.img ? ' img' : '');
-      el.innerHTML = `${p.img ? '<div class="pic"></div>' : ''}<div class="t">${p.t}</div><div>${p.b}</div><div class="m"><span class="r">${p.r.map((x) => `<span>${x}</span>`).join('')}</span><span>👁 ${p.v}</span></div>`;
-      feed.appendChild(el);
-      while (feed.children.length > 4) feed.removeChild(feed.firstChild);
+    /* ---------- деревья ---------- */
+    const TRUNK = '#7a5a33';
+    const treeSVG = (type, c1, c2) => {
+      if (type === 'pine') return `<rect x="-3" y="-22" width="6" height="24" rx="1.5" fill="${TRUNK}"/><path d="M0-104 22-64H12L28-36H16L36-8H-36L-16-36H-28L-12-64H-22Z" fill="${c1}"/><path d="M0-104 22-64H12L28-36H16L36-8H0Z" fill="${c2}"/>`;
+      if (type === 'poplar') return `<rect x="-2.5" y="-26" width="5" height="28" rx="1.5" fill="${TRUNK}"/><ellipse cx="0" cy="-62" rx="16" ry="44" fill="${c1}"/><path d="M0-106A16 44 0 0 1 0-18Z" fill="${c2}"/>`;
+      return `<rect x="-3.5" y="-40" width="7" height="42" rx="2" fill="${TRUNK}"/><circle cx="-17" cy="-46" r="19" fill="${c2}"/><circle cx="17" cy="-48" r="20" fill="${c2}"/><circle cx="0" cy="-64" r="27" fill="${c1}"/><circle cx="-8" cy="-74" r="10" fill="rgba(255,255,255,.16)"/>`;
     };
-    addPost(); addPost();
-    const subs = $('#subs'); let subN = 12480;
+    const tree = (type, x, y, sc, c1, c2) => `<g transform="translate(${x.toFixed(1)} ${y.toFixed(1)}) scale(${sc.toFixed(2)})"><g class="tw" style="--d:${(4 + Math.random() * 3).toFixed(2)}s;--dl:${(-Math.random() * 5).toFixed(2)}s">${treeSVG(type, c1, c2)}</g></g>`;
+    const PAL = [
+      [['#a9d6ad', '#98cc9d'], ['#b5dcb2', '#a3d2a2']],
+      [['#5fbf74', '#4daf63'], ['#6cc94a', '#5ab83c'], ['#3aa845', '#2f973b']],
+      [['#1f9d55', '#178447'], ['#0f5a33', '#0b4a29'], ['#2fbf6c', '#24a65b']]
+    ];
+    const TYPES = ['round', 'pine', 'poplar', 'round', 'pine'];
+    $$('#land svg').forEach((svg, li) => {
+      const hill = svg.querySelector('.hill'), g = svg.querySelector('.trees');
+      const L = hill.getTotalLength(), pts = [];
+      for (let k = 0; k <= 400; k++) { const pt = hill.getPointAtLength(L * k / 400); if (pt.y < 395 && pt.x > 0 && pt.x < 1440) pts.push(pt); }
+      const yAt = (x) => pts.reduce((a, b) => (Math.abs(b.x - x) < Math.abs(a.x - x) ? b : a)).y;
+      const n = [16, 11, 7][li], sc = [.55, .9, 1.35][li];
+      let html = '';
+      for (let k = 0; k < n; k++) {
+        const x = (k + .5) * 1440 / n + (Math.random() - .5) * (1440 / n) * .6;
+        if (li === 2 && x > 430 && x < 1010) continue;
+        const [c1, c2] = PAL[li][k % PAL[li].length];
+        html += tree(TYPES[(k + li) % TYPES.length], x, yAt(x) + 6, sc * (.8 + Math.random() * .4), c1, c2);
+      }
+      g.innerHTML = html;
+    });
+    $('#ftL').innerHTML = tree('round', 0, 0, 1.3, '#2fbf6c', '#1f9d55');
+    $('#ftR').innerHTML = tree('pine', 0, 0, 1.3, '#1f9d55', '#0f5a33');
+
+    /* ---------- модули: список, карточка и растущее дерево ---------- */
+    const MODS = [{"t": "Упаковка", "d": "Позиционирование эксперта, продуктовая линейка и оффер, который покупают.", "l": ["Разбор эксперта: сильные стороны и ниша", "Линейка продуктов: от лид-магнита до флагмана", "Оформление канала и закреп", "Оффер, понятный за 5 секунд"]}, {"t": "Прогревы", "d": "Контент, который превращает подписчиков в покупателей.", "l": ["Контент-план прогрева на 2–3 недели", "Сторителлинг и личный бренд эксперта", "Эфиры: сценарий и структура", "Работа с возражениями в постах"]}, {"t": "Воронки", "d": "Автоматический путь человека от подписки до оплаты.", "l": ["Чат-бот и цепочки сообщений", "Лид-магниты, которые собирают базу", "Сегментация аудитории", "Как не терять тёплых лидов"]}, {"t": "Запуски", "d": "Пошаговый сценарий запуска и продаж.", "l": ["Календарь запуска по дням", "Открытие продаж и дедлайны", "Дожим и работа с отказами", "Разбор итогов запуска"]}, {"t": "Трафик", "d": "Где брать аудиторию и сколько это стоит.", "l": ["Посевы: подбор и проверка каналов", "Закупка рекламы без слива бюджета", "Telegram Ads: запуск и настройка", "Взаимопиар и бесплатные источники"]}, {"t": "Аналитика", "d": "Цифры, по которым видно, что работает, а что нет.", "l": ["Ключевые метрики канала и воронки", "Юнит-экономика запуска", "Стоимость подписчика и заявки", "Отчёт для эксперта"]}, {"t": "Договор", "d": "Как договориться с экспертом и не остаться ни с чем.", "l": ["Модели оплаты: процент, фикс, микс", "Что обязательно прописать в договоре", "Зоны ответственности сторон", "Шаблон договора"]}, {"t": "Команда", "d": "Кого нанять под запуск и как этим управлять.", "l": ["Роли: таргетолог, копирайтер, дизайнер, техспец", "Где искать и как проверять исполнителей", "Задачи, дедлайны и контроль", "Бюджет на команду"]}];
+    const mods = $('#mods'), mis = $$('.mi'), mpTxt = $('#mpTxt'), cls = $$('.cl'), fruitsEl = $$('.fruit');
+    let mcur = 0, mtimer = null, mvisible = false;
+    const MDUR = 7000;
+    const growTree = (i) => {
+      cls.forEach((c, k) => { c.classList.toggle('on', k <= i); c.classList.toggle('cur', k === i); });
+      fruitsEl.forEach((f) => f.classList.toggle('on', i === MODS.length - 1));
+      $('#mpG').textContent = i + 1;
+    };
+    const showMod = (i, user) => {
+      if (i === mcur && !user) return;
+      mcur = i;
+      mis.forEach((m, k) => { m.classList.toggle('on', k === i); m.classList.toggle('done', k < i); });
+      const m = MODS[i];
+      mpTxt.classList.add('swap');
+      setTimeout(() => {
+        $('#mpN').textContent = `Модуль 0${i + 1} / 08`;
+        $('#mpT').textContent = m.t; $('#mpD').textContent = m.d;
+        $('#mpL').innerHTML = m.l.map((x) => `<li>${x}</li>`).join('');
+        mpTxt.classList.remove('swap');
+      }, 380);
+      growTree(i);
+      if (innerWidth <= 980) mis[i].scrollIntoView({ block: 'nearest', inline: 'center', behavior: 'smooth' });
+      schedule();
+    };
+    const schedule = () => {
+      clearTimeout(mtimer);
+      if (reduce || !mvisible) return;
+      mtimer = setTimeout(() => showMod((mcur + 1) % MODS.length), MDUR);
+    };
+    mis.forEach((m) => m.addEventListener('click', () => showMod(+m.dataset.i, true)));
+    mods.style.setProperty('--dur', MDUR + 'ms');
+    new IntersectionObserver(([e]) => {
+      mvisible = e.isIntersecting;
+      mods.classList.toggle('paused', !mvisible);
+      if (mvisible) { growTree(mcur); const a = mis[mcur]; a.classList.remove('on'); a.getBoundingClientRect(); a.classList.add('on'); }
+      schedule();
+    }, { threshold: .35 }).observe(mods);
 
     /* ---------- уведомления по очереди ---------- */
     const notifs = $$('.notif');
@@ -712,9 +693,11 @@
     /* ---------- путь: линия растёт ---------- */
     const pathList = $('#pathList'), rail = $('#rail'), steps = $$('.step');
     let tk = false;
+    const landLayers = reduce ? [] : $$('#land svg');
     const onScroll = () => {
       if (tk) return; tk = true;
       requestAnimationFrame(() => {
+        if (scrollY < innerHeight * 1.2) landLayers.forEach((l) => { l.style.transform = `translateY(${(scrollY * l.dataset.k).toFixed(1)}px)`; });
         const r = pathList.getBoundingClientRect();
         const p = Math.min(Math.max((innerHeight * .6 - r.top) / r.height, 0), 1);
         rail.style.setProperty('--p', p.toFixed(3));
@@ -775,10 +758,6 @@
     }), { threshold: .6 });
     $$('.st b[data-n]').forEach((b) => sio.observe(b));
 
-    /* ---------- обратный отсчёт до запуска ---------- */
-    const cd = $('#cd'); let cs = 2 * 3600 + 14 * 60 + 37;
-    const pad = (v) => String(v).padStart(2, '0');
-
     /* ---------- старт ---------- */
     const start = () => {
       document.body.classList.remove('loading');
@@ -789,9 +768,6 @@
       playNotifs();
       if (!reduce) {
         setInterval(nextWord, 2800);
-        setInterval(addPost, 3200);
-        setInterval(() => { cs = cs > 0 ? cs - 1 : 2 * 3600 + 14 * 60 + 37; cd.textContent = `${pad(Math.floor(cs / 3600))}:${pad(Math.floor(cs / 60) % 60)}:${pad(cs % 60)}`; }, 1000);
-        setInterval(() => { subN += Math.floor(Math.random() * 5) + 1; subs.textContent = subN.toLocaleString('ru-RU'); }, 1500);
       }
       onScroll();
     };
