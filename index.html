@@ -108,9 +108,12 @@
     .card:hover { box-shadow: 0 0 0 1px rgba(31,157,85,.25), 0 26px 50px -30px rgba(15,90,51,.4); }
 
     /* ---------- hero ---------- */
-    .hero { position: relative; min-height: 100svh; display: flex; flex-direction: column; overflow: hidden; --land: clamp(230px, 40vh, 400px); }
-    .hero .wrap { position: relative; z-index: 3; width: 100%; text-align: center; padding-top: clamp(120px, 17vh, 170px); padding-bottom: calc(var(--land) * .62); display: flex; flex-direction: column; align-items: center; }
-    .hero h1 { font-size: clamp(46px, 7.4vw, 116px); }
+    .hero { position: relative; min-height: 100svh; display: flex; flex-direction: column; overflow: hidden; --land: clamp(220px, 36vh, 380px); }
+    .hero .wrap { position: relative; z-index: 3; width: 100%; text-align: center; padding-top: clamp(104px, 14vh, 150px); padding-bottom: calc(var(--land) * .5); display: flex; flex-direction: column; align-items: center; }
+    .hero h1 { font-size: clamp(44px, min(6.4vw, 11vh), 104px); }
+    .hero .chip { margin-bottom: 20px; }
+    .hero .lead { margin-top: 22px; max-width: 640px; }
+    .hero .actions { margin-top: 28px; }
     .hero .lead { margin-left: auto; margin-right: auto; }
     .hero .actions, .hero .proof { justify-content: center; }
     .sun { position: absolute; z-index: 0; right: 12%; top: 18%; width: 34vmax; height: 34vmax; border-radius: 50%; background: radial-gradient(circle, rgba(255,236,170,.55), rgba(255,236,170,0) 62%); animation: breathe 9s ease-in-out infinite alternate; pointer-events: none; }
@@ -394,12 +397,11 @@
           <span class="ln"><span style="--i:1">инфопродукты</span></span>
           <span class="ln"><span style="--i:2">в <span class="grad">Telegram.</span></span></span>
         </h1>
-        <p class="lead rv" style="--d:6">Клуб для тех, кто растит экспертов и их продукты в Telegram. Упаковка, прогревы, воронки и продажи — одной системой, без хаоса и догадок.</p>
+        <p class="lead rv" style="--d:6">Клуб для тех, кто растит экспертов и их продукты в Telegram. Упаковка, прогревы, воронки и продажи — одной системой.</p>
         <div class="actions rv" style="--d:7">
           <a class="btn" href="#price">Вступить за 1 340 ₽ <span class="arr">→</span></a>
           <a class="btn ghost" href="#modules">Что внутри</a>
         </div>
-        <div class="proof rv" style="--d:8"><span>8 модулей</span><span>чат продюсеров</span><span>разовый платёж</span></div>
       </div>
       <div class="land" id="land" aria-hidden="true">
         <svg viewBox="0 0 1440 400" preserveAspectRatio="xMidYMax slice" data-k=".32"><path class="hill" d="M0 250C220 196 420 214 640 204S1100 150 1440 214V400H0Z" fill="#dcecd8"/><g class="trees" data-layer="0"></g></svg>
