@@ -23,8 +23,10 @@
       --dirt: none; --stone: none; --planks: none; --grass: none;
     }
     * { box-sizing: border-box; margin: 0; padding: 0; }
-    html { scroll-behavior: smooth; background: #2b1d12; }
-    body { font-family: "Pixelify Sans", system-ui, sans-serif; font-size: 20px; line-height: 1.45; color: var(--txt); background: linear-gradient(rgba(10,6,3,.66), rgba(10,6,3,.66)), var(--dirt) 0 0 / 64px 64px, #2b1d12; image-rendering: pixelated; overflow-x: hidden; padding-bottom: 130px; }
+    html { scroll-behavior: smooth; background: #15171c; }
+    body { font-family: "Pixelify Sans", system-ui, sans-serif; font-size: 20px; line-height: 1.45; color: var(--txt); background: transparent; image-rendering: pixelated; overflow-x: hidden; padding-bottom: 130px; }
+    .bgpan { position: fixed; inset: -40px; z-index: -2; background: #3b5d8f center / cover no-repeat; filter: blur(18px) saturate(1.15); image-rendering: auto; }
+    .bgpan::after { content: ""; position: fixed; inset: 0; background: linear-gradient(rgba(12,14,20,.62), rgba(12,14,20,.74)); }
     body.loading { overflow: hidden; }
     a { color: inherit; text-decoration: none; }
     button { font: inherit; color: inherit; background: none; border: 0; cursor: pointer; }
@@ -37,21 +39,23 @@
     .rv.in { opacity: 1; transform: none; }
 
     /* ---------- кнопки как в игре ---------- */
-    .mcb { position: relative; display: inline-flex; align-items: center; justify-content: center; gap: 12px; min-height: 52px; padding: 10px 26px; font-family: "Pixelify Sans", sans-serif; font-size: 21px; font-weight: 500; color: #fff; text-shadow: 2px 2px 0 #3f3f3f; background: linear-gradient(rgba(118,118,118,.62), rgba(118,118,118,.62)), var(--stone) 0 0 / 64px 64px, #777; box-shadow: 0 0 0 3px #000, inset 3px 3px 0 rgba(255,255,255,.38), inset -3px -4px 0 rgba(0,0,0,.42); transition: transform .15s, filter .2s; user-select: none; }
-    .mcb:hover { color: #ffffa0; background: linear-gradient(rgba(110,128,255,.5), rgba(110,128,255,.5)), var(--stone) 0 0 / 64px 64px, #778; box-shadow: 0 0 0 3px #fff, inset 3px 3px 0 rgba(255,255,255,.38), inset -3px -4px 0 rgba(0,0,0,.42); }
+    .mcb { position: relative; display: inline-flex; align-items: center; justify-content: center; gap: 12px; min-height: 52px; padding: 10px 26px; font-family: "Pixelify Sans", sans-serif; font-size: 21px; font-weight: 500; color: #fff; text-shadow: 2px 2px 0 #3f3f3f; background: #6f6f6f; border: 2px solid #000; box-shadow: inset 0 2px 0 #a8a8a8, inset 2px 0 0 #8e8e8e, inset 0 -4px 0 #4c4c4c; transition: transform .12s, background .15s; user-select: none; }
+    .mcb:hover { border-color: #fff; background: #7a7a7a; }
+    .mcb:focus-visible { outline: none; border-color: #fff; }
     .mcb:active { transform: translateY(2px); }
     .mcb.big { min-height: 60px; font-size: 23px; }
-    .mcb.green { background: linear-gradient(rgba(40,160,60,.72), rgba(40,160,60,.72)), var(--stone) 0 0 / 64px 64px, #2a2; }
-    .mcb.green:hover { background: linear-gradient(rgba(70,200,90,.75), rgba(70,200,90,.75)), var(--stone) 0 0 / 64px 64px, #3c3; }
+    .mcb.green { background: #3c8527; box-shadow: inset 0 2px 0 #6cc349, inset 2px 0 0 #52a535, inset 0 -4px 0 #1d4d13; }
+    .mcb.green:hover { background: #46992e; }
 
     /* ---------- загрузка мира ---------- */
-    .loader { position: fixed; inset: 0; z-index: 300; display: grid; place-items: center; background: linear-gradient(rgba(0,0,0,.55), rgba(0,0,0,.55)), var(--dirt) 0 0 / 64px 64px, #2b1d12; transition: opacity .7s var(--ease), visibility .7s; }
+    .loader { position: fixed; inset: 0; z-index: 300; display: grid; place-items: center; background: #ef323d; transition: opacity .7s var(--ease), visibility .7s; }
     .loader.out { opacity: 0; visibility: hidden; }
     .ld { width: min(520px, 86vw); text-align: center; }
-    .ld h2 { font-size: 26px; font-weight: 500; text-shadow: 2px 2px 0 #3f3f3f; }
-    .ld p { margin: 10px 0 22px; color: var(--muted); font-size: 18px; min-height: 26px; }
-    .ldbar { height: 14px; background: #3a3a3a; box-shadow: 0 0 0 3px #000; }
-    .ldbar i { display: block; height: 100%; width: 0; background: #55ff55; box-shadow: inset 0 -4px 0 #2a9a2a; }
+    .ld h2 { font-family: "Press Start 2P", monospace; font-weight: 400; font-size: clamp(22px, 4.4vw, 44px); line-height: 1.25; color: #fff; }
+    .ld h2 small { display: block; margin-top: 12px; font-size: .42em; letter-spacing: .5em; }
+    .ld p { margin: 34px 0 12px; color: rgba(255,255,255,.85); font-size: 18px; min-height: 26px; }
+    .ldbar { height: 14px; padding: 3px; border: 2px solid #fff; }
+    .ldbar i { display: block; height: 100%; width: 0; background: #fff; }
 
     /* ---------- главное меню (hero) ---------- */
     .hero { position: relative; min-height: 100svh; overflow: hidden; background: linear-gradient(#5f97f5, #9cc3ff 55%, #cfe2ff); display: flex; flex-direction: column; align-items: center; }
@@ -72,6 +76,35 @@
     .btns .row { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
     .corner { position: absolute; z-index: 3; bottom: 14px; font-size: 16px; color: #fff; text-shadow: 2px 2px 0 #3f3f3f; }
     .corner.l { left: 16px; } .corner.r { right: 16px; }
+
+    .sun { position: absolute; z-index: 0; top: 9%; right: 13%; width: 74px; height: 74px; background: #fffbe0; box-shadow: 0 0 0 12px rgba(255,248,200,.35), 0 0 80px 30px rgba(255,240,170,.45); }
+
+    /* ---------- тест на входе: рецепт верстака ---------- */
+    .quiz { position: fixed; inset: 0; z-index: 250; display: grid; place-items: center; padding: 24px; overflow-y: auto; background: rgba(10,12,18,.55); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); transition: opacity .6s var(--ease), visibility .6s; }
+    .quiz.out { opacity: 0; visibility: hidden; }
+    .qbox { width: min(1040px, 100%); text-align: center; }
+    .qbox h2 { margin: 6px 0 12px; }
+    .qsub { font-size: 20px; color: var(--txt); }
+    .qgrid { margin-top: 30px; display: grid; grid-template-columns: repeat(4, 1fr); gap: 18px; }
+    .qopt { position: relative; display: flex; flex-direction: column; align-items: center; gap: 12px; padding: 16px 12px 14px; background: #c6c6c6; color: #3f3f3f; border: 2px solid #000; box-shadow: inset 3px 3px 0 #fff, inset -3px -3px 0 #555; transition: transform .25s var(--ease), border-color .2s; }
+    .qopt:hover { transform: translateY(-4px); border-color: #fff; }
+    .qopt .ql { align-self: flex-start; font-size: 18px; font-weight: 600; color: #404040; }
+    .craft { display: flex; align-items: center; gap: 10px; }
+    .cg { display: grid; grid-template-columns: repeat(3, var(--cs, 38px)); }
+    .cs { width: var(--cs, 38px); height: var(--cs, 38px); display: grid; place-items: center; background: #8b8b8b; box-shadow: inset 2px 2px 0 #373737, inset -2px -2px 0 #fff; }
+    .cs .ico { width: 72%; height: 72%; }
+    .carr { width: 26px; height: 18px; background: #8b8b8b; clip-path: polygon(0 30%, 60% 30%, 60% 0, 100% 50%, 60% 100%, 60% 70%, 0 70%); }
+    .cres { --cs: 52px; position: relative; }
+    .cres .ico { position: absolute; inset: 14%; width: auto; height: auto; transform: scale(0); transition: transform .5s var(--ease); }
+    .qopt.good .cres .ico { transform: scale(1); }
+    .qopt .q { font-family: "Press Start 2P", monospace; font-size: 16px; color: #555; }
+    .qopt.good .q { display: none; }
+    .qopt.good { border-color: #55ff55; box-shadow: inset 3px 3px 0 #fff, inset -3px -3px 0 #555, 0 0 0 3px #55ff55, 0 0 30px rgba(85,255,85,.45); }
+    .qopt.bad { border-color: #ff5555; animation: shake .45s; }
+    .qopt.hint { border-color: #ffff55; box-shadow: inset 3px 3px 0 #fff, inset -3px -3px 0 #555, 0 0 0 3px #ffff55; }
+    @keyframes shake { 20%, 60% { transform: translateX(-7px); } 40%, 80% { transform: translateX(7px); } }
+    .qmsg { min-height: 30px; margin-top: 22px; font-size: 21px; color: #fff; text-shadow: 2px 2px 0 #3f3f3f; }
+    .qmsg.ok { color: var(--green); } .qmsg.no { color: #ff7070; }
 
     /* ---------- HUD: хотбар, опыт, сердца ---------- */
     .hud { position: fixed; z-index: 100; left: 50%; bottom: 10px; display: flex; flex-direction: column; align-items: center; gap: 6px; transform: translate(-50%, 160%); transition: transform .9s var(--ease); }
@@ -99,7 +132,7 @@
 
     /* ---------- секции ---------- */
     section.sec { padding: 120px 0 110px; position: relative; }
-    section.stone { background: linear-gradient(rgba(0,0,0,.58), rgba(0,0,0,.58)), var(--stone) 0 0 / 64px 64px, #444; box-shadow: 0 -6px 0 #1a1a1a, 0 6px 0 #1a1a1a; }
+    section.stone { background: rgba(0,0,0,.38); box-shadow: 0 -2px 0 #000, 0 -4px 0 rgba(255,255,255,.18), 0 2px 0 #000, 0 4px 0 rgba(255,255,255,.18); }
     .head { max-width: 760px; margin-bottom: 52px; }
     .kicker { display: inline-block; font-family: "Press Start 2P", monospace; font-size: 11px; color: var(--yellow); margin-bottom: 20px; text-shadow: 2px 2px 0 #3f3f15; letter-spacing: .06em; }
     h2 { font-family: "Press Start 2P", monospace; font-weight: 400; font-size: clamp(22px, 3.4vw, 40px); line-height: 1.35; color: #fff; text-shadow: 4px 4px 0 #3f3f3f; }
@@ -211,6 +244,7 @@
     footer a { color: var(--green); }
 
     @media (max-width: 900px) {
+      .qgrid { grid-template-columns: repeat(2, 1fr); }
       .book { grid-template-columns: minmax(0, 1fr); }
       .spine { display: none; }
       .page { min-height: 0; padding: 26px 22px 84px; }
@@ -238,6 +272,9 @@
       .msg, .cin { font-size: 18px; padding-left: 14px; padding-right: 14px; }
       .toast { width: auto; left: 12px; right: 12px; }
       .gui { padding: 18px 16px 22px; }
+      .qgrid { gap: 12px; } .qopt { padding: 12px 6px; } .cg { --cs: 26px; } .cres { --cs: 36px; } .carr { width: 16px; height: 14px; }
+      .qbox h2 { font-size: 18px; } .qsub { font-size: 17px; } .qgrid { margin-top: 20px; }
+      .sun { width: 48px; height: 48px; right: 8%; }
     }
     @media (prefers-reduced-motion: reduce) {
       *, *::before, *::after { animation: none !important; transition: none !important; }
@@ -249,9 +286,22 @@
   <!-- загрузка мира -->
   <div class="loader" id="loader" aria-hidden="true">
     <div class="ld">
-      <h2>Загрузка мира</h2>
+      <h2>F-PRODUCERS<small>STUDIOS</small></h2>
       <p id="ldStep">Генерация ландшафта</p>
       <div class="ldbar"><i id="ldBar"></i></div>
+    </div>
+  </div>
+
+  <div class="bgpan" id="bgpan" aria-hidden="true"></div>
+
+  <!-- тест на входе -->
+  <div class="quiz out" id="quiz" role="dialog" aria-modal="true" aria-labelledby="qT">
+    <div class="qbox">
+      <span class="kicker">Проверка на вход</span>
+      <h2 id="qT">Как скрафтить верстак?</h2>
+      <p class="qsub">Выбери правильный рецепт, чтобы зайти на сервер</p>
+      <div class="qgrid" id="qgrid"></div>
+      <p class="qmsg" id="qmsg" aria-live="polite"></p>
     </div>
   </div>
 
@@ -280,6 +330,7 @@
   <main>
     <!-- ГЛАВНОЕ МЕНЮ -->
     <section class="hero" id="top">
+      <span class="sun" aria-hidden="true"></span>
       <canvas class="world" id="world" aria-hidden="true"></canvas>
       <div id="clouds" aria-hidden="true"></div>
       <div class="menu">
@@ -438,17 +489,20 @@
     const rnd = () => { seed |= 0; seed = seed + 0x6D2B79F5 | 0; let t = Math.imul(seed ^ seed >>> 15, 1 | seed); t = t + Math.imul(t ^ t >>> 7, 61 | t) ^ t; return ((t ^ t >>> 14) >>> 0) / 4294967296; };
     const pickc = (a) => a[Math.floor(rnd() * a.length)];
     const makeTex = (fn) => { const c = document.createElement('canvas'); c.width = c.height = 16; const x = c.getContext('2d'); for (let i = 0; i < 16; i++) for (let j = 0; j < 16; j++) { x.fillStyle = fn(i, j); x.fillRect(i, j, 1, 1); } return c; };
-    const DIRT = ['#866043', '#79553a', '#966c4a', '#6b4a30', '#866043', '#9c7350'];
-    const GRASS = ['#5d9b3a', '#6aaa40', '#4f8a2f', '#7cbd4f', '#6aaa40'];
+    const DIRT = ['#8b5a3c', '#7a4f34', '#a06a45', '#6e472f', '#8b5a3c', '#b07650'];
+    const GRASS = ['#6fb546', '#7cc453', '#5fa03b', '#8fd364', '#6fb546'];
     const STONE = ['#7d7d7d', '#8a8a8a', '#747474', '#969696', '#7d7d7d', '#6a6a6a'];
     const T = {};
     T.dirt = makeTex(() => pickc(DIRT));
     T.stone = makeTex(() => pickc(STONE));
     const gdrip = Array.from({ length: 16 }, () => 3 + Math.floor(rnd() * 3));
     T.grass = makeTex((i, j) => (j < gdrip[i] ? pickc(GRASS) : pickc(DIRT)));
-    T.planks = makeTex((i, j) => { if (j % 4 === 3) return '#6b5530'; const off = [0, 7, 3, 11][Math.floor(j / 4)]; if ((i + off) % 16 === 0) return '#6b5530'; return pickc(['#a2824e', '#9c7a48', '#b08e58', '#a2824e']); });
+    T.planks = makeTex((i, j) => { if (j % 4 === 3) return '#6b5530'; const off = [0, 7, 3, 11][Math.floor(j / 4)]; if ((i + off) % 16 === 0) return '#6b5530'; return pickc(['#b8945f', '#a8844f', '#c4a06a', '#b8945f']); });
+    T.cobble = makeTex((i, j) => (((i * 7 + j * 3) % 11 === 0 || (i + j * 5) % 13 === 0) ? '#4f4f4f' : pickc(['#8d8d8d', '#7a7a7a', '#a3a3a3', '#6c6c6c'])));
+    T.cherry = makeTex(() => pickc(['#f4b6d2', '#ea98c0', '#ffd0e4', '#e47fb1', '#f7c2dc']));
+    T.clog = makeTex((i) => (i % 4 === 0 ? '#2b1520' : pickc(['#4a2a39', '#3c2130', '#553144'])));
     T.log = makeTex((i) => (i % 4 === 0 ? '#4a3420' : pickc(['#6b4f2e', '#5f4527', '#735433'])));
-    T.leaves = makeTex(() => pickc(['#3f7a26', '#4f8f30', '#356b1f', '#5a9a38', '#2e5c1a']));
+    T.leaves = makeTex(() => pickc(['#4b9132', '#5aa53b', '#3d7f28', '#68b345', '#33701f']));
     const root = document.documentElement.style;
     root.setProperty('--dirt', `url(${T.dirt.toDataURL()})`);
     root.setProperty('--stone', `url(${T.stone.toDataURL()})`);
@@ -467,6 +521,8 @@
       sapling: [{ g: '#2f6b1e', G: '#5fbf3a', b: '#6b4a2a' }, ['...gg...', '.gGGgg..', 'gGGgGGg.', '.gGGGgg.', '..gGg...', '...b....', '...b....', '..bbb...']],
       torch: [{ y: '#ffe066', o: '#ff9a1f', s: '#7a5230', S: '#5a3a1e' }, ['...yy...', '..yooy..', '...oo...', '...sS...', '...sS...', '...sS...', '...sS...', '...sS...']],
       apple: [{ r: '#d42a2a', R: '#ff6060', w: '#ffd0d0', g: '#3d8a2a', b: '#5a3a1e' }, ['....b...', '...bg...', '.rrrrrr.', 'rRwrrrrr', 'rRrrrrrr', 'rrrrrrrr', '.rrrrrr.', '..rr.rr.']],
+      table: [{ k: '#4a3020', T: '#c79a5c', t: '#a57b42', p: '#b08850', P: '#7d5a32', g: '#9a9a9a' }, ['kkkkkkkk', 'kTTtTTTk', 'kTkTTkTk', 'kkkkkkkk', 'pPpgpPpp', 'pPpgpPgp', 'pPpppPpp', 'kkkkkkkk']],
+      stick: [{ s: '#8a6236', S: '#5a3d1f' }, ['......sS', '.....sS.', '....sS..', '...sS...', '..sS....', '.sS.....', 'sS......', 'S.......']],
       chest: [{ O: '#2e1d0b', p: '#a5712f', P: '#c48a3e', y: '#e8c547' }, ['OOOOOOOO', 'OPPPPPPO', 'OppppppO', 'OOOyyOOO', 'OpppyppO', 'OppppppO', 'OppppppO', 'OOOOOOOO']]
     };
     const ICON = {};
@@ -480,6 +536,31 @@
 
     /* ---------- звук клика (синтез, без файлов) ---------- */
     let ac = null;
+    const getAC = () => (ac = ac || new (window.AudioContext || window.webkitAudioContext)());
+    const click = () => {
+      try {
+        const a = getAC(), t = a.currentTime, n = Math.floor(a.sampleRate * .035), buf = a.createBuffer(1, n, a.sampleRate), d = buf.getChannelData(0);
+        for (let i = 0; i < n; i++) d[i] = (Math.random() * 2 - 1) * Math.pow(1 - i / n, 5);
+        const src = a.createBufferSource(), bp = a.createBiquadFilter(), g = a.createGain();
+        src.buffer = buf; bp.type = 'bandpass'; bp.frequency.value = 2300; bp.Q.value = .9; g.gain.value = .5;
+        src.connect(bp).connect(g).connect(a.destination); src.start(t);
+        const o = a.createOscillator(), og = a.createGain();
+        o.type = 'triangle'; o.frequency.setValueAtTime(1150, t); o.frequency.exponentialRampToValueAtTime(620, t + .03);
+        og.gain.setValueAtTime(.16, t); og.gain.exponentialRampToValueAtTime(.0001, t + .045);
+        o.connect(og).connect(a.destination); o.start(t); o.stop(t + .05);
+      } catch (e) { /* без звука */ }
+    };
+    const chime = (ok) => {
+      try {
+        const a = getAC(), t = a.currentTime;
+        (ok ? [[1318, 0], [1760, .09], [2093, .18]] : [[196, 0], [147, .1]]).forEach(([f, dt]) => {
+          const o = a.createOscillator(), g = a.createGain();
+          o.type = ok ? 'triangle' : 'square'; o.frequency.value = f;
+          g.gain.setValueAtTime(ok ? .12 : .05, t + dt); g.gain.exponentialRampToValueAtTime(.0001, t + dt + (ok ? .35 : .18));
+          o.connect(g).connect(a.destination); o.start(t + dt); o.stop(t + dt + .4);
+        });
+      } catch (e) { /* без звука */ }
+    };
     const blip = (f = 600, d = .07) => {
       try {
         ac = ac || new (window.AudioContext || window.webkitAudioContext)();
@@ -489,7 +570,7 @@
         o.connect(g).connect(ac.destination); o.start(); o.stop(ac.currentTime + d);
       } catch (e) { /* без звука */ }
     };
-    document.addEventListener('click', (e) => { if (e.target.closest('.mcb, .slot, .arr, .toc button, summary')) blip(); });
+    document.addEventListener('click', (e) => { if (e.target.closest('.mcb, .slot, .arr, .toc button, summary')) click(); });
 
     /* ---------- блочный мир на главной ---------- */
     const world = $('#world');
@@ -512,18 +593,28 @@
       for (let c = -3; c < cols * 2 + 3; c++) {
         const cc = ((c % cols) + cols) % cols;
         if ((cc * 37 + 5) % 13 !== 0) continue;
-        const h = hAt(cc);
-        for (let r = h; r < h + 4; r++) put(T.log, c, r);
-        for (let r = h + 2; r < h + 6; r++) for (let dc = -2; dc <= 2; dc++) {
-          if (r >= h + 4 && Math.abs(dc) === 2) continue;
+        const h = hAt(cc), cherry = cc % 2 === 0;
+        for (let r = h; r < h + 4; r++) put(cherry ? T.clog : T.log, c, r);
+        const wl = cherry ? 3 : 2, lv = cherry ? T.cherry : T.leaves;
+        for (let r = h + 2; r < h + 6; r++) for (let dc = -wl; dc <= wl; dc++) {
+          if (r >= h + 4 && Math.abs(dc) === wl) continue;
+          if (r === h + 2 && cherry && Math.abs(dc) === wl) continue;
           if (dc === 0 && r < h + 4) continue;
-          put(T.leaves, c + dc, r);
+          put(lv, c + dc, r);
         }
       }
       x.fillStyle = 'rgba(0,0,0,.18)';
       for (let c = 0; c < cols * 2; c++) { const h = hAt(c % cols); x.fillRect(c * B, (rows - h + 1) * B, B, (h - 1) * B); }
     };
-    drawWorld();
+    const paintBg = () => {
+      const c = document.createElement('canvas'); c.width = 480; c.height = 270;
+      const x = c.getContext('2d'), g = x.createLinearGradient(0, 0, 0, 270);
+      g.addColorStop(0, '#5b9cff'); g.addColorStop(.6, '#a8ceff'); g.addColorStop(1, '#d6e8ff');
+      x.fillStyle = g; x.fillRect(0, 0, 480, 270);
+      const h = 270 * .62; x.drawImage(world, 0, 0, world.width / 2, world.height, 0, 270 - h, 480, h);
+      $('#bgpan').style.backgroundImage = `url(${c.toDataURL('image/jpeg', .7)})`;
+    };
+    drawWorld(); paintBg();
     let rzW = innerWidth, rzT;
     addEventListener('resize', () => { if (innerWidth === rzW) return; rzW = innerWidth; clearTimeout(rzT); rzT = setTimeout(drawWorld, 250); });
 
@@ -550,7 +641,7 @@
     const nextToast = () => {
       const t = tq.shift(); if (!t) { tbusy = false; return; }
       tbusy = true; $('#tIco').style.backgroundImage = ICON[t[0]]; $('#tName').textContent = t[1];
-      toast.classList.add('show'); if (ac && ac.state === 'running') blip(900, .12);
+      toast.classList.add('show'); if (ac && ac.state === 'running') blip(1400, .1);
       setTimeout(() => { toast.classList.remove('show'); setTimeout(nextToast, 800); }, 3200);
     };
     const achieve = (icon, name) => { tq.push([icon, name]); if (!tbusy) nextToast(); };
@@ -569,7 +660,7 @@
     slots.forEach((s) => s.addEventListener('mouseenter', () => showName(s.dataset.name, 1500)));
     addEventListener('keydown', (e) => {
       if (e.metaKey || e.ctrlKey || e.altKey) return;
-      const n = +e.key; if (n >= 1 && n <= 9) { blip(); slots[n - 1].click(); }
+      const n = +e.key; if (n >= 1 && n <= 9 && !document.body.classList.contains('loading')) { click(); slots[n - 1].click(); }
     });
     const secIO = new IntersectionObserver((es) => es.forEach((e) => {
       if (!e.isIntersecting) return;
@@ -674,17 +765,53 @@
       if (!reduce) setInterval(() => { si = (si + 1) % SPLASH.length; splash.textContent = SPLASH[si]; }, 3200);
       onScroll();
     };
+    /* ---------- тест: как скрафтить верстак ---------- */
+    const slotTex = { P: T.planks, L: T.log, C: T.cobble };
+    const slotIco = (k) => (k === 'S' ? ICON.stick : k ? `url(${slotTex[k].toDataURL()})` : '');
+    const RECIPES = [
+      { g: ['P', 'P', '', 'P', 'P', '', '', '', ''], ok: true },
+      { g: ['L', 'L', '', 'L', 'L', '', '', '', ''], msg: 'Почти! Из брёвен сначала делают доски.' },
+      { g: ['C', 'C', 'C', 'C', '', 'C', 'C', 'C', 'C'], msg: 'Это печка. Верстак из камня не делают.' },
+      { g: ['', 'P', '', '', 'S', '', '', 'S', ''], msg: 'Так получится лопата, а не верстак.' }
+    ].sort(() => Math.random() - .5);
+    const runQuiz = (done) => {
+      const quiz = $('#quiz'), grid = $('#qgrid'), msg = $('#qmsg');
+      grid.innerHTML = RECIPES.map((r, i) => `<button class="qopt" type="button" data-i="${i}" aria-label="Вариант ${'ABCD'[i]}"><span class="ql">Вариант ${'ABCD'[i]}</span><div class="craft"><div class="cg">${r.g.map((k) => `<span class="cs">${k ? `<i class="ico" style="background-image:${slotIco(k)}"></i>` : ''}</span>`).join('')}</div><span class="carr"></span><span class="cs cres"><i class="ico" style="background-image:${ICON.table}"></i><span class="q">?</span></span></div></button>`).join('');
+      quiz.classList.remove('out');
+      let tries = 0, solved = false;
+      $$('.qopt').forEach((b) => b.addEventListener('click', () => {
+        if (solved) return;
+        const r = RECIPES[+b.dataset.i];
+        if (r.ok) {
+          solved = true; chime(true); b.classList.add('good');
+          msg.className = 'qmsg ok'; msg.textContent = 'Верно! Четыре доски квадратом. Заходим на сервер…';
+          try { sessionStorage.setItem('fc-quiz', '1'); } catch (e) { /* без памяти */ }
+          setTimeout(() => { quiz.classList.add('out'); done(true); setTimeout(() => quiz.remove(), 700); }, 1500);
+        } else {
+          tries++; click(); chime(false);
+          b.classList.remove('bad'); b.offsetWidth; b.classList.add('bad');
+          msg.className = 'qmsg no'; msg.textContent = r.msg;
+          if (tries >= 2) { $$('.qopt').find((x) => RECIPES[+x.dataset.i].ok).classList.add('hint'); msg.textContent += ' Подсказка: правильный вариант подсвечен.'; }
+        }
+      }));
+    };
+    let passed = false;
+    try { passed = sessionStorage.getItem('fc-quiz') === '1'; } catch (e) { /* без памяти */ }
+    const afterLoad = () => {
+      if (passed) { $('#quiz').remove(); start(); return; }
+      runQuiz(() => { start(); setTimeout(() => achieve('table', 'Опытный крафтер'), 1600); });
+    };
     const loader = $('#loader');
-    if (reduce) { loader.remove(); start(); }
+    if (reduce) { loader.remove(); afterLoad(); }
     else {
-      const STEPS = ['Генерация ландшафта', 'Высаживаем деревья', 'Прогреваем аудиторию', 'Строим воронки', 'Почти готово'];
+      const STEPS = ['Генерация ландшафта', 'Высаживаем вишни', 'Прогреваем аудиторию', 'Строим воронки', 'Почти готово'];
       const bar = $('#ldBar'), stepEl = $('#ldStep'), t0 = performance.now(), DUR = 2100;
       const tick = () => {
         const p = Math.min((performance.now() - t0) / DUR, 1);
         bar.style.width = Math.round((1 - Math.pow(1 - p, 2)) * 100) + '%';
         stepEl.textContent = STEPS[Math.min(STEPS.length - 1, Math.floor(p * STEPS.length))];
         if (p < 1) setTimeout(tick, 60);
-        else { loader.classList.add('out'); start(); setTimeout(() => loader.remove(), 900); }
+        else { loader.classList.add('out'); afterLoad(); setTimeout(() => loader.remove(), 900); }
       };
       tick();
     }
