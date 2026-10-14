@@ -122,7 +122,7 @@
     .mod .more { align-self: flex-start; margin-top: 18px; font-size: 13px; font-weight: 600; color: var(--navy); border-bottom: 1.5px solid currentColor; }
     .mod .xtra { margin-top: 18px; }
     /* предмет: белый фон фото растворяется в карточке */
-    .mod .obj, .talk .obj { position: absolute; z-index: 1; pointer-events: none; mix-blend-mode: multiply; -webkit-mask-image: radial-gradient(closest-side, #000 62%, transparent 100%); mask-image: radial-gradient(closest-side, #000 62%, transparent 100%); filter: grayscale(.25) contrast(1.05); transition: transform 1.2s var(--ease), opacity .6s; }
+    .mod .obj, .talk .obj { position: absolute; z-index: 1; pointer-events: none; mix-blend-mode: multiply; -webkit-mask-image: radial-gradient(closest-side, #000 62%, transparent 100%); mask-image: radial-gradient(closest-side, #000 62%, transparent 100%); filter: grayscale(.25) brightness(1.06) contrast(1.1); transition: transform 1.2s var(--ease), opacity .6s; }
     .mod .obj { right: var(--x, -6%); bottom: var(--y, -6%); width: var(--w, 70%); transform: rotate(var(--r, 0deg)); }
     .mod:hover .obj { transform: translate(-6px, -10px) rotate(calc(var(--r, 0deg) - 4deg)) scale(1.04); }
     .mod.open .obj { opacity: .14; }
@@ -382,7 +382,7 @@
         </div>
         <div class="talks">
           <div class="talk fade" style="--d:0"><img class="obj" style="--r:-8deg" src="https://images.pexels.com/photos/34642452/pexels-photo-34642452.jpeg?auto=compress&cs=tinysrgb&w=400" alt="" loading="lazy" decoding="async"><span class="mono who">начинающий</span><div class="bub me">Я никогда не продюсировал. Мне подойдёт? <span class="tm">10:02</span></div><div class="bub">Да. Всё идёт от основ до первого запуска по понятной схеме. <span class="tm">10:04</span></div></div>
-          <div class="talk fade" style="--d:1"><img class="obj" style="--r:14deg" src="https://images.pexels.com/photos/31020642/pexels-photo-31020642.jpeg?auto=compress&cs=tinysrgb&w=400" alt="" loading="lazy" decoding="async"><span class="mono who">практик</span><div class="bub me">Запуски есть, но каждый раз с нуля <span class="tm">18:31</span></div><div class="bub"><div class="rp"><b>F-Producers Club</b>шаблоны · разборы · чат</div>Соберёшь систему и перестанешь начинать с нуля <span class="tm">18:33</span></div></div>
+          <div class="talk fade" style="--d:1"><img class="obj" style="--r:10deg" src="https://images.pexels.com/photos/8372936/pexels-photo-8372936.jpeg?auto=compress&cs=tinysrgb&w=400" alt="" loading="lazy" decoding="async"><span class="mono who">практик</span><div class="bub me">Запуски есть, но каждый раз с нуля <span class="tm">18:31</span></div><div class="bub"><div class="rp"><b>F-Producers Club</b>шаблоны · разборы · чат</div>Соберёшь систему и перестанешь начинать с нуля <span class="tm">18:33</span></div></div>
           <div class="talk fade" style="--d:2"><img class="obj" style="--r:-10deg" src="https://images.pexels.com/photos/12266869/pexels-photo-12266869.jpeg?auto=compress&cs=tinysrgb&w=400" alt="" loading="lazy" decoding="async"><span class="mono who">эксперт</span><div class="bub me">Зачем это мне, я же эксперт? <span class="tm">21:17</span></div><div class="bub">Поймёшь, как продюсер упакует и продаст твой продукт — и с кем работать. <span class="tm">21:20</span></div></div>
         </div>
       </div>
@@ -492,7 +492,7 @@
     // у каждой карточки свой предмет, размер и деталь
     const LOOK = [
       { c: 'w', obj: [28843754, '46%', '-2%', '-10%', '8deg'], x: '<span class="sticker">made for telegram</span>', tag: 'флакон replica' },
-      { c: 't', obj: [37029786, '110%', '-14%', '-6%', '0deg'], x: '<div class="heat"><span class="mono">прогрев</span><b><i></i></b><span class="mono">87°</span></div>', tag: 'утренний капучино' },
+      { c: 't', obj: [31020642, '96%', '-8%', '-4%', '-6deg'], x: '<div class="heat"><span class="mono">прогрев</span><b><i></i></b><span class="mono">87°</span></div>', tag: 'бокал после эфира' },
       { obj: [14272794, '96%', '-22%', '-12%', '-8deg'], x: '<div class="flow mono"><span>1000</span><i>→</i><span>120</span><i>→</i><span>18</span></div>', tag: 'провод = воронка' },
       { c: 'dark', x: '<div class="days"><i></i><i></i><i></i><i></i><i></i><i></i><i class="on"></i><span class="mono">t–7</span></div>', tag: 'старт' },
       { obj: [35989302, '104%', '-26%', '-8%', '-6deg'], x: '<div class="chips"><span>посевы</span><span>ads</span><span>вп</span></div>', tag: 'в тени' },
