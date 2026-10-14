@@ -5,15 +5,15 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>F-Producers Club</title>
   <meta name="description" content="F-Producers Club — клуб продюсеров инфопродуктов в Telegram. Вступление 1340 ₽.">
-  <meta name="theme-color" content="#f6f4f0">
+  <meta name="theme-color" content="#ffffff">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@500;600;700;800;900&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
   <style>
     :root {
-      --bg: #f6f4f0; --paper: #ffffff; --ink: #1f2229; --navy: #172231; --sub: #5d636e; --mute: #9aa0a9;
+      --bg: #ffffff; --paper: #ffffff; --ink: #0e0e0e; --navy: #172231; --sub: #5d636e; --mute: #9aa0a9;
       --line: rgba(23,34,49,.1); --time: #8fb6dd; --pink: #e8559b; --blue: #2ea6ff; --dot: #d3836a;
-      --grad: linear-gradient(100deg, #172231 0%, #2f3d55 38%, #8a93a3 100%);
+      --grad: linear-gradient(100deg, #0e0e0e 0%, #2b2b2b 42%, #a3a3a3 100%);
       --head: "Inter Tight", "Helvetica Neue", Arial, sans-serif;
       --ease: cubic-bezier(.22, 1, .36, 1);
       --wrap: 1220px;
@@ -104,8 +104,21 @@
     .hero .chat .gone { display: none; }
 
     /* рваные листы */
-    .sheet { position: relative; background: var(--paper); z-index: 1; }
-    .sheet.dark { background: var(--navy); color: #fff; }
+    .sheet { position: relative; z-index: 1; }
+
+    /* плёночное зерно на всю страницу */
+    body::after { content: ""; position: fixed; inset: -50%; z-index: 200; pointer-events: none; opacity: .07; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E"); animation: grain 1.2s steps(5) infinite; }
+    @keyframes grain { 20% { transform: translate(-3%, 2%); } 40% { transform: translate(2%, -3%); } 60% { transform: translate(-2%, -2%); } 80% { transform: translate(3%, 3%); } }
+
+    /* фото-коллаж: выцветшая плёнка */
+    .ph { position: absolute; margin: 0; overflow: hidden; background: #e9e9e9; box-shadow: 0 16px 36px -18px rgba(0,0,0,.35); will-change: transform; }
+    .ph img { display: block; width: 100%; height: 100%; object-fit: cover; filter: grayscale(.5) saturate(.75) contrast(.94) brightness(1.04); transition: filter .8s ease, transform 1.4s var(--ease); }
+    .ph::after { content: ""; position: absolute; inset: 0; background: linear-gradient(rgba(255,255,255,.08), rgba(255,255,255,.08)), url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='1.1' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.55'/%3E%3C/svg%3E"); mix-blend-mode: overlay; pointer-events: none; }
+    .ph:hover img { filter: grayscale(.1) saturate(1) contrast(1) brightness(1); transform: scale(1.04); }
+    .collage { position: absolute; inset: 0; pointer-events: none; z-index: 0; }
+    .collage .ph { pointer-events: auto; }
+    /* белый бокс-подпись, как «навигация» */
+    .tag-box { display: inline-block; padding: .02em .18em .1em; background: #fff; color: var(--ink); font-family: var(--head); font-weight: 600; letter-spacing: -.07em; line-height: .95; box-shadow: 0 10px 30px -18px rgba(0,0,0,.4); }
     section.sec { padding: 140px 0; position: relative; }
     .shead { display: flex; justify-content: space-between; align-items: flex-end; gap: 30px; flex-wrap: wrap; margin-bottom: 70px; }
     .kick { display: block; margin-bottom: 18px; color: var(--mute); }
@@ -114,13 +127,29 @@
     .dark .grad { background-image: linear-gradient(100deg, #ffffff 0%, #c9d3e0 50%, #6f7d93 100%); }
     .dark .shead p, .dark .kick { color: #9fb0c6; }
 
+    .hero-col { position: relative; padding: 40px 0; }
+    .hero-col .chat { position: relative; z-index: 2; }
+    .hero-tag { position: absolute; z-index: 3; left: -6%; top: 46%; font-size: clamp(34px, 3.6vw, 52px); --rot: -2deg; }
+    .head-col { position: relative; width: min(420px, 100%); min-height: 260px; }
+    .head-col .tag-p { position: absolute; z-index: 2; left: 18%; bottom: -10px; max-width: 300px; padding: 14px 16px; background: #fff; color: var(--sub); font-size: 15px; box-shadow: 0 16px 36px -20px rgba(0,0,0,.4); }
+    .talks-wrap { position: relative; }
+    .talks-wrap .talks { position: relative; z-index: 1; }
+    .rcpt-col { position: relative; display: grid; place-items: center; padding: 30px 0; }
+    .rcpt-col .rcpt-sh { position: relative; z-index: 1; }
+    .final-collage .ph { opacity: .95; }
+    .final h2 { line-height: 1.02; }
+    .final h2 .tag-box { padding: 0 .16em .06em; margin: .04em 0; }
+
     /* модули: рваная сетка */
     .mods { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; align-items: start; }
-    .mod { position: relative; padding: 26px 24px 24px; background: var(--bg); border-radius: 24px; transition: transform .6s var(--ease), background .4s, box-shadow .6s var(--ease); cursor: pointer; }
+    .mod { position: relative; padding: 0 0 22px; background: #fff; border-radius: 4px; box-shadow: 0 0 0 1px rgba(0,0,0,.06), 0 18px 40px -26px rgba(0,0,0,.35); transition: transform .6s var(--ease), background .4s, box-shadow .6s var(--ease); cursor: pointer; }
     .mod:nth-child(4n+2) { margin-top: 46px; } .mod:nth-child(4n+3) { margin-top: 14px; } .mod:nth-child(4n+4) { margin-top: 70px; }
-    .mod:hover { background: #fff; box-shadow: 0 0 0 1px var(--line), 0 30px 60px -36px rgba(23,34,49,.55); transform: translateY(-6px) rotate(var(--tilt)); }
-    .mod .n { font-family: var(--head); font-weight: 800; font-size: 54px; line-height: 1; letter-spacing: -.05em; }
-    .mod h3 { margin: 30px 0 8px; font-family: var(--head); font-weight: 700; font-size: 22px; letter-spacing: -.02em; }
+    .mod:hover { box-shadow: 0 0 0 1px rgba(0,0,0,.08), 0 30px 60px -30px rgba(0,0,0,.45); transform: translateY(-6px) rotate(var(--tilt)); }
+    .mod .ph { position: relative; height: 150px; box-shadow: none; }
+    .mod .n { position: absolute; z-index: 2; right: 12px; top: 12px; padding: 2px 8px; background: #fff; font-family: "JetBrains Mono", monospace; font-size: 12px; }
+    .mod .tag-box { position: relative; z-index: 2; margin: -24px 0 0 14px; font-size: 32px; box-shadow: none; }
+    .mod .bodyx { padding: 6px 22px 0; }
+    .mod h3 { display: none; margin: 30px 0 8px; font-family: var(--head); font-weight: 700; font-size: 22px; letter-spacing: -.02em; }
     .mod p { font-size: 15px; color: var(--sub); }
     .mod ul { list-style: none; display: grid; grid-template-rows: 0fr; transition: grid-template-rows .6s var(--ease); }
     .mod ul > div { overflow: hidden; }
@@ -128,8 +157,8 @@
     .mod li { padding: 8px 0 0 18px; position: relative; font-size: 14.5px; color: var(--ink); }
     .mod li::before { content: ""; position: absolute; left: 0; top: 17px; width: 6px; height: 6px; background: var(--navy); }
     .mod .more { display: inline-block; margin-top: 16px; font-size: 13px; font-weight: 600; color: var(--navy); border-bottom: 1.5px solid currentColor; }
-    .mod .px { position: absolute; right: 20px; top: 24px; width: 18px; height: 18px; color: var(--navy); opacity: .18; transition: opacity .4s, transform .8s var(--ease); }
-    .mod:hover .px { opacity: .9; transform: rotate(72deg) scale(1.15); }
+    .mod > .px { position: absolute; right: 16px; bottom: 18px; width: 18px; height: 18px; color: var(--navy); opacity: .18; transition: opacity .4s, transform .8s var(--ease); }
+    .mod:hover > .px { opacity: .9; transform: rotate(72deg) scale(1.15); }
 
     /* путь */
     .path { position: relative; display: grid; grid-template-columns: repeat(5, 1fr); gap: 16px; }
@@ -147,7 +176,7 @@
     .talks { display: grid; grid-template-columns: repeat(3, 1fr); gap: 28px; align-items: start; }
     .talk { display: flex; flex-direction: column; gap: 10px; }
     .talk:nth-child(2) { margin-top: 60px; } .talk:nth-child(3) { margin-top: 20px; }
-    .talk .who { margin-bottom: 4px; color: #9fb0c6; }
+    .talk .who { align-self: flex-start; margin-bottom: 4px; padding: 3px 8px; background: #fff; color: var(--sub); box-shadow: 0 0 0 1px var(--line); }
     .dark .bub.me { background: #263247; color: #fff; box-shadow: none; }
     .dark .bub.me .tm { color: #7c8aa0; }
     .dark .bub { background: #fff; color: var(--navy); }
@@ -207,6 +236,10 @@
       .step:nth-child(odd of .step) { margin-top: 0; }
       .talks { grid-template-columns: 1fr; }
       .talk:nth-child(n) { margin-top: 0; }
+      .hero-col { margin-top: 30px; padding: 60px 0 70px; }
+      .hero-tag { left: 0; top: auto; bottom: 8px; }
+      .head-col { width: 100%; min-height: 220px; margin-top: 10px; }
+      .final-collage .ph:nth-child(2), .final-collage .ph:nth-child(5) { display: none; }
       section.sec { padding: 110px 0; }
     }
     @media (max-width: 600px) {
@@ -218,6 +251,10 @@
       .mod:nth-child(even) { margin-top: 0; }
       .receipt { padding: 40px 24px 44px; }
       .bub { font-size: 16px; }
+      .hero-col .collage .ph:nth-child(2) { width: 36% !important; }
+      .talks-wrap .collage { display: none; }
+      .final-collage .ph { width: 34% !important; }
+      .final-collage .ph:nth-child(3) { display: none; }
     }
     @media (prefers-reduced-motion: reduce) {
       *, *::before, *::after { animation: none !important; transition: none !important; }
@@ -262,6 +299,14 @@
           <div class="handle fade" style="--d:5">@fedonko</div>
         </div>
 
+        <div class="hero-col">
+          <div class="collage" aria-hidden="true">
+            <figure class="ph fade" style="left:-14%;top:-18%;width:58%;aspect-ratio:4/3;--rot:-2deg;--d:2" data-depth="0.08"><img src="https://images.pexels.com/photos/35415042/pexels-photo-35415042.jpeg?auto=compress&cs=tinysrgb&w=800" alt="" loading="lazy" decoding="async"></figure>
+            <figure class="ph fade" style="right:-12%;top:-26%;width:44%;aspect-ratio:3/4;--rot:2deg;--d:3" data-depth="0.14"><img src="https://images.pexels.com/photos/17524500/pexels-photo-17524500.jpeg?auto=compress&cs=tinysrgb&w=800" alt="" loading="lazy" decoding="async"></figure>
+            <figure class="ph fade" style="left:-8%;bottom:-24%;width:46%;aspect-ratio:1/1;--rot:1deg;--d:4" data-depth="0.1"><img src="https://images.pexels.com/photos/19151357/pexels-photo-19151357.jpeg?auto=compress&cs=tinysrgb&w=800" alt="" loading="lazy" decoding="async"></figure>
+            <figure class="ph fade" style="right:-6%;bottom:-14%;width:42%;aspect-ratio:4/5;--rot:-1.5deg;--d:5" data-depth="0.18"><img src="https://images.pexels.com/photos/11290329/pexels-photo-11290329.jpeg?auto=compress&cs=tinysrgb&w=800" alt="" loading="lazy" decoding="async"></figure>
+            <span class="tag-box hero-tag fade" style="--d:6">клуб продюсеров</span>
+          </div>
         <div class="chat" id="heroChat" aria-label="Переписка">
           <div class="bub me" data-step="0">Хочу запускать экспертов в Telegram, но не понимаю, с чего начать <span class="tm">1:18 PM</span></div>
           <div class="typing" data-step="1"><i></i><i></i><i></i></div>
@@ -269,17 +314,18 @@
           <div class="bub" data-step="3">Это прикольно<br><span class="re">💗 <i>Ф</i></span> <span class="tm">edited 1:40 PM</span></div>
           <div class="bub me" data-step="4">в целом заход это хороший <span class="tm">2:25 PM</span></div>
         </div>
+        </div>
       </div>
     </section>
 
     <!-- МОДУЛИ -->
-    <div class="sheet" data-torn="top bottom">
+    <div class="sheet">
       <section class="sec" id="modules">
         <div class="sky" data-sky="8" aria-hidden="true"></div>
         <div class="wrap">
           <div class="shead">
             <div><span class="mono kick fade">01 / модули</span><h2 class="grad fade" style="--d:1">Вся система продюсирования в одном месте</h2></div>
-            <p class="fade" style="--d:2">Восемь модулей закрывают весь цикл работы с экспертом. Нажми на модуль, чтобы раскрыть содержание.</p>
+            <div class="head-col"><div class="collage" aria-hidden="true"><figure class="ph fade" style="right:4%;top:-30px;width:56%;aspect-ratio:4/5;--rot:2deg;--d:2" data-depth="0.12"><img src="https://images.pexels.com/photos/2826787/pexels-photo-2826787.jpeg?auto=compress&cs=tinysrgb&w=600" alt="" loading="lazy" decoding="async"></figure><figure class="ph fade" style="left:0;top:40px;width:52%;aspect-ratio:1/1;--rot:-2deg;--d:3" data-depth="0.06"><img src="https://images.pexels.com/photos/13027744/pexels-photo-13027744.jpeg?auto=compress&cs=tinysrgb&w=600" alt="" loading="lazy" decoding="async"></figure></div><p class="fade tag-p" style="--d:4">Восемь модулей закрывают весь цикл работы с экспертом. Нажми на модуль, чтобы раскрыть содержание.</p></div>
           </div>
           <div class="mods" id="mods"></div>
         </div>
@@ -305,17 +351,18 @@
     </section>
 
     <!-- ДЛЯ КОГО -->
-    <div class="sheet dark" data-torn="top bottom">
+    <div class="sheet">
       <section class="sec" id="who">
         <div class="wrap">
           <div class="shead">
             <div><span class="mono kick fade">03 / для кого</span><h2 class="grad fade" style="--d:1">Клуб подойдёт, если ты узнал себя в переписке</h2></div>
           </div>
+          <div class="talks-wrap"><div class="collage" aria-hidden="true"><figure class="ph fade" style="left:24%;top:-60px;width:24%;aspect-ratio:4/5;--rot:-3deg;--d:1" data-depth="0.12"><img src="https://images.pexels.com/photos/5909819/pexels-photo-5909819.jpeg?auto=compress&cs=tinysrgb&w=600" alt="" loading="lazy" decoding="async"></figure><figure class="ph fade" style="right:2%;bottom:-70px;width:26%;aspect-ratio:3/4;--rot:2deg;--d:2" data-depth="0.08"><img src="https://images.pexels.com/photos/25149741/pexels-photo-25149741.jpeg?auto=compress&cs=tinysrgb&w=600" alt="" loading="lazy" decoding="async"></figure></div>
           <div class="talks">
             <div class="talk fade" style="--d:0"><span class="mono who">начинающий</span><div class="bub me">Я никогда не продюсировал. Мне подойдёт? <span class="tm">10:02</span></div><div class="bub">Да. Всё идёт от основ до первого запуска по понятной схеме. <span class="tm">10:04</span></div></div>
             <div class="talk fade" style="--d:1"><span class="mono who">практик</span><div class="bub me">Запуски есть, но каждый раз с нуля <span class="tm">18:31</span></div><div class="bub"><div class="rp"><b>F-Producers Club</b>шаблоны · разборы · чат</div>Соберёшь систему и перестанешь начинать с нуля <span class="tm">18:33</span></div></div>
             <div class="talk fade" style="--d:2"><span class="mono who">эксперт</span><div class="bub me">Зачем это мне, я же эксперт? <span class="tm">21:17</span></div><div class="bub">Поймёшь, как продюсер упакует и продаст твой продукт — и с кем работать. <span class="tm">21:20</span></div></div>
-          </div>
+          </div></div>
         </div>
       </section>
     </div>
@@ -331,7 +378,7 @@
             <p class="fade" style="--d:2">Разовый платёж. Без подписок и доплат — просто чек, который хочется сохранить.</p>
             <div class="fade" style="--d:3"><a class="btn" href="https://t.me/fedonko" target="_blank" rel="noopener">Вступить в клуб <span class="ar">→</span></a></div>
           </div>
-          <div class="rcpt-sh fade" style="--d:2;--r0:-6deg"><div class="receipt" data-zigzag>
+          <div class="rcpt-col"><div class="collage" aria-hidden="true"><figure class="ph fade" style="left:-4%;top:-40px;width:46%;aspect-ratio:3/4;--rot:-4deg;--d:1" data-depth="0.1"><img src="https://images.pexels.com/photos/11290329/pexels-photo-11290329.jpeg?auto=compress&cs=tinysrgb&w=600" alt="" loading="lazy" decoding="async"></figure><figure class="ph fade" style="right:-6%;bottom:-30px;width:50%;aspect-ratio:4/3;--rot:3deg;--d:2" data-depth="0.16"><img src="https://images.pexels.com/photos/35415042/pexels-photo-35415042.jpeg?auto=compress&cs=tinysrgb&w=600" alt="" loading="lazy" decoding="async"></figure></div><div class="rcpt-sh fade" style="--d:2;--r0:-6deg"><div class="receipt" data-zigzag>
             <div class="rh"><span class="logo"><span>F-PRODUCERS<br>CLUB</span><svg class="px" data-star viewBox="0 0 9 9" aria-hidden="true"></svg></span><small>чек № 0001 · доступ в клуб</small></div>
             <ul>
               <li><span>Модули × 8</span><span>вкл.</span></li>
@@ -344,13 +391,13 @@
             <div class="mono" style="color:var(--mute)">разовый платёж · без подписки</div>
             <div class="bar" aria-hidden="true"></div>
             <div class="thx">спасибо, что продюсируешь ★</div>
-          </div></div>
+          </div></div></div>
         </div>
       </div>
     </section>
 
     <!-- ВОПРОСЫ -->
-    <div class="sheet" data-torn="top bottom">
+    <div class="sheet">
       <section class="sec" id="faq">
         <div class="wrap">
           <div class="shead"><div><span class="mono kick fade">05 / вопросы</span><h2 class="grad fade" style="--d:1">Частые вопросы</h2></div></div>
@@ -367,9 +414,10 @@
     <!-- ФИНАЛ -->
     <section class="final" id="final">
       <div class="sky" data-sky="18" aria-hidden="true"></div>
+      <div class="collage final-collage" aria-hidden="true"><figure class="ph fade" style="left:4%;top:8%;width:22%;aspect-ratio:4/3;--rot:-2deg;--d:0" data-depth="0.12"><img src="https://images.pexels.com/photos/25149741/pexels-photo-25149741.jpeg?auto=compress&cs=tinysrgb&w=600" alt="" loading="lazy" decoding="async"></figure><figure class="ph fade" style="left:30%;top:2%;width:16%;aspect-ratio:3/4;--rot:1deg;--d:1" data-depth="0.2"><img src="https://images.pexels.com/photos/17524500/pexels-photo-17524500.jpeg?auto=compress&cs=tinysrgb&w=600" alt="" loading="lazy" decoding="async"></figure><figure class="ph fade" style="right:6%;top:6%;width:24%;aspect-ratio:4/3;--rot:2deg;--d:2" data-depth="0.1"><img src="https://images.pexels.com/photos/13027744/pexels-photo-13027744.jpeg?auto=compress&cs=tinysrgb&w=600" alt="" loading="lazy" decoding="async"></figure><figure class="ph fade" style="left:8%;bottom:6%;width:20%;aspect-ratio:1/1;--rot:1.5deg;--d:3" data-depth="0.16"><img src="https://images.pexels.com/photos/35415042/pexels-photo-35415042.jpeg?auto=compress&cs=tinysrgb&w=600" alt="" loading="lazy" decoding="async"></figure><figure class="ph fade" style="right:10%;bottom:4%;width:18%;aspect-ratio:3/4;--rot:-2deg;--d:4" data-depth="0.22"><img src="https://images.pexels.com/photos/2826787/pexels-photo-2826787.jpeg?auto=compress&cs=tinysrgb&w=600" alt="" loading="lazy" decoding="async"></figure></div>
       <div class="wrap" style="z-index:1">
         <span class="mono kick fade">последний шаг</span>
-        <h2 class="grad fade" style="--d:1">Твой первый запуск ближе, чем кажется</h2>
+        <h2 class="fade" style="--d:1"><span class="tag-box">Твой первый запуск</span><br><span class="tag-box"><span class="grad">ближе, чем кажется</span></span></h2>
         <p class="fade" style="--d:2">Вступай в клуб и начни с первого модуля уже сегодня.</p>
         <div class="fade" style="--d:3"><a class="btn" href="https://t.me/fedonko" target="_blank" rel="noopener">Вступить за 1 340 ₽ <span class="ar">→</span></a></div>
         <div class="handle fade" style="--d:4">@fedonko</div>
@@ -419,7 +467,6 @@
       if (sides.includes('bottom')) for (let i = N; i >= 0; i--) pts.push(`${(i / N * 100).toFixed(2)}% calc(100% - ${j()}px)`); else pts.push('100% 100%', '0 100%');
       el.style.clipPath = `polygon(${pts.join(',')})`;
     };
-    $$('[data-torn]').forEach(tear);
     // чек: зубчатые края сверху и снизу
     $$('[data-zigzag]').forEach((el) => {
       const N = 24, pts = [];
@@ -439,7 +486,8 @@
       ['Договор', 'Как договориться и не остаться ни с чем.', ['Модели оплаты: процент, фикс, микс', 'Что прописать в договоре', 'Зоны ответственности', 'Шаблон договора']],
       ['Команда', 'Кого нанять под запуск и как управлять.', ['Роли: таргетолог, копирайтер, дизайнер', 'Где искать и как проверять', 'Задачи, дедлайны, контроль', 'Бюджет на команду']]
     ];
-    $('#mods').innerHTML = MODS.map(([t, d, l], i) => `<article class="mod fade" style="--d:${i % 4};--tilt:${[-1.2, 1, -.8, 1.3][i % 4]}deg" tabindex="0" role="button" aria-expanded="false"><svg class="px" viewBox="0 0 9 9" aria-hidden="true">${starRects()}</svg><div class="n grad">0${i + 1}</div><h3>${t}</h3><p>${d}</p><ul><div>${l.map((x) => `<li>${x}</li>`).join('')}</div></ul><span class="more">что внутри</span></article>`).join('');
+    const MPH = [13027744,19151357,11290329,35415042,17524500,5909819,2826787,25149741];
+    $('#mods').innerHTML = MODS.map(([t, d, l], i) => `<article class="mod fade" style="--d:${i % 4};--tilt:${[-1.2, 1, -.8, 1.3][i % 4]}deg" tabindex="0" role="button" aria-expanded="false"><figure class="ph"><img src="https://images.pexels.com/photos/${MPH[i]}/pexels-photo-${MPH[i]}.jpeg?auto=compress&cs=tinysrgb&w=600" alt="" loading="lazy" decoding="async"></figure><span class="n">0${i + 1}</span><span class="tag-box">${t}</span><svg class="px" viewBox="0 0 9 9" aria-hidden="true">${starRects()}</svg><div class="bodyx"><p>${d}</p><ul><div>${l.map((x) => `<li>${x}</li>`).join('')}</div></ul><span class="more">что внутри</span></div></article>`).join('');
     $$('.mod').forEach((m) => {
       const t = () => { const o = m.classList.toggle('open'); m.setAttribute('aria-expanded', o); m.querySelector('.more').textContent = o ? 'свернуть' : 'что внутри'; };
       m.addEventListener('click', t);
@@ -469,7 +517,17 @@
 
     /* ---------- шапка ---------- */
     const nav = $('#nav');
-    const onScroll = () => nav.classList.toggle('solid', scrollY > 30);
+    const phs = $$('.ph[data-depth]');
+    let ptk = false;
+    const onScroll = () => {
+      nav.classList.toggle('solid', scrollY > 30);
+      if (reduce || ptk) return; ptk = true;
+      requestAnimationFrame(() => {
+        const vh = innerHeight;
+        phs.forEach((f) => { const r = f.getBoundingClientRect(); if (r.bottom < -100 || r.top > vh + 100) return; const off = (r.top + r.height / 2 - vh / 2) * -+f.dataset.depth; f.style.translate = `0 ${off.toFixed(1)}px`; });
+        ptk = false;
+      });
+    };
     addEventListener('scroll', onScroll, { passive: true }); onScroll();
 
     /* ---------- счётчик цены ---------- */
