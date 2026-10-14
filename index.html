@@ -102,21 +102,58 @@
     .kick { display: block; margin-bottom: 18px; color: var(--mute); }
     h2 { font-family: var(--head); font-weight: 800; font-size: clamp(36px, 5.2vw, 76px); line-height: 1; letter-spacing: -.04em; max-width: 820px; }
 
-    /* модули: чистые карточки */
-    .mods { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 16px; align-items: start; }
-    .mod { position: relative; padding: 26px 24px 24px; background: #fff; border-radius: 6px; box-shadow: 0 0 0 1px rgba(0,0,0,.07); transition: transform .6s var(--ease), box-shadow .6s var(--ease); cursor: pointer; }
+    /* модули: бенто с нишевыми предметами */
+    .mods { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); grid-auto-flow: dense; gap: 16px; }
+    .mod { position: relative; display: flex; flex-direction: column; min-height: 380px; padding: 24px 24px 22px; background: #fff; border-radius: 6px; overflow: hidden; isolation: isolate; box-shadow: 0 0 0 1px rgba(0,0,0,.07); transition: transform .6s var(--ease), box-shadow .6s var(--ease); cursor: pointer; }
+    .mod.w { grid-column: span 2; min-height: 330px; } .mod.t { grid-row: span 2; }
     .mod:hover, .mod.open { box-shadow: 0 0 0 1px rgba(0,0,0,.09), 0 30px 60px -34px rgba(0,0,0,.4); transform: translateY(-4px); }
-    .mod .top { display: flex; justify-content: space-between; align-items: center; color: var(--mute); }
-    .mod .ci { width: 22px; height: 22px; opacity: .35; transition: opacity .4s, transform 1s var(--ease); }
-    .mod:hover .ci, .mod.open .ci { opacity: 1; transform: rotate(90deg) scale(1.15); }
-    .mod h3 { margin: 46px 0 10px; font-family: var(--head); font-weight: 600; font-size: 30px; line-height: 1; letter-spacing: -.06em; }
+    .mod > * { position: relative; z-index: 2; }
+    .mod .top { display: flex; justify-content: space-between; align-items: center; gap: 10px; color: var(--mute); }
+    .mod h3 { margin: 30px 0 10px; font-family: var(--head); font-weight: 600; font-size: 34px; line-height: .95; letter-spacing: -.06em; }
+    .mod.w h3 { font-size: 44px; }
+    .mod p, .mod ul, .mod .more, .mod .xtra { max-width: 240px; }
+    .mod.w p, .mod.w ul, .mod.w .xtra { max-width: 52%; }
     .mod p { font-size: 15px; color: var(--sub); }
     .mod ul { list-style: none; display: grid; grid-template-rows: 0fr; transition: grid-template-rows .6s var(--ease); }
     .mod ul > div { overflow: hidden; }
     .mod.open ul { grid-template-rows: 1fr; }
     .mod li { padding: 8px 0 0 18px; position: relative; font-size: 14.5px; color: var(--ink); }
     .mod li::before { content: ""; position: absolute; left: 0; top: 17px; width: 6px; height: 6px; background: var(--navy); }
-    .mod .more { display: inline-block; margin-top: 18px; font-size: 13px; font-weight: 600; color: var(--navy); border-bottom: 1.5px solid currentColor; }
+    .mod .more { align-self: flex-start; margin-top: 18px; font-size: 13px; font-weight: 600; color: var(--navy); border-bottom: 1.5px solid currentColor; }
+    .mod .xtra { margin-top: 18px; }
+    /* предмет: белый фон фото растворяется в карточке */
+    .mod .obj, .talk .obj { position: absolute; z-index: 1; pointer-events: none; mix-blend-mode: multiply; -webkit-mask-image: radial-gradient(closest-side, #000 62%, transparent 100%); mask-image: radial-gradient(closest-side, #000 62%, transparent 100%); filter: grayscale(.25) contrast(1.05); transition: transform 1.2s var(--ease), opacity .6s; }
+    .mod .obj { right: var(--x, -6%); bottom: var(--y, -6%); width: var(--w, 70%); transform: rotate(var(--r, 0deg)); }
+    .mod:hover .obj { transform: translate(-6px, -10px) rotate(calc(var(--r, 0deg) - 4deg)) scale(1.04); }
+    .mod.open .obj { opacity: .14; }
+    .sticker { display: inline-block; padding: 4px 10px 5px; background: #fff; font-family: var(--head); font-weight: 600; font-size: 15px; letter-spacing: -.04em; box-shadow: 0 0 0 1px var(--line), 0 10px 24px -16px rgba(0,0,0,.5); transform: rotate(-3deg); }
+    .chips { display: flex; flex-wrap: wrap; gap: 6px; }
+    .chips span { padding: 3px 9px; border-radius: 999px; font-size: 12px; box-shadow: inset 0 0 0 1px rgba(23,34,49,.18); color: var(--sub); }
+    .heat { display: flex; align-items: center; gap: 10px; color: var(--mute); }
+    .heat b { flex: 1; height: 6px; border-radius: 9px; background: rgba(23,34,49,.08); overflow: hidden; }
+    .heat i { display: block; height: 100%; width: 0; border-radius: 9px; background: linear-gradient(90deg, #c9ccd1, #172231); transition: width 2s var(--ease) .4s; }
+    .mod.in .heat i { width: 87%; }
+    .flow { display: flex; align-items: center; gap: 8px; font-size: 13px; color: var(--ink); }
+    .flow i { font-style: normal; color: var(--mute); }
+    .flow span:nth-child(3) { font-size: 15px; } .flow span:nth-child(5) { font-size: 18px; font-weight: 500; }
+    .spark, .sign { display: block; width: 100%; max-width: 200px; overflow: visible; }
+    .spark path, .sign path { fill: none; stroke: var(--navy); stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; stroke-dasharray: 400; stroke-dashoffset: 400; transition: stroke-dashoffset 2.4s var(--ease) .3s; }
+    .mod.in .spark path, .mod.in .sign path { stroke-dashoffset: 0; }
+    .spark circle { fill: var(--navy); }
+    .sign { max-width: 220px; border-bottom: 1px dashed rgba(23,34,49,.3); }
+    .sign + small { display: block; margin-top: 6px; color: var(--mute); }
+    /* тёмная карточка */
+    .mod.dark { background: var(--navy); color: #fff; box-shadow: 0 30px 60px -36px rgba(23,34,49,.9); }
+    .mod.dark .top, .mod.dark .more { color: #fff; }
+    .mod.dark p { color: #b7c3d3; }
+    .mod.dark li { color: #fff; } .mod.dark li::before { background: #fff; }
+    .mod.dark .cstar { position: absolute; z-index: 1; --s: 150px; right: -26px; bottom: -20px; filter: drop-shadow(0 14px 24px rgba(0,0,0,.5)); }
+    .mod.dark.open .cstar { opacity: .2; }
+    .days { display: flex; gap: 5px; align-items: center; }
+    .days i { width: 14px; height: 14px; border-radius: 3px; box-shadow: inset 0 0 0 1px rgba(255,255,255,.35); }
+    .days i.on { background: #fff; box-shadow: none; animation: blink 1.6s ease-in-out infinite; }
+    .days span { margin-left: 8px; color: #b7c3d3; }
+    @keyframes blink { 50% { opacity: .35; } }
 
     /* путь */
     .path { position: relative; display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 16px; }
@@ -139,8 +176,11 @@
 
     /* для кого */
     .talks { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 28px; align-items: start; }
-    .talk { display: flex; flex-direction: column; gap: 10px; padding: 24px; background: #fafafa; border-radius: 6px; box-shadow: 0 0 0 1px rgba(0,0,0,.05); }
-    .talk .who { align-self: flex-start; margin-bottom: 4px; padding: 3px 8px; background: #fff; color: var(--sub); box-shadow: 0 0 0 1px var(--line); }
+    .talk { position: relative; display: flex; flex-direction: column; gap: 10px; padding: 24px; background: #fff; border-radius: 6px; overflow: hidden; isolation: isolate; box-shadow: 0 0 0 1px rgba(0,0,0,.07); }
+    .talk > :not(.obj) { position: relative; z-index: 2; }
+    .talk .who { align-self: flex-start; margin-bottom: 44px; padding: 3px 8px; background: #fff; color: var(--sub); box-shadow: 0 0 0 1px var(--line); }
+    .talk .obj { right: -18px; top: -16px; width: 150px; transform: rotate(var(--r, 0deg)); }
+    .talk:hover .obj { transform: rotate(calc(var(--r, 0deg) - 6deg)) scale(1.05); }
 
     /* цена: оторванный чек */
     .price-wrap { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 60px; align-items: center; }
@@ -194,6 +234,7 @@
       .nav nav { display: none; }
       .price-wrap { grid-template-columns: 1fr; }
       .mods { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .mod.t { grid-row: auto; }
       .path { grid-template-columns: repeat(2, minmax(0, 1fr)); row-gap: 40px; }
       .path::before { display: none; }
       .talks { grid-template-columns: 1fr; }
@@ -212,7 +253,10 @@
       .h3p { left: 3%; bottom: 20px; width: 34%; aspect-ratio: 1/1; }
       .h4p { right: -2%; bottom: 36px; width: 38%; aspect-ratio: 4/3; }
       .mods, .path { grid-template-columns: 1fr; }
-      .mod h3 { margin-top: 28px; }
+      .mod.w { grid-column: auto; min-height: 380px; }
+      .mod.w h3 { font-size: 34px; }
+      .mod.w p, .mod.w ul, .mod.w .xtra, .mod p, .mod .xtra { max-width: 62%; }
+      .mod.open p, .mod.open ul { max-width: none; }
       .receipt { padding: 40px 24px 44px; }
       .rcpt-sh .cstar { --s: 70px; right: -10px; top: -34px; }
       .bub { font-size: 16px; }
@@ -337,9 +381,9 @@
           <div><span class="mono kick fade">03 / для кого</span><h2 class="grad fade" style="--d:1">Клуб подойдёт, если ты узнал себя в переписке</h2></div>
         </div>
         <div class="talks">
-          <div class="talk fade" style="--d:0"><span class="mono who">начинающий</span><div class="bub me">Я никогда не продюсировал. Мне подойдёт? <span class="tm">10:02</span></div><div class="bub">Да. Всё идёт от основ до первого запуска по понятной схеме. <span class="tm">10:04</span></div></div>
-          <div class="talk fade" style="--d:1"><span class="mono who">практик</span><div class="bub me">Запуски есть, но каждый раз с нуля <span class="tm">18:31</span></div><div class="bub"><div class="rp"><b>F-Producers Club</b>шаблоны · разборы · чат</div>Соберёшь систему и перестанешь начинать с нуля <span class="tm">18:33</span></div></div>
-          <div class="talk fade" style="--d:2"><span class="mono who">эксперт</span><div class="bub me">Зачем это мне, я же эксперт? <span class="tm">21:17</span></div><div class="bub">Поймёшь, как продюсер упакует и продаст твой продукт — и с кем работать. <span class="tm">21:20</span></div></div>
+          <div class="talk fade" style="--d:0"><img class="obj" style="--r:-8deg" src="https://images.pexels.com/photos/34642452/pexels-photo-34642452.jpeg?auto=compress&cs=tinysrgb&w=400" alt="" loading="lazy" decoding="async"><span class="mono who">начинающий</span><div class="bub me">Я никогда не продюсировал. Мне подойдёт? <span class="tm">10:02</span></div><div class="bub">Да. Всё идёт от основ до первого запуска по понятной схеме. <span class="tm">10:04</span></div></div>
+          <div class="talk fade" style="--d:1"><img class="obj" style="--r:14deg" src="https://images.pexels.com/photos/31020642/pexels-photo-31020642.jpeg?auto=compress&cs=tinysrgb&w=400" alt="" loading="lazy" decoding="async"><span class="mono who">практик</span><div class="bub me">Запуски есть, но каждый раз с нуля <span class="tm">18:31</span></div><div class="bub"><div class="rp"><b>F-Producers Club</b>шаблоны · разборы · чат</div>Соберёшь систему и перестанешь начинать с нуля <span class="tm">18:33</span></div></div>
+          <div class="talk fade" style="--d:2"><img class="obj" style="--r:-10deg" src="https://images.pexels.com/photos/12266869/pexels-photo-12266869.jpeg?auto=compress&cs=tinysrgb&w=400" alt="" loading="lazy" decoding="async"><span class="mono who">эксперт</span><div class="bub me">Зачем это мне, я же эксперт? <span class="tm">21:17</span></div><div class="bub">Поймёшь, как продюсер упакует и продаст твой продукт — и с кем работать. <span class="tm">21:20</span></div></div>
         </div>
       </div>
     </section>
@@ -444,7 +488,23 @@
       ['Договор', 'Как договориться и не остаться ни с чем.', ['Модели оплаты: процент, фикс, микс', 'Что прописать в договоре', 'Зоны ответственности', 'Шаблон договора']],
       ['Команда', 'Кого нанять под запуск и как управлять.', ['Роли: таргетолог, копирайтер, дизайнер', 'Где искать и как проверять', 'Задачи, дедлайны, контроль', 'Бюджет на команду']]
     ];
-    $('#mods').innerHTML = MODS.map(([t, d, l], i) => `<article class="mod fade" style="--d:${i % 4}" tabindex="0" role="button" aria-expanded="false"><div class="top"><span class="mono">0${i + 1} / 08</span><svg class="ci" aria-hidden="true"><use href="#cs"/></svg></div><h3>${t}</h3><p>${d}</p><ul><div>${l.map((x) => `<li>${x}</li>`).join('')}</div></ul><span class="more">что внутри</span></article>`).join('');
+    const OBJ = (id) => `https://images.pexels.com/photos/${id}/pexels-photo-${id}.jpeg?auto=compress&cs=tinysrgb&w=700`;
+    // у каждой карточки свой предмет, размер и деталь
+    const LOOK = [
+      { c: 'w', obj: [28843754, '46%', '-2%', '-10%', '8deg'], x: '<span class="sticker">made for telegram</span>', tag: 'флакон replica' },
+      { c: 't', obj: [37029786, '110%', '-14%', '-6%', '0deg'], x: '<div class="heat"><span class="mono">прогрев</span><b><i></i></b><span class="mono">87°</span></div>', tag: 'утренний капучино' },
+      { obj: [14272794, '96%', '-22%', '-12%', '-8deg'], x: '<div class="flow mono"><span>1000</span><i>→</i><span>120</span><i>→</i><span>18</span></div>', tag: 'провод = воронка' },
+      { c: 'dark', x: '<div class="days"><i></i><i></i><i></i><i></i><i></i><i></i><i class="on"></i><span class="mono">t–7</span></div>', tag: 'старт' },
+      { obj: [35989302, '104%', '-26%', '-8%', '-6deg'], x: '<div class="chips"><span>посевы</span><span>ads</span><span>вп</span></div>', tag: 'в тени' },
+      { obj: [6018369, '82%', '-18%', '-10%', '-14deg'], x: '<svg class="spark" viewBox="0 0 120 40" aria-hidden="true"><path d="M2 34 L16 30 L30 32 L44 22 L58 25 L72 14 L86 17 L100 7 L116 4"/><circle cx="116" cy="4" r="3"/></svg>', tag: 'всё по часам' },
+      { c: 'w', obj: [7431849, '54%', '-6%', '-14%', '-4deg'], x: '<svg class="sign" viewBox="0 0 220 60" aria-hidden="true"><path d="M6 44 C22 8 34 8 34 36 S48 58 58 32 S74 6 82 32 S98 54 108 30 C116 14 126 20 122 38 C136 26 160 30 214 26"/></svg><small class="mono">подпись продюсера</small>', tag: 'перьевая ручка' },
+      { c: 'w', obj: [30428608, '40%', '0%', '-10%', '6deg'], x: '<div class="chips"><span>таргетолог</span><span>копирайтер</span><span>дизайнер</span><span>техспец</span></div>', tag: 'в наушниках' }
+    ];
+    $('#mods').innerHTML = MODS.map(([t, d, l], i) => {
+      const L = LOOK[i], o = L.obj;
+      const img = o ? `<img class="obj" style="--w:${o[1]};--x:${o[2]};--y:${o[3]};--r:${o[4]}" src="${OBJ(o[0])}" alt="" loading="lazy" decoding="async">` : '<span class="cstar" aria-hidden="true"><svg><use href="#cs8"/></svg></span>';
+      return `<article class="mod fade ${L.c || ''}" style="--d:${i % 4}" tabindex="0" role="button" aria-expanded="false">${img}<div class="top"><span class="mono">0${i + 1} / 08</span><span class="mono">${L.tag}</span></div><h3>${t}</h3><p>${d}</p><div class="xtra">${L.x}</div><ul><div>${l.map((x) => `<li>${x}</li>`).join('')}</div></ul><span class="more">что внутри</span></article>`;
+    }).join('');
     $$('.mod').forEach((m) => {
       const t = () => { const o = m.classList.toggle('open'); m.setAttribute('aria-expanded', o); m.querySelector('.more').textContent = o ? 'свернуть' : 'что внутри'; };
       m.addEventListener('click', t);
