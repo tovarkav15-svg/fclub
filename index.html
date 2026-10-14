@@ -122,6 +122,7 @@
     .mod li::before { content: ""; position: absolute; left: 0; top: 17px; width: 6px; height: 6px; background: var(--navy); }
     .mod .more { align-self: flex-start; margin-top: auto; padding-top: 14px; font-size: 13px; font-weight: 600; color: var(--navy); border-bottom: 1.5px solid currentColor; }
     .mod .xtra { margin-top: 2px; }
+    .mod.dark .xtra, .mod.t .xtra { max-width: none; }
     /* предмет: белый фон фото растворяется в карточке */
     .mod .obj, .talk .obj { position: absolute; z-index: 1; pointer-events: none; mix-blend-mode: multiply; -webkit-mask-image: radial-gradient(closest-side, #000 62%, transparent 100%); mask-image: radial-gradient(closest-side, #000 62%, transparent 100%); filter: grayscale(.25) brightness(1.06) contrast(1.1); transition: transform 1.2s var(--ease), opacity .6s; }
     .mod .obj { right: var(--x, -6%); bottom: var(--y, -6%); height: var(--w, 90%); width: auto; max-width: none; transform: rotate(var(--r, 0deg)); }
@@ -153,7 +154,7 @@
     .days { display: flex; gap: 5px; align-items: center; }
     .days i { width: 14px; height: 14px; border-radius: 3px; box-shadow: inset 0 0 0 1px rgba(255,255,255,.35); }
     .days i.on { background: #fff; box-shadow: none; animation: blink 1.6s ease-in-out infinite; }
-    .days span { margin-left: 8px; color: #b7c3d3; }
+    .days span { white-space: nowrap; margin-left: 8px; color: #b7c3d3; }
     @keyframes blink { 50% { opacity: .35; } }
 
     /* путь */
@@ -495,9 +496,9 @@
     const LOOK = [
       { c: 'w', obj: [28843754, '122%', '4%', '-16%', '8deg'], x: '<span class="sticker">made for telegram</span>', tag: 'флакон replica' },
       { c: 't', obj: [31020642, '74%', '-14%', '-4%', '-6deg'], x: '<div class="heat"><span class="mono">прогрев</span><b><i></i></b><span class="mono">87°</span></div>', tag: 'бокал после эфира' },
-      { obj: [14272794, '96%', '-30%', '-16%', '-8deg'], x: '<div class="flow mono"><span>1000</span><i>→</i><span>120</span><i>→</i><span>18</span></div>', tag: 'провод = воронка' },
+      { obj: [14272794, '108%', '-14%', '-18%', '-8deg'], x: '<div class="flow mono"><span>1000</span><i>→</i><span>120</span><i>→</i><span>18</span></div>', tag: 'провод = воронка' },
       { c: 'dark', x: '<div class="days"><i></i><i></i><i></i><i></i><i></i><i></i><i class="on"></i><span class="mono">t–7</span></div>', tag: 'старт' },
-      { obj: [35989302, '96%', '-32%', '-14%', '-6deg'], x: '<div class="chips"><span>посевы</span><span>ads</span><span>вп</span></div>', tag: 'в тени' },
+      { obj: [35989302, '96%', '-16%', '-16%', '-6deg'], x: '<div class="chips"><span>посевы</span><span>ads</span><span>вп</span></div>', tag: 'в тени' },
       { obj: [6018369, '74%', '-26%', '-14%', '-14deg'], x: '<svg class="spark" viewBox="0 0 120 40" aria-hidden="true"><path d="M2 34 L16 30 L30 32 L44 22 L58 25 L72 14 L86 17 L100 7 L116 4"/><circle cx="116" cy="4" r="3"/></svg>', tag: 'всё по часам' },
       { c: 'w', obj: [7431849, '96%', '-14%', '-22%', '-4deg'], x: '<svg class="sign" viewBox="0 0 220 60" aria-hidden="true"><path d="M6 44 C22 8 34 8 34 36 S48 58 58 32 S74 6 82 32 S98 54 108 30 C116 14 126 20 122 38 C136 26 160 30 214 26"/></svg><small class="mono">подпись продюсера</small>', tag: 'перьевая ручка' },
       { c: 'w', obj: [30428608, '126%', '6%', '-16%', '6deg'], x: '<div class="chips"><span>таргетолог</span><span>копирайтер</span><span>дизайнер</span><span>техспец</span></div>', tag: 'в наушниках' }
