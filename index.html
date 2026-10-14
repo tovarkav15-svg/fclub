@@ -232,7 +232,7 @@
   <main>
     <!-- HERO -->
     <section class="hero grain" id="top">
-      <video class="vid" autoplay muted loop playsinline preload="auto" src="https://videos.pexels.com/video-files/13648261/13648261-sd_960_540_25fps.mp4"></video>
+      <video class="vid" autoplay muted loop playsinline preload="auto"></video>
       <div class="inner">
         <span class="mono tag fade" style="--d:1">Paris · Milano · Roma · Berlin</span>
         <h1 aria-label="F-Producers Club">
@@ -313,7 +313,7 @@
 
     <!-- УЧАСТИЕ -->
     <section class="price grain" id="price">
-      <video class="vid" muted loop playsinline preload="none" data-src="https://videos.pexels.com/video-files/13648261/13648261-sd_960_540_25fps.mp4"></video>
+      <video class="vid" muted loop playsinline preload="none" data-src="https://videos.pexels.com/video-files/13648261/13648261-hd_1280_720_50fps.mp4" data-src-sm="https://videos.pexels.com/video-files/13648261/13648261-sd_960_540_25fps.mp4"></video>
       <div class="wrap">
         <span class="mono fade">Участие</span>
         <div class="amount fade" style="--d:1"><span id="amount">1 340</span><small>₽</small></div>
@@ -409,12 +409,14 @@
     const vio = new IntersectionObserver((es) => es.forEach((e) => {
       const v = e.target;
       if (e.isIntersecting) {
-        if (!v.src) { v.src = v.dataset.src; v.addEventListener('loadeddata', () => v.classList.add('ready'), { once: true }); }
+        if (!v.src) { v.src = (innerWidth < 700 && v.dataset.srcSm) || v.dataset.src; v.addEventListener('loadeddata', () => v.classList.add('ready'), { once: true }); }
         if (!reduce) v.play().catch(() => {});
       } else if (v.src) v.pause();
     }), { rootMargin: '200px 0px' });
     vids.forEach((v) => vio.observe(v));
     const heroV = $('#top video');
+    heroV.src = innerWidth < 700 ? 'https://videos.pexels.com/video-files/13648261/13648261-sd_960_540_25fps.mp4' : 'https://videos.pexels.com/video-files/13648261/13648261-hd_1280_720_50fps.mp4';
+    if (!reduce) heroV.play().catch(() => {});
     if (reduce) { heroV.removeAttribute('autoplay'); heroV.pause(); }
 
     /* ---------- скролл: манифест и счётчик ---------- */
