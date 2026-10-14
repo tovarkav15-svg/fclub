@@ -104,26 +104,27 @@
 
     /* модули: бенто с нишевыми предметами */
     .mods { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); grid-auto-flow: dense; gap: 16px; }
-    .mod { position: relative; display: flex; flex-direction: column; min-height: 380px; padding: 24px 24px 22px; background: #fff; border-radius: 6px; overflow: hidden; isolation: isolate; box-shadow: 0 0 0 1px rgba(0,0,0,.07); transition: transform .6s var(--ease), box-shadow .6s var(--ease); cursor: pointer; }
-    .mod.w { grid-column: span 2; min-height: 330px; } .mod.t { grid-row: span 2; }
+    .mod { position: relative; display: flex; flex-direction: column; min-height: 232px; padding: 20px 20px 18px; background: #fff; border-radius: 6px; overflow: hidden; isolation: isolate; box-shadow: 0 0 0 1px rgba(0,0,0,.07); transition: transform .6s var(--ease), box-shadow .6s var(--ease); cursor: pointer; }
+    .mod.w { grid-column: span 2; min-height: 232px; } .mod.t { grid-row: span 2; }
     .mod:hover, .mod.open { box-shadow: 0 0 0 1px rgba(0,0,0,.09), 0 30px 60px -34px rgba(0,0,0,.4); transform: translateY(-4px); }
     .mod > * { position: relative; z-index: 2; }
     .mod .top { display: flex; justify-content: space-between; align-items: center; gap: 10px; color: var(--mute); }
-    .mod h3 { margin: 30px 0 10px; font-family: var(--head); font-weight: 600; font-size: 34px; line-height: .95; letter-spacing: -.06em; }
-    .mod.w h3 { font-size: 44px; }
-    .mod p, .mod ul, .mod .more, .mod .xtra { max-width: 240px; }
+    .mod h3 { margin: 22px 0 12px; font-family: var(--head); font-weight: 600; font-size: 28px; line-height: .95; letter-spacing: -.06em; }
+    .mod.w h3 { font-size: 36px; }
+    .mod p, .mod ul, .mod .xtra { max-width: 60%; }
     .mod.w p, .mod.w ul, .mod.w .xtra { max-width: 52%; }
-    .mod p { font-size: 15px; color: var(--sub); }
+    .mod p { display: none; font-size: 15px; color: var(--sub); }
+    .mod.open p { display: block; margin-top: 12px; }
     .mod ul { list-style: none; display: grid; grid-template-rows: 0fr; transition: grid-template-rows .6s var(--ease); }
     .mod ul > div { overflow: hidden; }
     .mod.open ul { grid-template-rows: 1fr; }
     .mod li { padding: 8px 0 0 18px; position: relative; font-size: 14.5px; color: var(--ink); }
     .mod li::before { content: ""; position: absolute; left: 0; top: 17px; width: 6px; height: 6px; background: var(--navy); }
-    .mod .more { align-self: flex-start; margin-top: 18px; font-size: 13px; font-weight: 600; color: var(--navy); border-bottom: 1.5px solid currentColor; }
-    .mod .xtra { margin-top: 18px; }
+    .mod .more { align-self: flex-start; margin-top: auto; padding-top: 14px; font-size: 13px; font-weight: 600; color: var(--navy); border-bottom: 1.5px solid currentColor; }
+    .mod .xtra { margin-top: 2px; }
     /* предмет: белый фон фото растворяется в карточке */
     .mod .obj, .talk .obj { position: absolute; z-index: 1; pointer-events: none; mix-blend-mode: multiply; -webkit-mask-image: radial-gradient(closest-side, #000 62%, transparent 100%); mask-image: radial-gradient(closest-side, #000 62%, transparent 100%); filter: grayscale(.25) brightness(1.06) contrast(1.1); transition: transform 1.2s var(--ease), opacity .6s; }
-    .mod .obj { right: var(--x, -6%); bottom: var(--y, -6%); width: var(--w, 70%); transform: rotate(var(--r, 0deg)); }
+    .mod .obj { right: var(--x, -6%); bottom: var(--y, -6%); height: var(--w, 90%); width: auto; max-width: none; transform: rotate(var(--r, 0deg)); }
     .mod:hover .obj { transform: translate(-6px, -10px) rotate(calc(var(--r, 0deg) - 4deg)) scale(1.04); }
     .mod.open .obj { opacity: .14; }
     .sticker { display: inline-block; padding: 4px 10px 5px; background: #fff; font-family: var(--head); font-weight: 600; font-size: 15px; letter-spacing: -.04em; box-shadow: 0 0 0 1px var(--line), 0 10px 24px -16px rgba(0,0,0,.5); transform: rotate(-3deg); }
@@ -147,7 +148,7 @@
     .mod.dark .top, .mod.dark .more { color: #fff; }
     .mod.dark p { color: #b7c3d3; }
     .mod.dark li { color: #fff; } .mod.dark li::before { background: #fff; }
-    .mod.dark .cstar { position: absolute; z-index: 1; --s: 150px; right: -26px; bottom: -20px; filter: drop-shadow(0 14px 24px rgba(0,0,0,.5)); }
+    .mod.dark .cstar { position: absolute; z-index: 1; --s: 112px; right: -20px; bottom: -18px; filter: drop-shadow(0 14px 24px rgba(0,0,0,.5)); }
     .mod.dark.open .cstar { opacity: .2; }
     .days { display: flex; gap: 5px; align-items: center; }
     .days i { width: 14px; height: 14px; border-radius: 3px; box-shadow: inset 0 0 0 1px rgba(255,255,255,.35); }
@@ -253,11 +254,11 @@
       .h3p { left: 3%; bottom: 20px; width: 34%; aspect-ratio: 1/1; }
       .h4p { right: -2%; bottom: 36px; width: 38%; aspect-ratio: 4/3; }
       .mods, .path { grid-template-columns: 1fr; }
-      .mod.w { grid-column: auto; min-height: 380px; }
-      .mod.w h3 { font-size: 34px; }
+      .mod.w { grid-column: auto; min-height: 232px; }
+      .mod.w h3 { font-size: 28px; }
       .mod.w p, .mod.w ul, .mod.w .xtra, .mod p, .mod .xtra { max-width: 62%; }
       .mod.open p, .mod.open ul { max-width: none; }
-      .mod .obj { width: 52% !important; right: -6% !important; bottom: -12% !important; }
+      .mod .obj { height: 80% !important; right: -10% !important; bottom: -12% !important; }
       .receipt { padding: 40px 24px 44px; }
       .rcpt-sh .cstar { --s: 70px; right: -10px; top: -34px; }
       .bub { font-size: 16px; }
@@ -492,14 +493,14 @@
     const OBJ = (id) => `https://images.pexels.com/photos/${id}/pexels-photo-${id}.jpeg?auto=compress&cs=tinysrgb&w=700`;
     // у каждой карточки свой предмет, размер и деталь
     const LOOK = [
-      { c: 'w', obj: [28843754, '46%', '-2%', '-10%', '8deg'], x: '<span class="sticker">made for telegram</span>', tag: 'флакон replica' },
-      { c: 't', obj: [31020642, '96%', '-8%', '-4%', '-6deg'], x: '<div class="heat"><span class="mono">прогрев</span><b><i></i></b><span class="mono">87°</span></div>', tag: 'бокал после эфира' },
-      { obj: [14272794, '96%', '-22%', '-12%', '-8deg'], x: '<div class="flow mono"><span>1000</span><i>→</i><span>120</span><i>→</i><span>18</span></div>', tag: 'провод = воронка' },
+      { c: 'w', obj: [28843754, '122%', '4%', '-16%', '8deg'], x: '<span class="sticker">made for telegram</span>', tag: 'флакон replica' },
+      { c: 't', obj: [31020642, '74%', '-14%', '-4%', '-6deg'], x: '<div class="heat"><span class="mono">прогрев</span><b><i></i></b><span class="mono">87°</span></div>', tag: 'бокал после эфира' },
+      { obj: [14272794, '96%', '-30%', '-16%', '-8deg'], x: '<div class="flow mono"><span>1000</span><i>→</i><span>120</span><i>→</i><span>18</span></div>', tag: 'провод = воронка' },
       { c: 'dark', x: '<div class="days"><i></i><i></i><i></i><i></i><i></i><i></i><i class="on"></i><span class="mono">t–7</span></div>', tag: 'старт' },
-      { obj: [35989302, '104%', '-26%', '-8%', '-6deg'], x: '<div class="chips"><span>посевы</span><span>ads</span><span>вп</span></div>', tag: 'в тени' },
-      { obj: [6018369, '82%', '-18%', '-10%', '-14deg'], x: '<svg class="spark" viewBox="0 0 120 40" aria-hidden="true"><path d="M2 34 L16 30 L30 32 L44 22 L58 25 L72 14 L86 17 L100 7 L116 4"/><circle cx="116" cy="4" r="3"/></svg>', tag: 'всё по часам' },
-      { c: 'w', obj: [7431849, '78%', '-18%', '-26%', '-4deg'], x: '<svg class="sign" viewBox="0 0 220 60" aria-hidden="true"><path d="M6 44 C22 8 34 8 34 36 S48 58 58 32 S74 6 82 32 S98 54 108 30 C116 14 126 20 122 38 C136 26 160 30 214 26"/></svg><small class="mono">подпись продюсера</small>', tag: 'перьевая ручка' },
-      { c: 'w', obj: [30428608, '40%', '0%', '-10%', '6deg'], x: '<div class="chips"><span>таргетолог</span><span>копирайтер</span><span>дизайнер</span><span>техспец</span></div>', tag: 'в наушниках' }
+      { obj: [35989302, '96%', '-32%', '-14%', '-6deg'], x: '<div class="chips"><span>посевы</span><span>ads</span><span>вп</span></div>', tag: 'в тени' },
+      { obj: [6018369, '74%', '-26%', '-14%', '-14deg'], x: '<svg class="spark" viewBox="0 0 120 40" aria-hidden="true"><path d="M2 34 L16 30 L30 32 L44 22 L58 25 L72 14 L86 17 L100 7 L116 4"/><circle cx="116" cy="4" r="3"/></svg>', tag: 'всё по часам' },
+      { c: 'w', obj: [7431849, '96%', '-14%', '-22%', '-4deg'], x: '<svg class="sign" viewBox="0 0 220 60" aria-hidden="true"><path d="M6 44 C22 8 34 8 34 36 S48 58 58 32 S74 6 82 32 S98 54 108 30 C116 14 126 20 122 38 C136 26 160 30 214 26"/></svg><small class="mono">подпись продюсера</small>', tag: 'перьевая ручка' },
+      { c: 'w', obj: [30428608, '126%', '6%', '-16%', '6deg'], x: '<div class="chips"><span>таргетолог</span><span>копирайтер</span><span>дизайнер</span><span>техспец</span></div>', tag: 'в наушниках' }
     ];
     $('#mods').innerHTML = MODS.map(([t, d, l], i) => {
       const L = LOOK[i], o = L.obj;
