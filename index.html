@@ -773,17 +773,21 @@
       const tr = document.querySelector('.cs-track'); if (!tr) return;
       const sl = [...tr.querySelectorAll('.slide')], cnt = document.querySelector('.cs-count b'), bar = document.querySelector('.cs-bar i');
       const prev = document.querySelector('.cs-btn.prev'), next = document.querySelector('.cs-btn.next');
-      let cur = -1;
+      let cur = -1, lock = 0;
       const step = () => sl[1].offsetLeft - sl[0].offsetLeft;
-      const go = (i) => { i = Math.max(0, Math.min(sl.length - 1, i)); tr.scrollTo({ left: sl[i].offsetLeft - sl[0].offsetLeft, behavior: 'smooth' }); };
-      const upd = () => {
-        const max = tr.scrollWidth - tr.clientWidth;
-        let i = Math.round(tr.scrollLeft / step()); if (tr.scrollLeft >= max - 4) i = sl.length - 1;
+      const set = (i) => {
         if (i === cur) return; cur = i;
         sl.forEach((s, k) => s.classList.toggle('cur', k === i));
         cnt.textContent = String(i + 1).padStart(2, '0');
         bar.parentNode.style.setProperty('--p', (i + 1) / sl.length);
         prev.disabled = i === 0; next.disabled = i === sl.length - 1;
+      };
+      const go = (i) => { i = Math.max(0, Math.min(sl.length - 1, i)); set(i); lock = Date.now() + 700; tr.scrollTo({ left: sl[i].offsetLeft - sl[0].offsetLeft, behavior: 'smooth' }); };
+      const upd = () => {
+        if (Date.now() < lock) return;
+        const max = tr.scrollWidth - tr.clientWidth;
+        let i = Math.round(tr.scrollLeft / step()); if (tr.scrollLeft >= max - 4) i = sl.length - 1;
+        set(i);
       };
       prev.addEventListener('click', () => go(cur - 1));
       next.addEventListener('click', () => go(cur + 1));
@@ -792,7 +796,7 @@
       let x0 = 0, s0 = 0, down = false, moved = false;
       tr.addEventListener('pointerdown', (e) => { if (e.pointerType !== 'mouse' || e.button) return; down = true; moved = false; x0 = e.clientX; s0 = tr.scrollLeft; });
       addEventListener('pointermove', (e) => { if (!down) return; const dx = e.clientX - x0; if (!moved && Math.abs(dx) > 6) { moved = true; tr.classList.add('drag'); } if (moved) tr.scrollLeft = s0 - dx; });
-      addEventListener('pointerup', () => { if (!down) return; down = false; if (!moved) return; const dx = tr.scrollLeft - s0; let i = Math.round(tr.scrollLeft / step()); if (i === cur && Math.abs(dx) > 60) i += Math.sign(dx); tr.classList.remove('drag'); go(i); });
+      addEventListener('pointerup', () => { if (!down) return; down = false; if (!moved) return; const dx = tr.scrollLeft - s0; let i = Math.round(tr.scrollLeft / step()); if (i === cur && Math.abs(dx) > 60) i += Math.sign(dx); tr.classList.remove('drag'); cur = -1; go(i); });
       tr.addEventListener('click', (e) => { if (moved) { e.preventDefault(); e.stopPropagation(); moved = false; } }, true);
       upd(); tr.classList.add('ready');
     })();
