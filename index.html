@@ -199,6 +199,25 @@
     .case-main .cstar { --s: 120px; right: -30px; top: -30px; opacity: .9; }
     .src { align-self: flex-start; font-size: 12px; border-bottom: 1px solid currentColor; }
     .case-main .src { color: #fff; }
+    .proof { display: flex; align-items: center; gap: 12px; margin-top: auto; }
+    .shot { position: relative; flex: none; width: 54px; height: 68px; padding: 0; border: 0; border-radius: 6px; overflow: hidden; cursor: zoom-in; background: #eef0f3; box-shadow: 0 0 0 1px rgba(0,0,0,.08), 0 10px 22px -14px rgba(0,0,0,.6); transform: rotate(-3deg); transition: transform .5s var(--ease), box-shadow .5s var(--ease); }
+    .shot img { display: block; width: 100%; height: 100%; object-fit: cover; object-position: top; }
+    .shot.wide img { object-position: left center; }
+    .shot::after { content: "+"; position: absolute; right: 3px; bottom: 3px; display: grid; place-items: center; width: 16px; height: 16px; border-radius: 50%; background: var(--navy); color: #fff; font: 600 12px/1 var(--head); }
+    .shot:hover, .shot:focus-visible { transform: rotate(0) scale(1.08); box-shadow: 0 0 0 1px rgba(0,0,0,.1), 0 16px 30px -14px rgba(0,0,0,.6); outline: none; }
+    .proof .mono { display: flex; flex-direction: column; gap: 4px; font-size: 12px; }
+    .proof .mono small { font-size: 11px; color: var(--mute); }
+    .proof .src { align-self: auto; }
+    .case-main .proof { margin-top: 0; }
+    .case-main .shot { width: 74px; height: 96px; box-shadow: 0 0 0 1px rgba(255,255,255,.25), 0 16px 30px -14px #000; transform: rotate(4deg); }
+    .case-main .shot::after { background: #fff; color: var(--navy); }
+    .case-main .proof small { color: #8fa0b8; }
+    .lbox { position: fixed; inset: 0; z-index: 90; display: grid; place-items: center; padding: 24px; background: rgba(15,22,32,.72); backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px); opacity: 0; visibility: hidden; transition: opacity .35s var(--ease), visibility .35s; cursor: zoom-out; }
+    .lbox.on { opacity: 1; visibility: visible; }
+    .lbox figure { display: flex; flex-direction: column; gap: 10px; max-width: min(400px, 92vw); transform: translateY(14px) scale(.96); transition: transform .45s var(--ease); }
+    .lbox.on figure { transform: none; }
+    .lbox img { display: block; max-width: 100%; max-height: 76vh; border-radius: 8px; box-shadow: 0 30px 70px -20px #000; }
+    .lbox figcaption { color: #c9d3e0; font-size: 12px; text-align: center; }
     .qcard { display: flex; flex-direction: column; gap: 14px; padding: 24px; border-radius: 6px; background: #fff; box-shadow: 0 0 0 1px rgba(0,0,0,.07); transition: transform .6s var(--ease), box-shadow .6s var(--ease); }
     .qcard:hover { transform: translateY(-4px); box-shadow: 0 0 0 1px rgba(0,0,0,.09), 0 24px 50px -32px rgba(0,0,0,.4); }
     .qcard .num { font-family: var(--head); font-weight: 700; font-size: clamp(34px, 3.4vw, 46px); line-height: .95; letter-spacing: -.06em; }
@@ -447,12 +466,12 @@
             </div>
             <div><span class="mono when">вступил 29 января · результат через 2 месяца</span></div>
             <blockquote>«Вывел меня на сотни тысяч за 2 месяца по цене пары походов в кифас»</blockquote>
-            <a class="mono src" href="https://t.me/otzivifedonko/69" target="_blank" rel="noopener">оригинал со скринами →</a>
+            <div class="proof"><button class="shot" type="button" data-cap="@konst4rain · доход за март" aria-label="Открыть скрин: скрин дохода @konst4rain за март"><img src="proof-69.jpg" alt="скрин дохода @konst4rain за март" loading="lazy" decoding="async"></button><span class="mono"><small>скрин из отзыва</small><a class="src" href="https://t.me/otzivifedonko/69" target="_blank" rel="noopener">оригинал →</a></span></div>
           </article>
-            <article class="qcard fade" style="--d:1"><span class="mono lbl">участник Wake Up</span><div><div class="num">≈200к ₽</div><span class="mono lbl">за 2026 год</span></div><q>Заработал почти 200к за 2026, купил себе часы на др</q><a class="mono src" href="https://t.me/otzivifedonko/57" target="_blank" rel="noopener">оригинал со скринами →</a></article>
-            <article class="qcard fade" style="--d:2"><span class="mono lbl">@linkbta</span><div><div class="num">1 неделя</div><span class="mono lbl">чтобы окупить вход</span></div><q>Зашёл без ожиданий, но на следующей неделе окупил вход: закрыл двух клиентов на 1к и 4к. Инфа реально годная, без воды, можно сразу использовать.</q><a class="mono src" href="https://t.me/otzivifedonko/59" target="_blank" rel="noopener">оригинал со скринами →</a></article>
-            <article class="qcard fade" style="--d:3"><span class="mono lbl">участник Wake Up</span><div><div class="num">10+</div><span class="mono lbl">окупленных подписок</span></div><q>Применил на своём бизнесе. Уже сейчас после вступления я окупил 10+ подписок.</q><a class="mono src" href="https://t.me/otzivifedonko/65" target="_blank" rel="noopener">оригинал со скринами →</a></article>
-            <article class="qcard fade" style="--d:4"><span class="mono lbl">Андрей (Dreiko)</span><div><div class="num">Mac + Москва</div><span class="mono lbl">на свои деньги</span></div><q>Смог поднять доход и завести невероятные знакомства… приобрёл новый Mac и второй телефон, а также съездил в Москву на свои средства</q><a class="mono src" href="https://t.me/otzivifedonko/66" target="_blank" rel="noopener">оригинал со скринами →</a></article>
+            <article class="qcard fade" style="--d:1"><span class="mono lbl">участник Wake Up</span><div><div class="num">≈200к ₽</div><span class="mono lbl">за 2026 год</span></div><q>Заработал почти 200к за 2026, купил себе часы на др</q><div class="proof"><button class="shot" type="button" data-cap="участник Wake Up · доход за 2026" aria-label="Открыть скрин: скрин дохода участника за 2026 год"><img src="proof-57.jpg" alt="скрин дохода участника за 2026 год" loading="lazy" decoding="async"></button><span class="mono"><small>скрин из отзыва</small><a class="src" href="https://t.me/otzivifedonko/57" target="_blank" rel="noopener">оригинал →</a></span></div></article>
+            <article class="qcard fade" style="--d:2"><span class="mono lbl">@linkbta</span><div><div class="num">1 неделя</div><span class="mono lbl">чтобы окупить вход</span></div><q>Зашёл без ожиданий, но на следующей неделе окупил вход: закрыл двух клиентов на 1к и 4к. Инфа реально годная, без воды, можно сразу использовать.</q><div class="proof"><button class="shot wide" type="button" data-cap="@linkbta · оплаты клиентов, имена скрыты" aria-label="Открыть скрин: скрин переводов от клиентов (имена скрыты)"><img src="proof-59.jpg" alt="скрин переводов от клиентов (имена скрыты)" loading="lazy" decoding="async"></button><span class="mono"><small>скрин из отзыва</small><a class="src" href="https://t.me/otzivifedonko/59" target="_blank" rel="noopener">оригинал →</a></span></div></article>
+            <article class="qcard fade" style="--d:3"><span class="mono lbl">участник Wake Up</span><div><div class="num">10+</div><span class="mono lbl">окупленных подписок</span></div><q>Применил на своём бизнесе. Уже сейчас после вступления я окупил 10+ подписок.</q><div class="proof"><a class="mono src" href="https://t.me/otzivifedonko/65" target="_blank" rel="noopener">оригинал отзыва →</a></div></article>
+            <article class="qcard fade" style="--d:4"><span class="mono lbl">Андрей (Dreiko)</span><div><div class="num">Mac + Москва</div><span class="mono lbl">на свои деньги</span></div><q>Смог поднять доход и завести невероятные знакомства… приобрёл новый Mac и второй телефон, а также съездил в Москву на свои средства</q><div class="proof"><button class="shot" type="button" data-cap="Андрей · новый Mac и телефон" aria-label="Открыть скрин: фото нового Mac и телефона"><img src="proof-66.jpg" alt="фото нового Mac и телефона" loading="lazy" decoding="async"></button><span class="mono"><small>скрин из отзыва</small><a class="src" href="https://t.me/otzivifedonko/66" target="_blank" rel="noopener">оригинал →</a></span></div></article>
         </div>
         <div class="res-note mono fade"><span>результаты индивидуальны и зависят от того, сколько ты внедряешь</span><a href="https://t.me/otzivifedonko" target="_blank" rel="noopener">все отзывы — @otzivifedonko →</a></div>
       </div>
@@ -652,6 +671,22 @@
       const st = (t) => { const p = Math.max(0, Math.min((t - t0) / 1500, 1)); amount.textContent = Math.round(1340 * (1 - Math.pow(1 - p, 4))).toLocaleString('ru-RU'); if (p < 1) requestAnimationFrame(st); };
       requestAnimationFrame(st);
     }, { threshold: .5 }).observe(amount);
+  </script>
+  <div class="lbox" id="lbox" role="dialog" aria-modal="true" aria-label="Скриншот отзыва"><figure><img alt=""><figcaption class="mono"></figcaption></figure></div>
+  <script>
+    (() => {
+      const lb = document.getElementById('lbox'), im = lb.querySelector('img'), cap = lb.querySelector('figcaption');
+      let last = null;
+      const close = () => { lb.classList.remove('on'); if (last) last.focus(); };
+      document.querySelectorAll('.shot').forEach((b) => b.addEventListener('click', () => {
+        const i = b.querySelector('img'); last = b;
+        im.src = i.src; im.alt = i.alt; cap.textContent = b.dataset.cap + ' · нажми, чтобы закрыть';
+        lb.classList.add('on'); lb.focus();
+      }));
+      lb.tabIndex = -1;
+      lb.addEventListener('click', close);
+      document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && lb.classList.contains('on')) close(); });
+    })();
   </script>
 </body>
 </html>
