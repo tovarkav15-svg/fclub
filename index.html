@@ -184,54 +184,33 @@
     .htag.last .tag p, .htag.last .tag .no, .htag.last .tag .bc { color: #b7c3d3; }
     .htag.last .tag .bars { background: repeating-linear-gradient(90deg, #fff 0 1px, transparent 1px 3px, #fff 3px 5px, transparent 5px 6px, #fff 6px 7px, transparent 7px 10px); }
 
-    /* кейсы — переписка */
-    .cs-grid { display: grid; grid-template-columns: minmax(0, .8fr) minmax(0, 1.2fr); gap: 64px; align-items: start; }
-    .cs-side { position: sticky; top: 110px; }
-    .cs-side h2 { position: relative; font-size: clamp(40px, 5vw, 76px); line-height: 1.02; }
-    .cs-side h2 .cstar { --s: 64px; right: -10px; top: -36px; }
-    .cs-side > p { margin-top: 24px; max-width: 400px; color: var(--sub); }
-    .cs-stats { margin: 32px 0 34px; border-top: 1px solid rgba(0,0,0,.1); }
-    .cs-stats div { display: flex; align-items: baseline; justify-content: space-between; gap: 16px; padding: 14px 0; border-bottom: 1px solid rgba(0,0,0,.1); }
-    .cs-stats b { font-family: var(--head); font-weight: 600; font-size: clamp(24px, 2.4vw, 32px); letter-spacing: -.05em; line-height: 1; }
-    .cs-stats span { color: var(--mute); text-align: right; }
-    .cs-side .all { display: inline-block; margin-left: 18px; font-size: 12px; color: var(--ink); border-bottom: 1px solid currentColor; }
-    .chat { overflow: hidden; border-radius: 22px; background: #f2f1ee; box-shadow: 0 0 0 1px rgba(0,0,0,.06), 0 40px 80px -50px rgba(0,0,0,.35); }
-    .chat-top { display: flex; align-items: center; gap: 12px; padding: 14px 18px; background: rgba(255,255,255,.92); border-bottom: 1px solid rgba(0,0,0,.06); }
-    .chat-top div { flex: 1; min-width: 0; }
-    .chat-top b { display: block; font-family: var(--head); font-weight: 600; font-size: 16px; letter-spacing: -.02em; }
-    .chat-top small { display: block; margin-top: 2px; color: var(--mute); font-size: 11px; }
-    .chat-top a { font-size: 12px; color: var(--ink); border-bottom: 1px solid currentColor; }
-    .ava { flex: none; display: grid; place-items: center; width: 38px; height: 38px; border-radius: 50%; background: linear-gradient(140deg, #d9dde3, #9aa3b0); color: #fff; font: 600 15px/1 var(--head); }
-    .ava.t2 { background: linear-gradient(140deg, #e3dcd2, #b3a48f); } .ava.t3 { background: linear-gradient(140deg, #d6e0da, #8ea79a); } .ava.t4 { background: linear-gradient(140deg, #e0d6de, #a78ea2); } .ava.ch { background: var(--ink); }
-    .chat-body { display: flex; flex-direction: column; gap: 18px; padding: 22px 18px 18px; }
-    .day { align-self: center; padding: 5px 12px; border-radius: 999px; background: rgba(0,0,0,.06); color: var(--sub); font-size: 11px; }
-    .msg { display: grid; grid-template-columns: 38px minmax(0, 1fr); column-gap: 10px; row-gap: 8px; align-items: end; max-width: 520px; }
-    .msg .ava { grid-row: 1; }
-    .cbub { grid-column: 2; position: relative; padding: 10px 14px 9px; border-radius: 18px 18px 18px 6px; background: #fff; box-shadow: 0 1px 1px rgba(0,0,0,.05); }
-    .cbub .nm { display: block; margin-bottom: 4px; font: 600 13px/1.2 var(--head); color: #4d6a8f; }
-    .cbub p { font-size: 15px; line-height: 1.45; }
-    .cbub .tm { display: block; margin-top: 6px; text-align: right; font-size: 10px; color: var(--mute); }
-    .cbub .tm a { color: var(--mute); border-bottom: 1px solid currentColor; }
-    .cbub .shot { display: block; position: relative; width: 200px; height: 210px; margin: 2px 0 10px; padding: 0; border: 0; border-radius: 12px; overflow: hidden; background: #111; cursor: zoom-in; }
-    .cbub .shot img { display: block; width: 100%; height: 100%; object-fit: cover; object-position: top; transition: transform .8s var(--ease); }
-    .cbub .shot:hover img { transform: scale(1.04); }
-    .cbub .shot.wide { width: 100%; max-width: 300px; height: auto; }
-    .cbub .shot.wide img { height: auto; }
-    .cbub .shot::after { content: "⤢"; position: absolute; right: 8px; bottom: 8px; display: grid; place-items: center; width: 26px; height: 26px; border-radius: 50%; background: rgba(255,255,255,.92); color: var(--ink); font: 500 13px/1 var(--head); }
-    .res { grid-column: 2; display: flex; flex-wrap: wrap; gap: 6px; }
-    .res span { display: inline-flex; align-items: baseline; gap: 6px; padding: 5px 10px; border-radius: 999px; background: #fff; box-shadow: 0 0 0 1px rgba(0,0,0,.08); font-size: 13px; font-weight: 500; }
-    .res small { font-family: "JetBrains Mono", monospace; font-size: 10px; font-weight: 400; letter-spacing: .04em; color: var(--mute); }
-    .typing { display: flex; align-items: center; gap: 10px; color: var(--mute); font-size: 12px; }
-    .typing .dots { display: inline-flex; gap: 4px; padding: 12px 14px; border-radius: 18px 18px 18px 6px; background: #fff; }
-    .typing .dots i { width: 6px; height: 6px; border-radius: 50%; background: #b8bcc3; animation: tdot 1.2s ease-in-out infinite; }
-    .typing .dots i:nth-child(2) { animation-delay: .15s; } .typing .dots i:nth-child(3) { animation-delay: .3s; }
-    @keyframes tdot { 0%, 60%, 100% { transform: none; opacity: .5; } 30% { transform: translateY(-4px); opacity: 1; } }
-    .chat-input { display: flex; align-items: center; gap: 12px; margin: 0 12px 12px; padding: 8px 8px 8px 18px; border-radius: 999px; background: #fff; box-shadow: 0 0 0 1px rgba(0,0,0,.06); color: var(--mute); font-size: 15px; transition: box-shadow .3s; }
-    .chat-input:hover { box-shadow: 0 0 0 1px rgba(0,0,0,.2); }
-    .chat-input span { flex: 1; }
-    .chat-input b { padding: 11px 18px; border-radius: 999px; background: var(--navy); color: #fff; font: 700 14px/1 var(--head); white-space: nowrap; }
-    .chat .msg, .chat .typing { opacity: 0; transform: translateY(16px); transition: opacity .7s var(--ease), transform .8s var(--ease); transition-delay: calc(var(--i, 0) * 160ms + 200ms); }
-    .chat.in .msg, .chat.in .typing { opacity: 1; transform: none; }
+    /* кейсы — коллаж скринов */
+    .cboard { position: relative; overflow: hidden; min-height: 920px; padding: 140px 0 130px; display: flex; align-items: center; text-align: center; }
+    .cboard .wrap { position: relative; z-index: 3; width: 100%; pointer-events: none; }
+    .cboard .wrap > * { pointer-events: auto; }
+    .cboard .kick { display: inline-block; margin-bottom: 26px; padding: 4px 10px; background: #fff; color: var(--sub); box-shadow: 0 0 0 1px var(--line); }
+    .cboard h2 { position: relative; display: inline-block; margin: 0 auto; max-width: none; font-size: clamp(40px, 6.4vw, 96px); line-height: 1.02; }
+    .cboard h2 .cstar.a { --s: .8em; right: -.55em; top: -.5em; }
+    .cboard h2 .cstar.b { --s: .4em; left: -.5em; bottom: .2em; --t: 6s; --dl: -2s; }
+    .cboard .lead { margin: 28px auto 0; max-width: 470px; font-size: 18px; color: var(--sub); }
+    .cboard .lead span, .cboard .q span { background: #fff; box-decoration-break: clone; -webkit-box-decoration-break: clone; padding: 2px 6px; }
+    .cboard .q { margin: 22px auto 0; max-width: 430px; font-size: 15px; }
+    .cboard .q small { display: block; margin-top: 8px; color: var(--mute); }
+    .cboard .actions { margin-top: 34px; display: flex; gap: 14px; flex-wrap: wrap; justify-content: center; }
+    .cb-item { position: absolute; z-index: 2; margin: 0; will-change: transform; pointer-events: auto; }
+    .cb-item .shot { position: relative; display: block; width: 100%; padding: 0; border: 0; background: #111; overflow: hidden; cursor: zoom-in; box-shadow: 0 24px 50px -24px rgba(0,0,0,.45); }
+    .cb-item .shot img { display: block; width: 100%; height: 100%; object-fit: cover; object-position: top; transition: transform 1.2s var(--ease); }
+    .cb-item .shot:hover img { transform: scale(1.05); }
+    .cb-item figcaption { position: absolute; left: -14px; bottom: -22px; text-align: left; }
+    .cb-item.r figcaption { left: auto; right: -14px; text-align: right; }
+    .cb-item .tag-box { font-size: clamp(20px, 2vw, 30px); padding: .1em .3em .14em; box-shadow: 0 14px 30px -16px rgba(0,0,0,.45); }
+    .cb-item .note { display: block; margin-top: 6px; }
+    .cb-item .note span { display: inline-block; padding: 3px 8px; background: #fff; color: var(--sub); font-size: 11px; box-shadow: 0 0 0 1px var(--line); }
+    .cb-item .note a { color: var(--ink); border-bottom: 1px solid currentColor; }
+    .cb1 { left: 3%; top: 9%; width: 17%; } .cb1 .shot { aspect-ratio: 3/4; }
+    .cb2 { right: 4%; top: 7%; width: 16%; } .cb2 .shot { aspect-ratio: 4/5; }
+    .cb3 { left: 7%; bottom: 9%; width: 15%; } .cb3 .shot { aspect-ratio: 4/5; }
+    .cb4 { right: 3%; bottom: 15%; width: 23%; } .cb4 .shot { aspect-ratio: auto; } .cb4 .shot img { height: auto; }
     .lbox { position: fixed; inset: 0; z-index: 90; display: grid; place-items: center; padding: 24px; background: rgba(15,22,32,.72); backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px); opacity: 0; visibility: hidden; transition: opacity .35s var(--ease), visibility .35s; cursor: zoom-out; }
     .lbox.on { opacity: 1; visibility: visible; }
     .lbox figure { display: flex; flex-direction: column; gap: 10px; max-width: min(400px, 92vw); transform: translateY(14px) scale(.96); transition: transform .45s var(--ease); }
@@ -299,9 +278,16 @@
     footer a { color: var(--ink); }
 
     @media (max-width: 1000px) {
-      .cs-grid { grid-template-columns: 1fr; gap: 40px; }
-      .cs-side { position: static; }
-      .chat { max-width: 640px; }
+      .cboard { flex-direction: column; min-height: 0; padding: 90px 0 80px; }
+      .cboard .wrap { order: -1; }
+      .cboard h2 .cstar.a { right: -.25em; } .cboard h2 .cstar.b { left: -.2em; }
+      .cb-grid { position: static; pointer-events: auto; display: grid; grid-template-columns: 1fr 1fr; gap: 40px 14px; margin-top: 44px; padding: 0 22px; }
+      .cb-item { position: relative; inset: auto; width: auto !important; translate: none !important; }
+      .cb-item figcaption, .cb-item.r figcaption { position: relative; left: auto; right: auto; bottom: auto; margin-top: -16px; padding-left: 6px; text-align: left; }
+      .cb-item .tag-box { font-size: 18px; }
+      .cb-grid > .cb-item:nth-child(odd) { --rot: -1.5deg; } .cb-grid > .cb-item:nth-child(even) { --rot: 1.5deg; }
+      .cb4 { grid-column: 1 / -1; }
+      .cb-grid { max-width: 640px; margin-left: auto; margin-right: auto; }
       .wrap { padding: 0 22px; }
       .nav nav { display: none; }
       .price-wrap { grid-template-columns: 1fr; }
@@ -329,16 +315,7 @@
       .h3p { left: 3%; bottom: 20px; width: 34%; aspect-ratio: 1/1; }
       .h4p { right: -2%; bottom: 36px; width: 38%; aspect-ratio: 4/3; }
       .mods { grid-template-columns: 1fr; }
-      .cs-grid { grid-template-columns: 1fr; gap: 36px; }
-      .cs-side { position: static; }
-      .cs-side h2 .cstar { --s: 46px; right: 0; top: -30px; }
-      .chat { margin: 0 -10px; border-radius: 18px; }
-      .chat-body { padding: 18px 10px 14px; gap: 16px; }
-      .msg { grid-template-columns: 30px minmax(0, 1fr); column-gap: 8px; }
-      .ava { width: 30px; height: 30px; font-size: 12px; }
-      .cbub .shot { width: 150px; height: 165px; }
-      .cbub p { font-size: 14.5px; }
-      .chat-input { font-size: 13px; padding-left: 14px; } .chat-input b { padding: 10px 14px; }
+      .cboard h2 { font-size: clamp(34px, 10.5vw, 60px); }
       .ab { grid-template-columns: 1fr; } .ab .arr { padding: 0; transform: rotate(90deg); justify-self: start; }
       .lookbook .wrap { padding-top: 64px; }
       .receipt { padding: 40px 24px 44px; }
@@ -469,28 +446,19 @@
     </section>
 
     <!-- КЕЙСЫ -->
-    <section class="sec cases" id="results">
-      <div class="wrap cs-grid">
-        <div class="cs-side">
-          <span class="mono kick fade">03 / кейсы участников</span>
-          <h2 class="fade" style="--d:1"><span class="tag-box">Результаты,</span><br><span class="tag-box"><span class="grad">а не обещания</span></span><span class="cstar" aria-hidden="true"><svg><use href="#cs8"/></svg></span></h2>
-          <p class="fade" style="--d:2">Реальные отзывы участников Wake Up — клуба Артёма Федонко. Без пересказа: как написали, так и показываем, у каждого — ссылка на оригинал.</p>
-          <div class="cs-stats fade" style="--d:3"><div><b>128 155 ₽</b><span class="mono">за март на скрине</span></div><div><b>7 дней</b><span class="mono">чтобы окупить вход</span></div><div><b>5</b><span class="mono">отзывов со ссылками</span></div></div>
-          <div class="fade" style="--d:4"><a class="btn" href="https://t.me/fedonko" target="_blank" rel="noopener">Вступить за 1 340 ₽ <span class="ar">→</span></a><a class="mono all" href="https://t.me/otzivifedonko" target="_blank" rel="noopener">все отзывы ↗</a></div>
-        </div>
-        <div class="chat fade" style="--d:1">
-          <div class="chat-top"><span class="ava ch" aria-hidden="true">W</span><div><b>Отзывы участников</b><small class="mono">@otzivifedonko · канал</small></div><a class="mono" href="https://t.me/otzivifedonko" target="_blank" rel="noopener">открыть ↗</a></div>
-          <div class="chat-body">
-            <span class="mono day">реальные отзывы · Wake Up</span>
-            <div class="msg" style="--i:0"><span class="ava" aria-hidden="true">K</span><div class="cbub"><b class="nm">@konst4rain</b><button class="shot" type="button" data-cap="@konst4rain · доходы за март" aria-label="Увеличить: скрин дохода за март"><img src="proof-69.jpg" alt="скрин дохода за март" loading="lazy" decoding="async"></button><p>Вывел меня на сотни тысяч за 2 месяца по цене пары походов в кифас</p><span class="mono tm">отзыв · <a href="https://t.me/otzivifedonko/69" target="_blank" rel="noopener">оригинал ↗</a></span></div><div class="res"><span><small>было</small>20–30к ₽/мес</span><span><small>стало</small>130к ₽ за март</span><span><small>скрин</small>128 155 ₽</span></div></div>
-            <div class="msg" style="--i:1"><span class="ava t2" aria-hidden="true">У</span><div class="cbub"><b class="nm">участник Wake Up</b><button class="shot" type="button" data-cap="участник Wake Up · доходы 1 января – 18 марта" aria-label="Увеличить: скрин дохода с 1 января по 18 марта"><img src="proof-57.jpg" alt="скрин дохода с 1 января по 18 марта" loading="lazy" decoding="async"></button><p>Заработал почти 200к за 2026, купил себе часы на др</p><span class="mono tm">отзыв · <a href="https://t.me/otzivifedonko/57" target="_blank" rel="noopener">оригинал ↗</a></span></div><div class="res"><span><small>скрин</small>190 566 ₽</span><span><small>период</small>1 янв – 18 мар</span></div></div>
-            <div class="msg" style="--i:2"><span class="ava t3" aria-hidden="true">L</span><div class="cbub"><b class="nm">@linkbta</b><button class="shot wide" type="button" data-cap="@linkbta · переводы, имена скрыты" aria-label="Увеличить: скрин переводов, имена скрыты"><img src="proof-59.jpg" alt="скрин переводов, имена скрыты" loading="lazy" decoding="async"></button><p>Зашёл без ожиданий, но на следующей неделе окупил вход: закрыл двух клиентов на 1к и 4к. Инфа реально годная, без воды, можно сразу использовать</p><span class="mono tm">отзыв · <a href="https://t.me/otzivifedonko/59" target="_blank" rel="noopener">оригинал ↗</a></span></div><div class="res"><span><small>окупил</small>за 1 неделю</span><span><small>скрин</small>+1 000 и +800 ₽</span></div></div>
-            <div class="msg" style="--i:3"><span class="ava t4" aria-hidden="true">А</span><div class="cbub"><b class="nm">Андрей (Dreiko)</b><button class="shot" type="button" data-cap="Андрей · новый Mac и телефон" aria-label="Увеличить: фото нового Mac и телефона"><img src="proof-66.jpg" alt="фото нового Mac и телефона" loading="lazy" decoding="async"></button><p>Смог поднять доход и завести невероятные знакомства… приобрёл новый Mac и второй телефон, а также съездил в Москву на свои средства</p><span class="mono tm">отзыв · <a href="https://t.me/otzivifedonko/66" target="_blank" rel="noopener">оригинал ↗</a></span></div><div class="res"><span><small>купил</small>Mac + телефон</span><span><small>плюс</small>Москва на свои</span></div></div>
-            <div class="msg" style="--i:4"><span class="ava t2" aria-hidden="true">У</span><div class="cbub"><b class="nm">участник Wake Up</b><p>Применил на своём бизнесе. Уже сейчас после вступления я окупил 10+ подписок</p><span class="mono tm">отзыв · <a href="https://t.me/otzivifedonko/65" target="_blank" rel="noopener">оригинал ↗</a></span></div><div class="res"><span><small>окупил</small>10+ подписок</span></div></div>
-            <div class="typing" style="--i:5"><span class="dots" aria-hidden="true"><i></i><i></i><i></i></span>следующий отзыв — твой</div>
-          </div>
-          <a class="chat-input" href="https://t.me/fedonko" target="_blank" rel="noopener"><span>Написать @fedonko…</span><b>Вступить →</b></a>
-        </div>
+    <section class="cboard" id="results">
+      <div class="collage cb-grid">
+          <figure class="cb-item fade cb1" style="--rot:-3deg;--d:1" data-depth="0.12"><button class="shot" type="button" data-cap="@konst4rain · доходы за март (128 155 ₽)" aria-label="Увеличить: скрин дохода @konst4rain за март"><img src="proof-69.jpg" alt="скрин дохода @konst4rain за март" loading="lazy" decoding="async"></button><figcaption><span class="tag-box">20–30к → 130к ₽</span><span class="mono note"><span>@konst4rain · за 2 месяца · <a href="https://t.me/otzivifedonko/69" target="_blank" rel="noopener">оригинал ↗</a></span></span></figcaption></figure>
+          <figure class="cb-item fade cb2 r" style="--rot:2.5deg;--d:2" data-depth="0.18"><button class="shot" type="button" data-cap="участник Wake Up · доходы 1 января – 18 марта" aria-label="Увеличить: скрин дохода с 1 января по 18 марта"><img src="proof-57.jpg" alt="скрин дохода с 1 января по 18 марта" loading="lazy" decoding="async"></button><figcaption><span class="tag-box">≈200к ₽ с начала года</span><span class="mono note"><span>190 566 ₽ на скрине · <a href="https://t.me/otzivifedonko/57" target="_blank" rel="noopener">оригинал ↗</a></span></span></figcaption></figure>
+          <figure class="cb-item fade cb3" style="--rot:2deg;--d:3" data-depth="0.1"><button class="shot" type="button" data-cap="Андрей · новый Mac и телефон" aria-label="Увеличить: фото нового Mac и телефона"><img src="proof-66.jpg" alt="фото нового Mac и телефона" loading="lazy" decoding="async"></button><figcaption><span class="tag-box">Mac + Москва на свои</span><span class="mono note"><span>Андрей (Dreiko) · <a href="https://t.me/otzivifedonko/66" target="_blank" rel="noopener">оригинал ↗</a></span></span></figcaption></figure>
+          <figure class="cb-item fade cb4 r" style="--rot:-2deg;--d:4" data-depth="0.2"><button class="shot" type="button" data-cap="@linkbta · переводы, имена скрыты" aria-label="Увеличить: скрин переводов, имена скрыты"><img src="proof-59.jpg" alt="скрин переводов, имена скрыты" loading="lazy" decoding="async"></button><figcaption><span class="tag-box">окупил вход за неделю</span><span class="mono note"><span>@linkbta · +1 000 и +800 ₽ · <a href="https://t.me/otzivifedonko/59" target="_blank" rel="noopener">оригинал ↗</a></span></span></figcaption></figure>
+      </div>
+      <div class="wrap">
+        <span class="mono kick fade">03 · кейсы участников</span><br>
+        <h2 class="fade" style="--d:1"><span class="cstar a" aria-hidden="true"><svg><use href="#cs8"/></svg></span><span class="cstar b rev" aria-hidden="true"><svg><use href="#cs"/></svg></span><span class="tag-box">Результаты,</span><br><span class="tag-box"><span class="grad">а не обещания</span></span></h2>
+        <p class="lead fade" style="--d:2"><span>Реальные отзывы участников Wake Up — клуба Артёма Федонко. Нажми на скрин, чтобы рассмотреть.</span></p>
+        <p class="q fade" style="--d:3"><span>«Уже сейчас после вступления я окупил 10+ подписок»</span><small class="mono">участник Wake Up · <a href="https://t.me/otzivifedonko/65" target="_blank" rel="noopener">оригинал ↗</a></small></p>
+        <div class="actions fade" style="--d:4"><a class="btn" href="https://t.me/fedonko" target="_blank" rel="noopener">Вступить за 1 340 ₽ <span class="ar">→</span></a><a class="btn ghost" href="https://t.me/otzivifedonko" target="_blank" rel="noopener">Все отзывы ↗</a></div>
       </div>
     </section>
 
@@ -660,7 +628,7 @@
 
     /* ---------- шапка, параллакс фото, линия пути ---------- */
     const nav = $('#nav');
-    const phs = $$('.ph[data-depth]');
+    const phs = $$('.ph[data-depth], .cb-item[data-depth]');
     const lbImg = $('.lb-bg img'), sbar = $('#sbar'), mcta = $('#mcta'), finalSec = $('#final');
     let ptk = false, mx = 0, my = 0;
     const onScroll = () => {
