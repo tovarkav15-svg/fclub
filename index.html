@@ -8,7 +8,7 @@
   <meta name="theme-color" content="#ffffff">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@500;600;700;800;900&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@500;600;700;800;900&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&family=Cormorant+Garamond:ital,wght@1,500;1,600&display=swap" rel="stylesheet">
   <style>
     :root {
       --bg: #ffffff; --ink: #0e0e0e; --navy: #172231; --sub: #5d636e; --mute: #9aa0a9;
@@ -184,74 +184,71 @@
     .htag.last .tag p, .htag.last .tag .no, .htag.last .tag .bc { color: #b7c3d3; }
     .htag.last .tag .bars { background: repeating-linear-gradient(90deg, #fff 0 1px, transparent 1px 3px, #fff 3px 5px, transparent 5px 6px, #fff 6px 7px, transparent 7px 10px); }
 
-    /* кейсы — слайдер */
-    .cases { position: relative; overflow: hidden; padding: 110px 0 96px; background: radial-gradient(900px 500px at 85% -10%, rgba(143,160,184,.28), transparent 60%), radial-gradient(700px 420px at -10% 110%, rgba(143,160,184,.18), transparent 60%), var(--navy); color: #fff; }
-    .cs-head { display: grid; grid-template-columns: minmax(0, 1fr) auto; align-items: end; gap: 40px; margin-bottom: 44px; }
-    .cs-head .kick { color: #8fa0b8; }
-    .cs-head h2 { position: relative; display: inline-block; color: #fff; }
-    .cs-head h2 em { font-style: normal; color: #8fa0b8; }
-    .cs-head h2 .cstar { --s: 74px; right: -64px; top: -30px; }
-    .cs-head p { margin-top: 20px; max-width: 460px; color: #b7c3d3; }
-    .cs-head p a { color: #fff; border-bottom: 1px solid rgba(255,255,255,.4); }
-    .cs-stats { display: flex; gap: 0; margin-top: 30px; }
-    .cs-stats div { padding: 0 26px; border-left: 1px solid rgba(255,255,255,.14); }
+    /* кейсы — слайдер, белый editorial */
+    .cases { position: relative; overflow: hidden; padding: 110px 0 96px; background: #fff; }
+    .serif { font-family: "Cormorant Garamond", Georgia, serif; font-style: italic; font-weight: 500; letter-spacing: -.01em; }
+    .cs-head { display: grid; grid-template-columns: minmax(0, 1fr) auto; align-items: end; gap: 40px; margin-bottom: 46px; }
+    .cs-head h2 { position: relative; font-size: clamp(40px, 5.8vw, 88px); line-height: 1.02; }
+    .cs-head h2 .cstar { --s: 70px; right: -40px; top: -34px; }
+    .cs-head p { margin-top: 24px; max-width: 440px; color: var(--sub); }
+    .cs-head p a { color: var(--ink); border-bottom: 1px solid currentColor; }
+    .cs-stats { display: flex; margin-top: 30px; border-top: 1px solid rgba(0,0,0,.12); }
+    .cs-stats div { padding: 16px 28px 0; border-left: 1px solid rgba(0,0,0,.12); }
     .cs-stats div:first-child { padding-left: 0; border: 0; }
-    .cs-stats b { display: block; font-family: var(--head); font-weight: 700; font-size: clamp(26px, 2.6vw, 36px); letter-spacing: -.05em; line-height: 1; }
-    .cs-stats span { display: block; margin-top: 6px; font-size: 12px; color: #8fa0b8; }
-    .cs-ctrl { display: flex; align-items: center; gap: 14px; }
-    .cs-count { min-width: 64px; color: #b7c3d3; }
-    .cs-count b { color: #fff; font-weight: 500; }
-    .cs-btn { display: grid; place-items: center; width: 56px; height: 56px; border: 0; border-radius: 50%; background: rgba(255,255,255,.08); box-shadow: inset 0 0 0 1px rgba(255,255,255,.22); color: #fff; font: 600 20px/1 var(--head); cursor: pointer; transition: background .3s, color .3s, transform .4s var(--ease), opacity .3s; }
-    .cs-btn:hover { background: #fff; color: var(--navy); transform: scale(1.06); }
-    .cs-btn:disabled { opacity: .3; pointer-events: none; }
-    .cs-track { display: flex; gap: 20px; overflow-x: auto; overscroll-behavior-x: contain; scroll-snap-type: x mandatory; scroll-padding-left: var(--pad); padding: 6px var(--pad) 30px; scrollbar-width: none; cursor: grab; --pad: max(32px, calc((100vw - var(--wrap)) / 2 + 32px)); }
+    .cs-stats b { display: block; font-family: var(--head); font-weight: 600; font-size: clamp(26px, 2.6vw, 36px); letter-spacing: -.05em; line-height: 1; }
+    .cs-stats span { display: block; margin-top: 8px; font-size: 11px; color: var(--mute); }
+    .cs-ctrl { display: flex; align-items: center; gap: 12px; }
+    .cs-count { min-width: 70px; color: var(--mute); }
+    .cs-count b { color: var(--ink); font-weight: 500; }
+    .cs-btn { display: grid; place-items: center; width: 54px; height: 54px; border: 0; border-radius: 50%; background: #fff; box-shadow: inset 0 0 0 1px rgba(0,0,0,.18); color: var(--ink); font: 500 19px/1 var(--head); cursor: pointer; transition: background .3s, color .3s, box-shadow .3s, opacity .3s; }
+    .cs-btn:hover { background: var(--ink); color: #fff; box-shadow: inset 0 0 0 1px var(--ink); }
+    .cs-btn:disabled { opacity: .25; pointer-events: none; }
+    .cs-track { display: flex; gap: 24px; overflow-x: auto; overscroll-behavior-x: contain; scroll-snap-type: x mandatory; scroll-padding-left: var(--pad); padding: 4px var(--pad) 26px; scrollbar-width: none; cursor: grab; --pad: max(32px, calc((100vw - var(--wrap)) / 2 + 32px)); }
     .cs-track::-webkit-scrollbar { display: none; }
     .cs-track.drag { cursor: grabbing; scroll-snap-type: none; }
     .cs-track.drag * { pointer-events: none; }
-    .slide { flex: none; display: grid; grid-template-columns: minmax(0, .92fr) minmax(0, 1.08fr); width: min(980px, 82vw); min-height: 520px; scroll-snap-align: start; border-radius: 10px; overflow: hidden; background: #fff; color: var(--ink); box-shadow: 0 40px 80px -40px rgba(0,0,0,.7); transition: transform .7s var(--ease), opacity .7s var(--ease); }
-    .cs-track.ready .slide:not(.cur) { opacity: .55; transform: scale(.97); }
-    .s-media { position: relative; display: grid; place-items: center; padding: 34px; overflow: hidden; background: radial-gradient(circle at 50% 40%, #fff, #e7ebf0 70%); }
-    .s-media::before { content: attr(data-n); position: absolute; left: 22px; top: 14px; font-family: var(--head); font-weight: 800; font-size: 120px; line-height: 1; letter-spacing: -.06em; color: rgba(23,34,49,.06); }
-    .s-media .shot { position: relative; padding: 0; border: 0; background: none; cursor: zoom-in; transition: transform .7s var(--ease); }
-    .s-media .shot:hover { transform: translateY(-6px) rotate(0deg) !important; }
-    .s-media .shot::after { content: "⤢ увеличить"; position: absolute; left: 50%; bottom: -14px; transform: translateX(-50%); padding: 6px 12px; border-radius: 999px; background: var(--navy); color: #fff; font: 500 11px/1 "JetBrains Mono", monospace; letter-spacing: .04em; white-space: nowrap; box-shadow: 0 10px 20px -10px rgba(0,0,0,.6); }
-    .phone { transform: rotate(-4deg); }
-    .phone .scr { display: block; width: 220px; height: 400px; padding: 7px; border-radius: 34px; background: #0d1117; box-shadow: 0 0 0 1px rgba(255,255,255,.08) inset, 0 40px 60px -30px rgba(0,0,0,.6); }
-    .phone img { display: block; width: 100%; height: 100%; object-fit: cover; object-position: top; border-radius: 27px; }
-    .polar { transform: rotate(3deg); }
-    .polar .scr { display: block; width: 250px; padding: 10px 10px 40px; background: #fff; box-shadow: 0 40px 60px -30px rgba(0,0,0,.5), 0 0 0 1px rgba(0,0,0,.05); }
-    .polar img { display: block; width: 100%; height: 270px; object-fit: cover; }
-    .chat { width: 100%; max-width: 330px; transform: rotate(-2deg); }
-    .chat .scr { display: block; padding: 8px; border-radius: 18px; background: #0d1117; box-shadow: 0 40px 60px -30px rgba(0,0,0,.6); }
-    .chat img { display: block; width: 100%; border-radius: 12px; }
-    .pay { position: absolute; display: flex; align-items: center; gap: 10px; padding: 10px 14px; border-radius: 14px; background: #fff; box-shadow: 0 20px 40px -20px rgba(0,0,0,.45), 0 0 0 1px rgba(0,0,0,.05); font-family: var(--head); animation: cfloat 6s ease-in-out infinite; }
-    .pay i { display: grid; place-items: center; width: 30px; height: 30px; border-radius: 50%; background: var(--navy); color: #fff; font-style: normal; font-size: 14px; }
-    .pay b { display: block; font-size: 18px; letter-spacing: -.03em; }
-    .pay small { display: block; font-size: 11px; color: var(--mute); }
-    .pay.p1 { left: 8%; top: 16%; } .pay.p2 { right: 7%; bottom: 14%; animation-delay: -3s; }
-    .big10 { position: relative; font-family: var(--head); font-weight: 800; font-size: 190px; line-height: .8; letter-spacing: -.08em; color: var(--navy); }
-    .big10 small { display: block; margin-top: 18px; font-family: "JetBrains Mono", monospace; font-weight: 400; font-size: 12px; letter-spacing: .06em; color: var(--mute); text-align: center; }
-    .s-body { display: flex; flex-direction: column; gap: 22px; padding: 38px 40px 34px; }
-    .s-tags { display: flex; flex-wrap: wrap; gap: 8px; }
-    .s-tags span { padding: 5px 10px; border-radius: 999px; background: #f1f3f6; color: var(--sub); }
-    .s-tags span:first-child { background: var(--navy); color: #fff; }
-    .s-body h3 { font-family: var(--head); font-weight: 700; font-size: clamp(30px, 3.4vw, 46px); line-height: .98; letter-spacing: -.055em; }
-    .s-body h3 em { font-style: normal; color: #8391a6; }
-    .facts { display: grid; border-top: 1px solid rgba(0,0,0,.08); }
-    .facts div { display: grid; grid-template-columns: 96px minmax(0, 1fr); gap: 14px; padding: 11px 0; border-bottom: 1px solid rgba(0,0,0,.08); font-size: 15px; }
-    .facts dt { color: var(--mute); font-size: 12px; padding-top: 3px; }
-    .facts dd { font-weight: 500; }
-    .s-body blockquote { position: relative; padding-left: 18px; font-size: 16px; line-height: 1.5; color: var(--sub); border-left: 2px solid var(--navy); }
+    .slide { flex: none; display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); width: min(1000px, 80vw); min-height: 540px; scroll-snap-align: start; background: #fff; box-shadow: 0 0 0 1px rgba(0,0,0,.09); transition: opacity .7s var(--ease); }
+    .cs-track.ready .slide:not(.cur) { opacity: .4; }
+    .s-fig { position: relative; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 26px; margin: 12px; padding: 40px 24px 22px; background: #f3f2ef; overflow: hidden; }
+    .s-fig .no { position: absolute; left: 16px; top: 14px; color: var(--mute); }
+    .s-fig figcaption { color: var(--mute); font-size: 11px; text-align: center; }
+    .s-fig .shot { position: relative; padding: 0; border: 0; background: none; cursor: zoom-in; transition: transform .8s var(--ease); }
+    .s-fig .shot:hover { transform: translateY(-6px) rotate(0deg) !important; }
+    .phone { transform: rotate(-3deg); }
+    .phone .scr { display: block; width: 210px; height: 384px; padding: 6px; border-radius: 32px; background: #111; box-shadow: 0 30px 50px -28px rgba(0,0,0,.55); }
+    .phone img { display: block; width: 100%; height: 100%; object-fit: cover; object-position: top; border-radius: 26px; }
+    .polar { transform: rotate(2.5deg); }
+    .polar .scr { display: block; width: 240px; padding: 10px 10px 38px; background: #fff; box-shadow: 0 30px 50px -28px rgba(0,0,0,.4), 0 0 0 1px rgba(0,0,0,.05); }
+    .polar img { display: block; width: 100%; height: 260px; object-fit: cover; }
+    .chat { width: 100%; max-width: 320px; transform: rotate(-1.5deg); }
+    .chat .scr { display: block; padding: 7px; border-radius: 16px; background: #111; box-shadow: 0 30px 50px -28px rgba(0,0,0,.55); }
+    .chat img { display: block; width: 100%; border-radius: 10px; }
+    .pay { position: absolute; display: block; padding: 9px 12px 8px; background: #fff; box-shadow: 0 0 0 1px rgba(0,0,0,.12), 0 14px 26px -18px rgba(0,0,0,.4); animation: cfloat 6s ease-in-out infinite; }
+    .pay b { display: block; font-family: var(--head); font-weight: 600; font-size: 18px; letter-spacing: -.03em; }
+    .pay small { display: block; margin-top: 3px; font-family: "JetBrains Mono", monospace; font-size: 10px; letter-spacing: .05em; color: var(--mute); }
+    .pay.p1 { left: 8%; top: 18%; transform: rotate(-4deg); } .pay.p2 { right: 7%; bottom: 22%; animation-delay: -3s; }
+    .big10 { font-family: var(--head); font-weight: 600; font-size: 180px; line-height: .8; letter-spacing: -.08em; }
+    .big10 small { display: block; margin-top: 18px; font-family: "JetBrains Mono", monospace; font-weight: 400; font-size: 11px; letter-spacing: .06em; color: var(--mute); text-align: center; }
+    .s-body { display: flex; flex-direction: column; gap: 24px; padding: 40px 40px 34px 28px; }
+    .s-top { display: flex; flex-wrap: wrap; gap: 6px 16px; color: var(--mute); }
+    .s-top b { color: var(--ink); font-weight: 500; }
+    .s-body h3 { font-family: var(--head); font-weight: 600; font-size: clamp(30px, 3.3vw, 46px); line-height: 1; letter-spacing: -.055em; }
+    .s-body h3 .serif { font-size: 1.12em; letter-spacing: -.02em; }
+    .facts { display: grid; border-top: 1px solid rgba(0,0,0,.1); }
+    .facts div { display: grid; grid-template-columns: 100px minmax(0, 1fr); gap: 14px; padding: 11px 0; border-bottom: 1px solid rgba(0,0,0,.1); font-size: 15px; }
+    .facts dt { color: var(--mute); font-size: 11px; padding-top: 3px; }
+    .s-body blockquote { font-family: "Cormorant Garamond", Georgia, serif; font-style: italic; font-weight: 500; font-size: 24px; line-height: 1.2; color: var(--ink); }
     .s-foot { display: flex; align-items: center; justify-content: space-between; gap: 14px; margin-top: auto; }
-    .s-foot .src { font-size: 12px; color: var(--navy); border-bottom: 1px solid currentColor; }
+    .s-foot .src { font-size: 12px; color: var(--ink); border-bottom: 1px solid currentColor; }
     .s-foot .who { color: var(--mute); }
-    .slide.cta { grid-template-columns: 1fr; place-items: center; width: min(560px, 82vw); padding: 40px; text-align: center; background: linear-gradient(160deg, #fff, #e7ebf0); }
-    .slide.cta h3 { font-family: var(--head); font-weight: 800; font-size: clamp(36px, 4.4vw, 60px); line-height: .95; letter-spacing: -.06em; }
-    .slide.cta p { max-width: 340px; margin: 18px auto 30px; color: var(--sub); }
-    .slide.cta .lnk { display: inline-block; margin-top: 18px; font-size: 12px; color: var(--navy); border-bottom: 1px solid currentColor; }
-    .cs-bar { position: relative; height: 2px; margin-top: 8px; background: rgba(255,255,255,.14); }
-    .cs-bar i { position: absolute; left: 0; top: 0; height: 100%; width: calc(var(--p, .2) * 100%); background: #fff; transition: width .4s var(--ease); }
-    .cs-note { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 14px; margin-top: 18px; color: #8fa0b8; }
+    .slide.cta { grid-template-columns: 1fr; width: min(560px, 80vw); }
+    .slide.cta .s-fig { gap: 0; text-align: center; padding: 48px 32px; }
+    .slide.cta h3 { font-size: clamp(36px, 4.4vw, 60px); line-height: 1.04; }
+    .slide.cta p { max-width: 340px; margin: 22px auto 30px; color: var(--sub); }
+    .slide.cta .lnk { display: inline-block; margin-top: 18px; font-size: 12px; color: var(--ink); border-bottom: 1px solid currentColor; }
+    .cs-bar { position: relative; height: 1px; margin-top: 4px; background: rgba(0,0,0,.12); }
+    .cs-bar i { position: absolute; left: 0; top: -.5px; height: 2px; width: calc(var(--p, .2) * 100%); background: var(--ink); transition: width .5s var(--ease); }
+    .cs-note { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 14px; margin-top: 16px; color: var(--mute); }
     .lbox { position: fixed; inset: 0; z-index: 90; display: grid; place-items: center; padding: 24px; background: rgba(15,22,32,.72); backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px); opacity: 0; visibility: hidden; transition: opacity .35s var(--ease), visibility .35s; cursor: zoom-out; }
     .lbox.on { opacity: 1; visibility: visible; }
     .lbox figure { display: flex; flex-direction: column; gap: 10px; max-width: min(400px, 92vw); transform: translateY(14px) scale(.96); transition: transform .45s var(--ease); }
@@ -348,21 +345,21 @@
       .mods { grid-template-columns: 1fr; }
       .cases { padding: 80px 0 72px; }
       .cs-head { grid-template-columns: 1fr; gap: 26px; margin-bottom: 30px; }
-      .cs-head h2 .cstar { --s: 52px; right: -30px; top: -26px; }
-      .cs-stats div { padding: 0 14px; } .cs-stats span { font-size: 11px; }
+      .cs-head h2 .cstar { --s: 48px; right: -14px; top: -30px; }
+      .cs-stats div { padding: 14px 14px 0; } .cs-stats span { font-size: 10px; }
       .cs-btn { width: 48px; height: 48px; }
       .cs-track { gap: 12px; --pad: 22px; }
       .slide { grid-template-columns: 1fr; width: 86vw; min-height: 0; }
-      .s-media { height: 300px; padding: 20px; }
-      .s-media::before { font-size: 80px; }
-      .phone .scr { width: 150px; height: 262px; border-radius: 26px; padding: 5px; } .phone img { border-radius: 21px; }
-      .polar .scr { width: 180px; padding: 8px 8px 28px; } .polar img { height: 190px; }
-      .chat { max-width: 250px; }
-      .pay { padding: 8px 10px; } .pay b { font-size: 15px; } .pay.p1 { left: 4%; top: 8%; } .pay.p2 { right: 4%; bottom: 8%; }
-      .big10 { font-size: 130px; }
-      .s-body { padding: 26px 22px 24px; gap: 18px; }
-      .facts div { grid-template-columns: 76px minmax(0, 1fr); font-size: 14px; }
-      .slide.cta { width: 86vw; padding: 44px 24px; }
+      .s-fig { height: 320px; margin: 8px; padding: 34px 16px 14px; gap: 16px; }
+      .phone .scr { width: 140px; height: 244px; border-radius: 24px; padding: 5px; } .phone img { border-radius: 20px; }
+      .polar .scr { width: 170px; padding: 8px 8px 26px; } .polar img { height: 180px; }
+      .chat { max-width: 240px; }
+      .pay { padding: 7px 9px 6px; } .pay b { font-size: 14px; } .pay.p1 { left: 4%; top: 14%; } .pay.p2 { right: 4%; bottom: 20%; }
+      .big10 { font-size: 120px; }
+      .s-body { padding: 18px 20px 24px; gap: 18px; }
+      .s-body blockquote { font-size: 21px; }
+      .facts div { grid-template-columns: 80px minmax(0, 1fr); font-size: 14px; }
+      .slide.cta { width: 86vw; } .slide.cta .s-fig { height: auto; }
       .ab { grid-template-columns: 1fr; } .ab .arr { padding: 0; transform: rotate(90deg); justify-self: start; }
       .lookbook .wrap { padding-top: 64px; }
       .receipt { padding: 40px 24px 44px; }
@@ -498,7 +495,7 @@
         <div class="cs-head">
           <div>
             <span class="mono kick fade">03 / кейсы участников</span>
-            <h2 class="fade" style="--d:1">Результаты, <em>а не обещания</em><span class="cstar" aria-hidden="true"><svg><use href="#cs8"/></svg></span></h2>
+            <h2 class="fade" style="--d:1"><span class="tag-box">Результаты,</span><br><span class="tag-box"><span class="grad">а не обещания</span></span><span class="cstar" aria-hidden="true"><svg><use href="#cs8"/></svg></span></h2>
             <p class="fade" style="--d:2">Реальные отзывы участников Wake Up — клуба Артёма Федонко — со скринами. Всё можно проверить в канале <a href="https://t.me/otzivifedonko" target="_blank" rel="noopener">@otzivifedonko</a>.</p>
             <div class="cs-stats fade" style="--d:3"><div><b>128к ₽</b><span class="mono">за месяц на скрине</span></div><div><b>7 дней</b><span class="mono">быстрая окупаемость</span></div><div><b>5</b><span class="mono">кейсов ниже</span></div></div>
           </div>
@@ -506,63 +503,63 @@
         </div>
       </div>
       <div class="cs-track fade" tabindex="0" aria-label="Кейсы участников, листай вбок">
-          <article class="slide" aria-roledescription="слайд" aria-label="Кейс 01">
-            <div class="s-media" data-n="01"><button class="shot phone" type="button" data-cap="@konst4rain · доходы за март" aria-label="Увеличить: скрин дохода @konst4rain за март"><span class="scr"><img src="proof-69.jpg" alt="скрин дохода @konst4rain за март" loading="lazy" decoding="async" draggable="false"></span></button></div>
+          <article class="slide" aria-label="Кейс 01">
+            <figure class="s-fig"><span class="mono no">Nº 01</span><button class="shot phone" type="button" data-cap="@konst4rain · доходы за март" aria-label="Увеличить: скрин дохода @konst4rain за март"><span class="scr"><img src="proof-69.jpg" alt="скрин дохода @konst4rain за март" loading="lazy" decoding="async" draggable="false"></span></button><figcaption class="mono">fig. 01 — доходы за март · нажми, чтобы увеличить</figcaption></figure>
             <div class="s-body">
-              <div class="s-tags"><span class="mono">кейс 01</span><span class="mono">агентство</span><span class="mono">2 месяца</span></div>
-              <h3>С 20–30к до <em>130к ₽</em> в месяц</h3>
+              <div class="mono s-top"><b>@konst4rain</b><span>агентство</span><span>2 месяца</span></div>
+              <h3>С 20–30к до <span class="serif">130к ₽</span> в месяц</h3>
               <dl class="facts"><div><dt class="mono">было</dt><dd>20–30к ₽ в месяц, работал один</dd></div><div><dt class="mono">стало</dt><dd>130к ₽ за март, своё агентство</dd></div><div><dt class="mono">срок</dt><dd>вступил 29 января → результат в марте</dd></div><div><dt class="mono">на скрине</dt><dd>128 155 ₽ дохода за март</dd></div></dl>
               <blockquote>«Вывел меня на сотни тысяч за 2 месяца по цене пары походов в кифас»</blockquote>
-              <div class="s-foot"><span class="mono who">@konst4rain</span><a class="mono src" href="https://t.me/otzivifedonko/69" target="_blank" rel="noopener">оригинал отзыва →</a></div>
+              <div class="s-foot"><span class="mono who">отзыв участника Wake Up</span><a class="mono src" href="https://t.me/otzivifedonko/69" target="_blank" rel="noopener">оригинал отзыва ↗</a></div>
             </div>
           </article>
-          <article class="slide" aria-roledescription="слайд" aria-label="Кейс 02">
-            <div class="s-media" data-n="02"><button class="shot phone" type="button" data-cap="участник Wake Up · доход за 2026" aria-label="Увеличить: скрин дохода участника за 2026 год"><span class="scr"><img src="proof-57.jpg" alt="скрин дохода участника за 2026 год" loading="lazy" decoding="async" draggable="false"></span></button></div>
+          <article class="slide" aria-label="Кейс 02">
+            <figure class="s-fig"><span class="mono no">Nº 02</span><button class="shot phone" type="button" data-cap="участник Wake Up · доход 1 января – 18 марта" aria-label="Увеличить: скрин дохода участника с начала 2026"><span class="scr"><img src="proof-57.jpg" alt="скрин дохода участника с начала 2026" loading="lazy" decoding="async" draggable="false"></span></button><figcaption class="mono">fig. 02 — доходы с 1 января · нажми, чтобы увеличить</figcaption></figure>
             <div class="s-body">
-              <div class="s-tags"><span class="mono">кейс 02</span><span class="mono">доход</span><span class="mono">2,5 месяца</span></div>
-              <h3>Почти <em>200к ₽</em> с начала 2026</h3>
+              <div class="mono s-top"><b>участник Wake Up</b><span>доход</span><span>2,5 месяца</span></div>
+              <h3>Почти <span class="serif">200к ₽</span> с начала 2026</h3>
               <dl class="facts"><div><dt class="mono">на скрине</dt><dd>190 566 ₽ дохода за 1 января – 18 марта</dd></div><div><dt class="mono">бонус</dt><dd>купил часы себе на день рождения</dd></div></dl>
               <blockquote>«Заработал почти 200к за 2026, купил себе часы на др»</blockquote>
-              <div class="s-foot"><span class="mono who">участник Wake Up</span><a class="mono src" href="https://t.me/otzivifedonko/57" target="_blank" rel="noopener">оригинал отзыва →</a></div>
+              <div class="s-foot"><span class="mono who">отзыв участника Wake Up</span><a class="mono src" href="https://t.me/otzivifedonko/57" target="_blank" rel="noopener">оригинал отзыва ↗</a></div>
             </div>
           </article>
-          <article class="slide" aria-roledescription="слайд" aria-label="Кейс 03">
-            <div class="s-media" data-n="03"><div class="pay p1" aria-hidden="true"><i>₽</i><span><b>+1 000 ₽</b><small>входящий перевод</small></span></div><button class="shot chat" type="button" data-cap="@linkbta · оплаты клиентов, имена скрыты" aria-label="Увеличить: скрин переводов от клиентов, имена скрыты"><span class="scr"><img src="proof-59.jpg" alt="скрин переводов от клиентов, имена скрыты" loading="lazy" decoding="async" draggable="false"></span></button><div class="pay p2" aria-hidden="true"><i>₽</i><span><b>+800 ₽</b><small>перевод по СБП</small></span></div></div>
+          <article class="slide" aria-label="Кейс 03">
+            <figure class="s-fig"><span class="mono no">Nº 03</span><span class="pay p1" aria-hidden="true"><b>+1 000 ₽</b><small>входящий перевод</small></span><button class="shot chat" type="button" data-cap="@linkbta · оплаты клиентов, имена скрыты" aria-label="Увеличить: скрин переводов от клиентов, имена скрыты"><span class="scr"><img src="proof-59.jpg" alt="скрин переводов от клиентов, имена скрыты" loading="lazy" decoding="async" draggable="false"></span></button><span class="pay p2" aria-hidden="true"><b>+800 ₽</b><small>перевод по СБП</small></span><figcaption class="mono">fig. 03 — переводы, имена скрыты</figcaption></figure>
             <div class="s-body">
-              <div class="s-tags"><span class="mono">кейс 03</span><span class="mono">окупаемость</span><span class="mono">1 неделя</span></div>
-              <h3>Окупил вход <em>за неделю</em></h3>
+              <div class="mono s-top"><b>@linkbta</b><span>окупаемость</span><span>1 неделя</span></div>
+              <h3>Окупил вход <span class="serif">за неделю</span></h3>
               <dl class="facts"><div><dt class="mono">клиенты</dt><dd>двое новых, по словам автора — на 1к и 4к ₽</dd></div><div><dt class="mono">когда</dt><dd>на следующей неделе после входа</dd></div><div><dt class="mono">на скрине</dt><dd>переводы +1 000 ₽ и +800 ₽</dd></div></dl>
               <blockquote>«Зашёл без ожиданий… Инфа реально годная, без воды, можно сразу использовать»</blockquote>
-              <div class="s-foot"><span class="mono who">@linkbta</span><a class="mono src" href="https://t.me/otzivifedonko/59" target="_blank" rel="noopener">оригинал отзыва →</a></div>
+              <div class="s-foot"><span class="mono who">отзыв участника Wake Up</span><a class="mono src" href="https://t.me/otzivifedonko/59" target="_blank" rel="noopener">оригинал отзыва ↗</a></div>
             </div>
           </article>
-          <article class="slide" aria-roledescription="слайд" aria-label="Кейс 04">
-            <div class="s-media" data-n="04"><button class="shot polar" type="button" data-cap="Андрей · новый Mac и телефон" aria-label="Увеличить: фото нового Mac и телефона"><span class="scr"><img src="proof-66.jpg" alt="фото нового Mac и телефона" loading="lazy" decoding="async" draggable="false"></span></button></div>
+          <article class="slide" aria-label="Кейс 04">
+            <figure class="s-fig"><span class="mono no">Nº 04</span><button class="shot polar" type="button" data-cap="Андрей · новый Mac и телефон" aria-label="Увеличить: фото нового Mac и телефона"><span class="scr"><img src="proof-66.jpg" alt="фото нового Mac и телефона" loading="lazy" decoding="async" draggable="false"></span></button><figcaption class="mono">fig. 04 — покупки на свои · нажми, чтобы увеличить</figcaption></figure>
             <div class="s-body">
-              <div class="s-tags"><span class="mono">кейс 04</span><span class="mono">доход</span><span class="mono">лайфстайл</span></div>
-              <h3>Новый Mac и Москва <em>на свои</em></h3>
+              <div class="mono s-top"><b>Андрей (Dreiko)</b><span>доход</span><span>лайфстайл</span></div>
+              <h3>Новый Mac и Москва <span class="serif">на свои</span></h3>
               <dl class="facts"><div><dt class="mono">доход</dt><dd>вырос после клуба</dd></div><div><dt class="mono">покупки</dt><dd>Mac и второй телефон</dd></div><div><dt class="mono">плюс</dt><dd>поездка в Москву, новые знакомства</dd></div></dl>
               <blockquote>«Смог поднять доход и завести невероятные знакомства»</blockquote>
-              <div class="s-foot"><span class="mono who">Андрей (Dreiko)</span><a class="mono src" href="https://t.me/otzivifedonko/66" target="_blank" rel="noopener">оригинал отзыва →</a></div>
+              <div class="s-foot"><span class="mono who">отзыв участника Wake Up</span><a class="mono src" href="https://t.me/otzivifedonko/66" target="_blank" rel="noopener">оригинал отзыва ↗</a></div>
             </div>
           </article>
-          <article class="slide" aria-roledescription="слайд" aria-label="Кейс 05">
-            <div class="s-media" data-n="05"><div class="big10" aria-hidden="true">10+<small>окупленных подписок</small></div></div>
+          <article class="slide" aria-label="Кейс 05">
+            <figure class="s-fig"><span class="mono no">Nº 05</span><div class="big10" aria-hidden="true">10+<small>окупленных подписок</small></div><figcaption class="mono">fig. 05 — отзыв без скриншота</figcaption></figure>
             <div class="s-body">
-              <div class="s-tags"><span class="mono">кейс 05</span><span class="mono">бизнес</span></div>
-              <h3>Окупил <em>10+ подписок</em></h3>
+              <div class="mono s-top"><b>участник Wake Up</b><span>бизнес</span></div>
+              <h3>Окупил <span class="serif">10+ подписок</span></h3>
               <dl class="facts"><div><dt class="mono">где</dt><dd>применил на своём бизнесе</dd></div><div><dt class="mono">когда</dt><dd>сразу после вступления</dd></div></dl>
               <blockquote>«Применил на своём бизнесе. Уже сейчас после вступления я окупил 10+ подписок»</blockquote>
-              <div class="s-foot"><span class="mono who">участник Wake Up</span><a class="mono src" href="https://t.me/otzivifedonko/65" target="_blank" rel="noopener">оригинал отзыва →</a></div>
+              <div class="s-foot"><span class="mono who">отзыв участника Wake Up</span><a class="mono src" href="https://t.me/otzivifedonko/65" target="_blank" rel="noopener">оригинал отзыва ↗</a></div>
             </div>
           </article>
           <article class="slide cta" aria-label="Вступить">
-            <div>
-              <span class="mono kick">кейс 06</span>
-              <h3>Следующий кейс — твой</h3>
+            <div class="s-fig">
+              <span class="mono no">Nº 06</span>
+              <h3><span class="tag-box">Следующий кейс —</span><br><span class="tag-box"><span class="serif">твой</span></span></h3>
               <p>Вход в клуб — 1 340 ₽. Дальше результат зависит от того, сколько ты внедряешь.</p>
-              <a class="btn" href="https://t.me/fedonko" target="_blank" rel="noopener">Вступить за 1 340 ₽ <span class="ar">→</span></a><br>
-              <a class="mono lnk" href="https://t.me/otzivifedonko" target="_blank" rel="noopener">все отзывы →</a>
+              <div><a class="btn" href="https://t.me/fedonko" target="_blank" rel="noopener">Вступить за 1 340 ₽ <span class="ar">→</span></a></div>
+              <a class="mono lnk" href="https://t.me/otzivifedonko" target="_blank" rel="noopener">все отзывы ↗</a>
             </div>
           </article>
       </div>
