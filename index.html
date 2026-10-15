@@ -787,7 +787,7 @@
       };
       prev.addEventListener('click', () => go(cur - 1));
       next.addEventListener('click', () => go(cur + 1));
-      tr.addEventListener('scroll', () => requestAnimationFrame(upd), { passive: true });
+      tr.addEventListener('scroll', upd, { passive: true });
       tr.addEventListener('keydown', (e) => { if (e.key === 'ArrowRight') { e.preventDefault(); go(cur + 1); } if (e.key === 'ArrowLeft') { e.preventDefault(); go(cur - 1); } });
       let x0 = 0, s0 = 0, down = false, moved = false;
       tr.addEventListener('pointerdown', (e) => { if (e.pointerType !== 'mouse' || e.button) return; down = true; moved = false; x0 = e.clientX; s0 = tr.scrollLeft; });
