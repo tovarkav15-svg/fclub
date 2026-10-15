@@ -293,10 +293,12 @@
     .faq summary { list-style: none; cursor: pointer; display: flex; justify-content: space-between; align-items: center; gap: 30px; padding: 26px 0; font-family: var(--head); font-weight: 700; font-size: clamp(19px, 2vw, 24px); letter-spacing: -.02em; }
     .faq summary::-webkit-details-marker { display: none; }
     .faq summary .ci { transition: transform .8s var(--ease); }
-    .faq details { transition: background .4s; } .faq details[open] { background: linear-gradient(90deg, rgba(23,34,49,.035), transparent 70%); }
-    .faq details[open] summary .ci { transform: rotate(135deg) scale(1.15); }
-    .faq .ans { display: grid; grid-template-rows: 0fr; transition: grid-template-rows .6s var(--ease); }
-    .faq details[open] .ans { grid-template-rows: 1fr; }
+    .faq details { transition: background .6s ease; } .faq details.on { background: linear-gradient(90deg, rgba(23,34,49,.035), transparent 70%); }
+    .faq details.on summary .ci { transform: rotate(135deg) scale(1.15); }
+    .faq .ans { display: grid; grid-template-rows: 0fr; transition: grid-template-rows .55s cubic-bezier(.4, 0, .2, 1); }
+    .faq details.on .ans { grid-template-rows: 1fr; transition-duration: .75s; transition-timing-function: cubic-bezier(.22, 1, .36, 1); }
+    .faq .ans .bub { opacity: 0; transform: translateY(-10px) scale(.98); transform-origin: left top; transition: opacity .3s ease, transform .45s cubic-bezier(.4, 0, .2, 1); }
+    .faq details.on .ans .bub { opacity: 1; transform: none; transition: opacity .55s ease .12s, transform .75s cubic-bezier(.22, 1, .36, 1) .08s; }
     .faq .ans > div { overflow: hidden; }
     .faq .ans .bub { margin: 0 0 26px; display: inline-block; }
 
@@ -697,9 +699,16 @@
 
 
     /* ---------- вопросы раскрываются при наведении ---------- */
-    if (matchMedia('(hover: hover)').matches) $$('.faq details').forEach((d) => {
-      d.addEventListener('mouseenter', () => { d.open = true; });
-      d.addEventListener('mouseleave', () => { d.open = false; });
+    const faqHover = matchMedia('(hover: hover)').matches;
+    $$('.faq details').forEach((d) => {
+      d.open = true;
+      let tm = 0;
+      const set = (on, delay) => { clearTimeout(tm); tm = setTimeout(() => d.classList.toggle('on', on), delay); };
+      d.querySelector('summary').addEventListener('click', (e) => { e.preventDefault(); if (!faqHover) set(!d.classList.contains('on'), 0); });
+      if (faqHover) {
+        d.addEventListener('mouseenter', () => set(true, 70));
+        d.addEventListener('mouseleave', () => set(false, 140));
+      }
     });
 
     /* ---------- магнитные кнопки ---------- */
