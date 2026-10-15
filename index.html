@@ -121,10 +121,52 @@
     .mod .more { display: inline-block; margin-top: 16px; font-size: 13px; font-weight: 600; color: var(--navy); border-bottom: 1.5px solid currentColor; }
 
     /* нишевые предметы: белый фон фото растворяется в странице */
-    .talk .obj, .side .obj { position: absolute; pointer-events: none; mix-blend-mode: multiply; -webkit-mask-image: radial-gradient(closest-side, #000 62%, transparent 100%); mask-image: radial-gradient(closest-side, #000 62%, transparent 100%); filter: grayscale(.25) brightness(1.06) contrast(1.1); transition: transform 1.2s var(--ease), opacity .6s; }
-    .side { position: absolute; inset: 0; z-index: 0; pointer-events: none; }
-    .side .obj { width: auto; height: var(--h); rotate: var(--r, 0deg); animation: drift var(--t, 9s) ease-in-out var(--dl, 0s) infinite; }
-    @keyframes drift { 50% { transform: translateY(-14px) rotate(3deg); } }
+    .talk .obj { position: absolute; pointer-events: none; mix-blend-mode: multiply; -webkit-mask-image: radial-gradient(closest-side, #000 62%, transparent 100%); mask-image: radial-gradient(closest-side, #000 62%, transparent 100%); filter: grayscale(.25) brightness(1.06) contrast(1.1); transition: transform 1.2s var(--ease), opacity .6s; }
+
+
+    /* висячие наушники */
+    .hang { position: absolute; z-index: 0; right: 9%; top: -140px; width: 170px; transform-origin: 50% 0; animation: swing 4.8s ease-in-out infinite; pointer-events: none; }
+    .hang .cord { display: block; width: 1.5px; height: 120px; margin: 0 auto; background: linear-gradient(rgba(154,160,168,0), #b9bdc3 40%, #9aa0a8); }
+    .hang img { display: block; width: 100%; margin-top: -40px; mix-blend-mode: multiply; -webkit-mask-image: radial-gradient(closest-side, #000 55%, transparent 100%); mask-image: radial-gradient(closest-side, #000 55%, transparent 100%); filter: grayscale(1) brightness(1.14) contrast(1.25); }
+    @keyframes swing { 0%, 100% { transform: rotate(3.5deg); } 50% { transform: rotate(-3.5deg); } }
+    .shead > * { position: relative; z-index: 1; }
+
+    /* бегущая строка */
+    .ticker { overflow: hidden; padding: 22px 0; border-block: 1px solid var(--line); background: #fff; }
+    .tk-track { display: flex; width: max-content; animation: tk 46s linear infinite; }
+    .ticker.rev .tk-track { animation-direction: reverse; }
+    .ticker:hover .tk-track { animation-play-state: paused; }
+    .tk-track span { display: inline-flex; align-items: center; gap: 28px; padding-right: 28px; font-family: var(--head); font-weight: 600; font-size: clamp(24px, 3.2vw, 44px); line-height: 1; letter-spacing: -.06em; white-space: nowrap; }
+    .tk-track span i { font-style: normal; color: var(--mute); }
+    .tk-track .ci { width: 26px; height: 26px; animation: cspin 8s linear infinite; }
+    @keyframes tk { to { transform: translateX(-50%); } }
+
+    /* заголовки выезжают из-под маски */
+    .shead h2.fade { clip-path: inset(0 0 100% 0); transition: opacity 1s var(--ease), transform 1.1s var(--ease), clip-path 1.2s var(--ease); }
+    .shead h2.fade.in { clip-path: inset(-10% -5% -20% -5%); }
+
+    /* путь: линия заполняется при скролле */
+    .path .prog { position: absolute; left: 27px; right: 0; top: 26px; height: 2px; background: var(--navy); transform-origin: 0 50%; transform: scaleX(var(--p, 0)); }
+    .step .mk { transition: background .6s var(--ease), transform .6s var(--ease); }
+    .step.on .mk { background: var(--navy); transform: scale(1.08); }
+
+    /* переписка: сообщения приходят по очереди */
+    .talk .bub { opacity: 0; transform: translateY(12px) scale(.97); transition: opacity .6s var(--ease), transform .7s var(--ease); }
+    .talk.in .bub { opacity: 1; transform: none; transition-delay: .35s; }
+    .talk.in .bub:nth-of-type(2) { transition-delay: 1.1s; }
+
+    /* эйфелева башня */
+    .price-copy { position: relative; isolation: isolate; }
+    .eiffel { position: absolute; z-index: -1; right: -70px; bottom: -40px; height: 600px; width: auto; overflow: visible; }
+    .eiffel .ln { fill: none; stroke: var(--navy); stroke-width: 1.3; stroke-linecap: round; stroke-linejoin: round; opacity: .38; stroke-dasharray: 1; stroke-dashoffset: 1; transition: stroke-dashoffset 3.2s var(--ease); }
+    .eiffel .lat { stroke-width: .8; opacity: .22; transition-duration: 4s; transition-delay: .6s; }
+    .eiffel.in .ln { stroke-dashoffset: 0; }
+    .eiffel .lt { fill: #fff; opacity: 0; filter: drop-shadow(0 0 3px rgba(23,34,49,.9)); }
+    .eiffel.sparkle .lt { animation: lt .5s ease-in-out var(--dl) 7 alternate; }
+    @keyframes lt { to { opacity: 1; } }
+    .eiffel .beam { transform-box: view-box; transform-origin: 100px 22px; animation: beam 5s linear infinite; opacity: .5; }
+    @keyframes beam { 0% { transform: scaleX(1); } 50% { transform: scaleX(-1); } 100% { transform: scaleX(1); } }
+    .eiffel .top { fill: var(--navy); opacity: .7; }
 
     /* путь */
     .path { position: relative; display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 16px; }
@@ -205,9 +247,9 @@
       .nav nav { display: none; }
       .price-wrap { grid-template-columns: 1fr; }
       .mods { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-      .side .obj { --h: 180px !important; opacity: .7; }
+      .hang, .eiffel { display: none; }
       .path { grid-template-columns: repeat(2, minmax(0, 1fr)); row-gap: 40px; }
-      .path::before { display: none; }
+      .path::before, .path .prog { display: none; }
       .talks { grid-template-columns: 1fr; }
       .h1p { width: 24%; } .h2p { width: 28%; } .h3p { width: 24%; } .h4p { width: 20%; }
       .f2, .f5 { display: none; }
@@ -224,7 +266,6 @@
       .h3p { left: 3%; bottom: 20px; width: 34%; aspect-ratio: 1/1; }
       .h4p { right: -2%; bottom: 36px; width: 38%; aspect-ratio: 4/3; }
       .mods, .path { grid-template-columns: 1fr; }
-      .side { display: none; }
       .receipt { padding: 40px 24px 44px; }
       .rcpt-sh .cstar { --s: 70px; right: -10px; top: -34px; }
       .bub { font-size: 16px; }
@@ -315,15 +356,17 @@
       </div>
     </section>
 
+    <div class="ticker" aria-hidden="true"><div class="tk-track"><span>упаковка <svg class="ci" aria-hidden="true"><use href="#cs"/></svg></span><span>прогревы <svg class="ci" aria-hidden="true"><use href="#cs"/></svg></span><span>воронки <svg class="ci" aria-hidden="true"><use href="#cs"/></svg></span><span>запуски <svg class="ci" aria-hidden="true"><use href="#cs"/></svg></span><span>трафик <svg class="ci" aria-hidden="true"><use href="#cs"/></svg></span><span>аналитика <svg class="ci" aria-hidden="true"><use href="#cs"/></svg></span><span>договор <svg class="ci" aria-hidden="true"><use href="#cs"/></svg></span><span>команда <svg class="ci" aria-hidden="true"><use href="#cs"/></svg></span><span>упаковка <svg class="ci" aria-hidden="true"><use href="#cs"/></svg></span><span>прогревы <svg class="ci" aria-hidden="true"><use href="#cs"/></svg></span><span>воронки <svg class="ci" aria-hidden="true"><use href="#cs"/></svg></span><span>запуски <svg class="ci" aria-hidden="true"><use href="#cs"/></svg></span><span>трафик <svg class="ci" aria-hidden="true"><use href="#cs"/></svg></span><span>аналитика <svg class="ci" aria-hidden="true"><use href="#cs"/></svg></span><span>договор <svg class="ci" aria-hidden="true"><use href="#cs"/></svg></span><span>команда <svg class="ci" aria-hidden="true"><use href="#cs"/></svg></span></div></div>
+
     <!-- МОДУЛИ -->
     <section class="sec" id="modules">
       <div class="wrap">
+        <div class="hang" aria-hidden="true"><i class="cord"></i><img src="https://images.pexels.com/photos/14272792/pexels-photo-14272792.jpeg?auto=compress&cs=tinysrgb&w=500" alt="" loading="lazy" decoding="async"></div>
         <div class="shead">
           <div><span class="mono kick fade">01 / модули</span><h2 class="grad fade" style="--d:1">Вся система продюсирования в одном месте</h2></div>
           <p class="fade" style="--d:2">Восемь модулей закрывают весь цикл работы с экспертом. Нажми на модуль, чтобы раскрыть содержание.</p>
         </div>
         <div class="mods-box">
-          <div class="side" aria-hidden="true"><img class="obj" style="left:-200px;top:-50px;--h:250px;--r:-10deg;--t:10s;--dl:0s" src="https://images.pexels.com/photos/30428608/pexels-photo-30428608.jpeg?auto=compress&cs=tinysrgb&w=600" alt="" loading="lazy" decoding="async"><img class="obj" style="left:-160px;top:48%;--h:210px;--r:12deg;--t:8s;--dl:-3s" src="https://images.pexels.com/photos/28843754/pexels-photo-28843754.jpeg?auto=compress&cs=tinysrgb&w=600" alt="" loading="lazy" decoding="async"><img class="obj" style="right:-210px;top:-70px;--h:240px;--r:-6deg;--t:9s;--dl:-1s" src="https://images.pexels.com/photos/14272794/pexels-photo-14272794.jpeg?auto=compress&cs=tinysrgb&w=600" alt="" loading="lazy" decoding="async"><img class="obj" style="right:-200px;top:34%;--h:200px;--r:-12deg;--t:11s;--dl:-5s" src="https://images.pexels.com/photos/35989302/pexels-photo-35989302.jpeg?auto=compress&cs=tinysrgb&w=600" alt="" loading="lazy" decoding="async"><img class="obj" style="right:-130px;bottom:-110px;--h:150px;--r:-16deg;--t:8s;--dl:-2s" src="https://images.pexels.com/photos/6018369/pexels-photo-6018369.jpeg?auto=compress&cs=tinysrgb&w=600" alt="" loading="lazy" decoding="async"></div>
           <div class="mods" id="mods"></div>
         </div>
       </div>
@@ -336,6 +379,7 @@
           <div><span class="mono kick fade">02 / путь</span><h2 class="grad fade" style="--d:1">Пять шагов до первого запуска</h2></div>
         </div>
         <div class="path">
+          <i class="prog" aria-hidden="true"></i>
           <div class="step fade" style="--d:0"><div class="mk"><svg class="ci"><use href="#cs"/></svg></div><span class="mono no">шаг 01</span><h3>Найти эксперта</h3><p>Где искать, как оценить нишу и предложить партнёрство.</p></div>
           <div class="step fade" style="--d:1"><div class="mk"><svg class="ci"><use href="#cs"/></svg></div><span class="mono no">шаг 02</span><h3>Упаковать</h3><p>Смыслы, позиционирование, линейка продуктов, оформление канала.</p></div>
           <div class="step fade" style="--d:2"><div class="mk"><svg class="ci"><use href="#cs"/></svg></div><span class="mono no">шаг 03</span><h3>Прогреть</h3><p>Контент и эфиры, которые собирают тёплую аудиторию.</p></div>
@@ -364,6 +408,19 @@
       <div class="wrap">
         <div class="price-wrap">
           <div class="price-copy">
+            <svg class="eiffel fade" viewBox="0 0 200 480" aria-hidden="true">
+              <defs><linearGradient id="bm" x1="0" x2="1"><stop offset="0" stop-color="#9aa0a8" stop-opacity=".55"/><stop offset="1" stop-color="#9aa0a8" stop-opacity="0"/></linearGradient></defs>
+              <path class="beam" d="M100 22 L290 6 L290 38 Z" fill="url(#bm)"/>
+              <path class="ln" pathLength="1" d="M100 2 V40 M94 40 H106 M96 40 L100 22 L104 40"/>
+              <path class="ln leg" id="lo" pathLength="1" d="M14 470 C58 400 80 330 87 250 L95 44"/>
+              <path class="ln leg" id="ro" pathLength="1" d="M186 470 C142 400 120 330 113 250 L105 44"/>
+              <path class="ln" id="li" pathLength="1" d="M52 470 C76 404 89 334 93 250 L98 92"/>
+              <path class="ln" id="ri" pathLength="1" d="M148 470 C124 404 111 334 107 250 L102 92"/>
+              <path class="ln" pathLength="1" d="M58 470 Q100 372 142 470"/>
+              <path class="ln" pathLength="1" d="M34 336 H166 M38 346 H162 M76 234 H124 M78 242 H122 M90 92 H110 M91 98 H109"/>
+              <g class="lats"></g><g class="lts"></g>
+              <circle class="top" cx="100" cy="22" r="2.2"/>
+            </svg>
             <span class="mono kick fade">04 / стоимость</span>
             <div class="big grad fade" style="--d:1"><span id="amount">1 340</span> ₽</div>
             <p class="fade" style="--d:2">Разовый платёж. Без подписок и доплат — просто чек, который хочется сохранить.</p>
@@ -402,6 +459,8 @@
         </div>
       </div>
     </section>
+
+    <div class="ticker rev" aria-hidden="true"><div class="tk-track"><span>без пустых офферов <svg class="ci" aria-hidden="true"><use href="#cs"/></svg></span><span>без миллионов на словах <svg class="ci" aria-hidden="true"><use href="#cs"/></svg></span><span>просто система <svg class="ci" aria-hidden="true"><use href="#cs"/></svg></span><span>paris <svg class="ci" aria-hidden="true"><use href="#cs"/></svg></span><span>milano <svg class="ci" aria-hidden="true"><use href="#cs"/></svg></span><span>berlin <svg class="ci" aria-hidden="true"><use href="#cs"/></svg></span><span>telegram <svg class="ci" aria-hidden="true"><use href="#cs"/></svg></span><span>без пустых офферов <svg class="ci" aria-hidden="true"><use href="#cs"/></svg></span><span>без миллионов на словах <svg class="ci" aria-hidden="true"><use href="#cs"/></svg></span><span>просто система <svg class="ci" aria-hidden="true"><use href="#cs"/></svg></span><span>paris <svg class="ci" aria-hidden="true"><use href="#cs"/></svg></span><span>milano <svg class="ci" aria-hidden="true"><use href="#cs"/></svg></span><span>berlin <svg class="ci" aria-hidden="true"><use href="#cs"/></svg></span><span>telegram <svg class="ci" aria-hidden="true"><use href="#cs"/></svg></span></div></div>
 
     <!-- ФИНАЛ -->
     <section class="final" id="final">
@@ -476,20 +535,51 @@
     }
     setTimeout(() => $$('#top .fade').forEach(show), 60);
 
-    /* ---------- шапка и параллакс фото ---------- */
+
+    /* ---------- эйфелева башня: решётка, огни, искры ---------- */
+    const eif = $('.eiffel');
+    if (eif) {
+      const pt = (id, f) => { const el = eif.querySelector('#' + id), L = el.getTotalLength(); return el.getPointAtLength(L * f); };
+      let lat = '', lts = '';
+      [['lo', 'li'], ['ro', 'ri']].forEach(([o, n]) => {
+        let d = '';
+        for (let k = 0; k <= 34; k++) { const f = k / 34, a = pt(k % 2 ? o : n, f); d += (k ? 'L' : 'M') + a.x.toFixed(1) + ' ' + a.y.toFixed(1); }
+        lat += `<path class="ln lat" pathLength="1" d="${d}"/>`;
+        for (let k = 0; k < 16; k++) { const a = pt(Math.random() < .5 ? o : n, Math.random() * .97); lts += `<circle class="lt" cx="${a.x.toFixed(1)}" cy="${a.y.toFixed(1)}" r="1.6" style="--dl:${(Math.random() * .9).toFixed(2)}s"/>`; }
+      });
+      eif.querySelector('.lats').innerHTML = lat;
+      eif.querySelector('.lts').innerHTML = lts;
+      // мерцание огней, как на настоящей башне — раз в несколько секунд
+      if (!reduce) setInterval(() => { if (!eif.classList.contains('in')) return; eif.classList.remove('sparkle'); void eif.getBBox(); eif.classList.add('sparkle'); }, 9000);
+      setTimeout(() => eif.classList.add('sparkle'), 3500);
+    }
+
+    /* ---------- магнитные кнопки ---------- */
+    if (!reduce && matchMedia('(hover: hover)').matches) $$('.btn').forEach((b) => {
+      b.addEventListener('mousemove', (e) => { const r = b.getBoundingClientRect(); b.style.transform = `translate(${((e.clientX - r.left) / r.width - .5) * 10}px, ${((e.clientY - r.top) / r.height - .5) * 8 - 2}px)`; });
+      b.addEventListener('mouseleave', () => { b.style.transform = ''; });
+    });
+
+    /* ---------- шапка, параллакс фото, линия пути ---------- */
     const nav = $('#nav');
     const phs = $$('.ph[data-depth]');
-    let ptk = false;
+    const path = $('.path'), steps = $$('.step');
+    let ptk = false, mx = 0, my = 0;
     const onScroll = () => {
       nav.classList.toggle('solid', scrollY > 30);
       if (reduce || ptk) return; ptk = true;
       requestAnimationFrame(() => {
         const vh = innerHeight;
-        phs.forEach((f) => { const r = f.getBoundingClientRect(); if (r.bottom < -100 || r.top > vh + 100) return; const off = (r.top + r.height / 2 - vh / 2) * -+f.dataset.depth; f.style.translate = `0 ${off.toFixed(1)}px`; });
+        phs.forEach((f) => { const r = f.getBoundingClientRect(); if (r.bottom < -100 || r.top > vh + 100) return; const d = +f.dataset.depth, off = (r.top + r.height / 2 - vh / 2) * -d; f.style.translate = `${(mx * d * 120).toFixed(1)}px ${(off + my * d * 120).toFixed(1)}px`; });
+        const pr = path.getBoundingClientRect(), p = Math.max(0, Math.min(1, (vh * .85 - pr.top) / (pr.height + vh * .35)));
+        path.style.setProperty('--p', p.toFixed(3));
+        steps.forEach((s, i) => s.classList.toggle('on', p >= i / (steps.length - 1) - .02));
         ptk = false;
       });
     };
     addEventListener('scroll', onScroll, { passive: true }); onScroll();
+    // фото в коллажах слегка следуют за курсором
+    addEventListener('mousemove', (e) => { mx = e.clientX / innerWidth - .5; my = e.clientY / innerHeight - .5; ptk = false; onScroll(); }, { passive: true });
 
     /* ---------- счётчик цены ---------- */
     const amount = $('#amount');
