@@ -157,19 +157,32 @@
     @keyframes beam { 0% { transform: scaleX(1); } 50% { transform: scaleX(-1); } 100% { transform: scaleX(1); } }
     .eiffel .top { fill: var(--navy); opacity: .7; }
 
-    /* путь: лестница */
-    .stairs { position: relative; display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 12px; align-items: end; padding-top: 70px; }
-    .stair { --h: 210px; position: relative; min-height: var(--h); display: flex; flex-direction: column; justify-content: space-between; gap: 18px; padding: 20px 20px 22px; border-radius: 6px; background: var(--bgc, #f6f6f7); box-shadow: inset 0 0 0 1px rgba(0,0,0,.05); transition: transform .6s var(--ease), box-shadow .6s var(--ease); }
-    .stair:hover { transform: translateY(-6px); box-shadow: inset 0 0 0 1px rgba(0,0,0,.06), 0 24px 44px -30px rgba(0,0,0,.45); }
-    .stair:nth-of-type(2) { --h: 250px; --bgc: #f0f1f3; } .stair:nth-of-type(3) { --h: 290px; --bgc: #e8eaed; } .stair:nth-of-type(4) { --h: 330px; --bgc: #dfe2e6; }
-    .stair .num { font-family: var(--head); font-weight: 800; font-size: 64px; line-height: .85; letter-spacing: -.05em; color: transparent; -webkit-text-stroke: 1.2px var(--navy); }
-    .stair h3 { margin-bottom: 6px; font-family: var(--head); font-weight: 700; font-size: 22px; line-height: 1.05; letter-spacing: -.03em; }
-    .stair p { font-size: 14.5px; line-height: 1.5; color: var(--sub); }
-    .stair.last { --h: 370px; background: var(--navy); color: #fff; box-shadow: 0 30px 60px -34px rgba(23,34,49,.9); }
-    .stair.last .num { -webkit-text-stroke-color: #fff; }
-    .stair.last p { color: #b7c3d3; }
-    .stair .flag { position: absolute; right: 16px; top: 18px; padding: 3px 9px; border-radius: 999px; background: #fff; color: var(--navy); font-size: 11px; }
-    .stairs .hop { --s: 46px; z-index: 3; left: var(--hx, 0); top: var(--hy, 0); transition: left .8s cubic-bezier(.3, 1.5, .5, 1), top .8s cubic-bezier(.3, 1.5, .5, 1); }
+    /* путь: лукбук на фото, шаги — бирки на нитках */
+    .lookbook { position: relative; overflow: hidden; padding: 0; }
+    .lb-bg { position: absolute; inset: 0; z-index: 0; overflow: hidden; }
+    .lb-bg img { position: absolute; left: 0; top: -8%; width: 100%; height: 116%; object-fit: cover; object-position: 50% 45%; filter: grayscale(.4) contrast(.96) brightness(1.03); will-change: transform; }
+    .lb-bg::after { content: ""; position: absolute; inset: 0; background: linear-gradient(90deg, rgba(255,255,255,.94) 0%, rgba(255,255,255,.6) 34%, rgba(255,255,255,.05) 62%, rgba(255,255,255,0) 100%), linear-gradient(0deg, rgba(255,255,255,.9) 0%, rgba(255,255,255,0) 42%); }
+    .lookbook .wrap { z-index: 1; min-height: max(760px, 100svh); padding-top: 110px; padding-bottom: 90px; display: flex; flex-direction: column; justify-content: space-between; gap: 70px; }
+    .lb-head h2 { font-size: clamp(40px, 5.8vw, 88px); line-height: 1.02; }
+    .lb-head .tag-box { box-shadow: 0 14px 40px -24px rgba(0,0,0,.5); }
+    .lb-head p { margin-top: 22px; max-width: 360px; color: var(--sub); }
+    .lb-head p span { background: rgba(255,255,255,.85); box-decoration-break: clone; -webkit-box-decoration-break: clone; padding: 2px 6px; }
+    .tags { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 16px; align-items: start; }
+    .htag:nth-child(even) { margin-top: 34px; }
+    .sway { position: relative; padding-top: 58px; transform-origin: 50% 0; animation: sway var(--t, 5s) ease-in-out var(--dl, 0s) infinite alternate; filter: drop-shadow(0 18px 22px rgba(0,0,0,.22)); }
+    .htag:hover .sway { animation-duration: 1.1s; }
+    @keyframes sway { from { transform: rotate(-2.2deg); } to { transform: rotate(2.2deg); } }
+    .sway .str { position: absolute; left: 50%; top: 0; width: 1px; height: 66px; background: linear-gradient(rgba(23,34,49,0), rgba(23,34,49,.55)); }
+    .tag { position: relative; padding: 34px 18px 16px; background: #fff; clip-path: polygon(18% 0, 82% 0, 100% 9%, 100% 100%, 0 100%, 0 9%); }
+    .tag .hole { position: absolute; left: 50%; top: 12px; width: 11px; height: 11px; margin-left: -5.5px; border-radius: 50%; background: #e4e5e8; box-shadow: inset 0 1px 2px rgba(0,0,0,.35); }
+    .tag .no { color: var(--mute); }
+    .tag h3 { margin: 10px 0 6px; font-family: var(--head); font-weight: 600; font-size: 22px; line-height: 1.02; letter-spacing: -.05em; }
+    .tag p { font-size: 14px; line-height: 1.5; color: var(--sub); }
+    .tag .bc { display: block; margin-top: 14px; padding-top: 10px; border-top: 1px dashed rgba(23,34,49,.25); font-size: 9px; letter-spacing: .12em; color: var(--mute); }
+    .tag .bars { display: block; height: 18px; margin-top: 8px; background: repeating-linear-gradient(90deg, var(--ink) 0 1px, transparent 1px 3px, var(--ink) 3px 5px, transparent 5px 6px, var(--ink) 6px 7px, transparent 7px 10px); opacity: .7; }
+    .htag.last .tag { background: var(--navy); color: #fff; }
+    .htag.last .tag p, .htag.last .tag .no, .htag.last .tag .bc { color: #b7c3d3; }
+    .htag.last .tag .bars { background: repeating-linear-gradient(90deg, #fff 0 1px, transparent 1px 3px, #fff 3px 5px, transparent 5px 6px, #fff 6px 7px, transparent 7px 10px); }
 
     /* для кого: переключатель + чат */
     .who-box { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 56px; align-items: center; }
@@ -260,10 +273,11 @@
       .price-wrap { grid-template-columns: 1fr; }
       .mods { grid-template-columns: repeat(2, minmax(0, 1fr)); }
       .hang, .eiffel { display: none; }
-      .stairs { grid-template-columns: 1fr; gap: 10px; padding-top: 0; }
-      .stair, .stair:nth-child(n), .stair.last { min-height: 0; margin-left: calc(var(--i) * 5%); flex-direction: row; align-items: center; justify-content: flex-start; }
-      .stair .num { flex: none; width: 74px; font-size: 48px; }
-      .stairs .hop { display: none; }
+      .tags { grid-template-columns: repeat(5, 230px); overflow-x: auto; scroll-snap-type: x mandatory; margin: 0 -22px; padding: 0 22px 20px; scrollbar-width: none; }
+      .tags::-webkit-scrollbar { display: none; }
+      .htag { scroll-snap-align: start; }
+      .lookbook .wrap { min-height: 0; padding-top: 80px; padding-bottom: 60px; gap: 40px; }
+      .lb-bg::after { background: linear-gradient(90deg, rgba(255,255,255,.9), rgba(255,255,255,.35)), linear-gradient(0deg, rgba(255,255,255,.9) 0%, rgba(255,255,255,0) 50%); }
       .who-box { grid-template-columns: 1fr; gap: 34px; }
       .mcta { position: fixed; z-index: 75; left: 16px; right: 16px; bottom: 14px; display: flex; justify-content: center; transform: translateY(140%); transition: transform .6s var(--ease); }
       .mcta.show { transform: none; }
@@ -282,8 +296,7 @@
       .h3p { left: 3%; bottom: 20px; width: 34%; aspect-ratio: 1/1; }
       .h4p { right: -2%; bottom: 36px; width: 38%; aspect-ratio: 4/3; }
       .mods { grid-template-columns: 1fr; }
-      .stair, .stair:nth-child(n), .stair.last { margin-left: calc(var(--i) * 3%); }
-      .stair .flag { display: none; }
+      .lookbook .wrap { padding-top: 64px; }
       .receipt { padding: 40px 24px 44px; }
       .rcpt-sh .cstar { --s: 70px; right: -10px; top: -34px; }
       .bub { font-size: 16px; }
@@ -393,18 +406,20 @@
     </section>
 
     <!-- ПУТЬ -->
-    <section class="sec" id="path">
+    <section class="lookbook" id="path">
+      <div class="lb-bg" aria-hidden="true"><img src="path-bg.jpg" alt="" loading="lazy" decoding="async"></div>
       <div class="wrap">
-        <div class="shead">
-          <div><span class="mono kick fade">02 / путь</span><h2 class="grad fade" style="--d:1">Пять шагов до первого запуска</h2></div>
+        <div class="lb-head">
+          <span class="mono kick fade">02 / путь</span>
+          <h2 class="fade" style="--d:1"><span class="tag-box">Пять шагов</span><br><span class="tag-box"><span class="grad">до первого запуска</span></span></h2>
+          <p class="fade" style="--d:2"><span>Как ярлыки на любимой вещи: у каждого шага своя бирка. Сорви все пять — и запуск твой.</span></p>
         </div>
-        <div class="stairs">
-          <span class="cstar hop" aria-hidden="true"><svg><use href="#cs8"/></svg></span>
-          <div class="stair fade" style="--d:0;--i:0"><span class="num">01</span><div><h3>Найти эксперта</h3><p>Где искать, как оценить нишу и предложить партнёрство.</p></div></div>
-          <div class="stair fade" style="--d:1;--i:1"><span class="num">02</span><div><h3>Упаковать</h3><p>Смыслы, позиционирование, линейка продуктов, оформление канала.</p></div></div>
-          <div class="stair fade" style="--d:2;--i:2"><span class="num">03</span><div><h3>Прогреть</h3><p>Контент и эфиры, которые собирают тёплую аудиторию.</p></div></div>
-          <div class="stair fade" style="--d:3;--i:3"><span class="num">04</span><div><h3>Запустить</h3><p>Воронка, бот, открытие продаж и работа с возражениями.</p></div></div>
-          <div class="stair fade last" style="--d:4;--i:4"><span class="mono flag">цель</span><span class="num">05</span><div><h3>Масштабировать</h3><p>Трафик, команда и повторные запуски.</p></div></div>
+        <div class="tags">
+          <div class="htag fade" style="--d:0"><div class="sway" style="--t:5.2s;--dl:-0.0s"><i class="str"></i><div class="tag"><span class="hole"></span><span class="mono no">STEP 01 / 05</span><h3>Найти эксперта</h3><p>Где искать, как оценить нишу и предложить партнёрство.</p><span class="mono bc">F-PRODUCERS CLUB · TELEGRAM</span><span class="bars"></span></div></div></div>
+          <div class="htag fade" style="--d:1"><div class="sway" style="--t:4.6s;--dl:-0.7s"><i class="str"></i><div class="tag"><span class="hole"></span><span class="mono no">STEP 02 / 05</span><h3>Упаковать</h3><p>Смыслы, позиционирование, линейка продуктов, оформление канала.</p><span class="mono bc">F-PRODUCERS CLUB · TELEGRAM</span><span class="bars"></span></div></div></div>
+          <div class="htag fade" style="--d:2"><div class="sway" style="--t:5.8s;--dl:-1.4s"><i class="str"></i><div class="tag"><span class="hole"></span><span class="mono no">STEP 03 / 05</span><h3>Прогреть</h3><p>Контент и эфиры, которые собирают тёплую аудиторию.</p><span class="mono bc">F-PRODUCERS CLUB · TELEGRAM</span><span class="bars"></span></div></div></div>
+          <div class="htag fade" style="--d:3"><div class="sway" style="--t:4.9s;--dl:-2.1s"><i class="str"></i><div class="tag"><span class="hole"></span><span class="mono no">STEP 04 / 05</span><h3>Запустить</h3><p>Воронка, бот, открытие продаж и работа с возражениями.</p><span class="mono bc">F-PRODUCERS CLUB · TELEGRAM</span><span class="bars"></span></div></div></div>
+          <div class="htag fade last" style="--d:4"><div class="sway" style="--t:5.5s;--dl:-2.8s"><i class="str"></i><div class="tag"><span class="hole"></span><span class="mono no">STEP 05 / 05</span><h3>Масштабировать</h3><p>Трафик, команда и повторные запуски.</p><span class="mono bc">F-PRODUCERS CLUB · TELEGRAM</span><span class="bars"></span></div></div></div>
         </div>
       </div>
     </section>
@@ -625,7 +640,7 @@
     /* ---------- шапка, параллакс фото, линия пути ---------- */
     const nav = $('#nav');
     const phs = $$('.ph[data-depth]');
-    const stairs = $('.stairs'), stairEls = $$('.stair'), hop = $('.stairs .hop'), sbar = $('#sbar'), mcta = $('#mcta'), finalSec = $('#final');
+    const lbImg = $('.lb-bg img'), sbar = $('#sbar'), mcta = $('#mcta'), finalSec = $('#final');
     let ptk = false, mx = 0, my = 0;
     const onScroll = () => {
       nav.classList.toggle('solid', scrollY > 30);
@@ -635,10 +650,8 @@
       requestAnimationFrame(() => {
         const vh = innerHeight;
         phs.forEach((f) => { const r = f.getBoundingClientRect(); if (r.bottom < -100 || r.top > vh + 100) return; const d = +f.dataset.depth, off = (r.top + r.height / 2 - vh / 2) * -d; f.style.translate = `${(mx * d * 120).toFixed(1)}px ${(off + my * d * 120).toFixed(1)}px`; });
-        const pr = stairs.getBoundingClientRect(), p = Math.max(0, Math.min(1, (vh * .8 - pr.top) / (pr.height + vh * .2)));
-        const st = stairEls[Math.round(p * (stairEls.length - 1))];
-        stairs.style.setProperty('--hx', st.offsetLeft + st.offsetWidth / 2 - 23 + 'px');
-        stairs.style.setProperty('--hy', st.offsetTop - 58 + 'px');
+        const lr = lbImg.parentNode.getBoundingClientRect();
+        if (lr.bottom > 0 && lr.top < vh) lbImg.style.transform = `translate3d(${(mx * -14).toFixed(1)}px, ${((lr.top + lr.height / 2 - vh / 2) * -.12).toFixed(1)}px, 0) scale(1.04)`;
         ptk = false;
       });
     };
