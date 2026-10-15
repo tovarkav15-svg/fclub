@@ -105,6 +105,8 @@
     /* модули: простые карточки */
     #modules { overflow: hidden; }
     #modules .wrap { z-index: 1; }
+    .mods-box { position: relative; }
+    .mods-box .mods { position: relative; z-index: 1; }
     .mods { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 14px; align-items: start; }
     .mod { position: relative; padding: 22px 22px 20px; background: #fff; border-radius: 6px; box-shadow: 0 0 0 1px rgba(0,0,0,.07); transition: transform .6s var(--ease), box-shadow .6s var(--ease); cursor: pointer; }
     .mod:hover, .mod.open { box-shadow: 0 0 0 1px rgba(0,0,0,.09), 0 24px 50px -32px rgba(0,0,0,.4); transform: translateY(-3px); }
@@ -315,13 +317,15 @@
 
     <!-- МОДУЛИ -->
     <section class="sec" id="modules">
-      <div class="side" aria-hidden="true"><img class="obj" style="left:-6px;top:34%;--h:270px;--r:-10deg;--t:10s;--dl:0s" src="https://images.pexels.com/photos/30428608/pexels-photo-30428608.jpeg?auto=compress&cs=tinysrgb&w=600" alt="" loading="lazy" decoding="async"><img class="obj" style="left:14px;bottom:3%;--h:220px;--r:12deg;--t:8s;--dl:-3s" src="https://images.pexels.com/photos/28843754/pexels-photo-28843754.jpeg?auto=compress&cs=tinysrgb&w=600" alt="" loading="lazy" decoding="async"><img class="obj" style="right:-24px;top:20%;--h:250px;--r:-6deg;--t:9s;--dl:-1s" src="https://images.pexels.com/photos/14272794/pexels-photo-14272794.jpeg?auto=compress&cs=tinysrgb&w=600" alt="" loading="lazy" decoding="async"><img class="obj" style="right:-20px;top:52%;--h:210px;--r:-12deg;--t:11s;--dl:-5s" src="https://images.pexels.com/photos/35989302/pexels-photo-35989302.jpeg?auto=compress&cs=tinysrgb&w=600" alt="" loading="lazy" decoding="async"><img class="obj" style="right:40px;bottom:-10px;--h:150px;--r:-16deg;--t:8s;--dl:-2s" src="https://images.pexels.com/photos/6018369/pexels-photo-6018369.jpeg?auto=compress&cs=tinysrgb&w=600" alt="" loading="lazy" decoding="async"></div>
       <div class="wrap">
         <div class="shead">
           <div><span class="mono kick fade">01 / модули</span><h2 class="grad fade" style="--d:1">Вся система продюсирования в одном месте</h2></div>
           <p class="fade" style="--d:2">Восемь модулей закрывают весь цикл работы с экспертом. Нажми на модуль, чтобы раскрыть содержание.</p>
         </div>
-        <div class="mods" id="mods"></div>
+        <div class="mods-box">
+          <div class="side" aria-hidden="true"><img class="obj" style="left:-200px;top:-50px;--h:250px;--r:-10deg;--t:10s;--dl:0s" src="https://images.pexels.com/photos/30428608/pexels-photo-30428608.jpeg?auto=compress&cs=tinysrgb&w=600" alt="" loading="lazy" decoding="async"><img class="obj" style="left:-160px;top:48%;--h:210px;--r:12deg;--t:8s;--dl:-3s" src="https://images.pexels.com/photos/28843754/pexels-photo-28843754.jpeg?auto=compress&cs=tinysrgb&w=600" alt="" loading="lazy" decoding="async"><img class="obj" style="right:-210px;top:-70px;--h:240px;--r:-6deg;--t:9s;--dl:-1s" src="https://images.pexels.com/photos/14272794/pexels-photo-14272794.jpeg?auto=compress&cs=tinysrgb&w=600" alt="" loading="lazy" decoding="async"><img class="obj" style="right:-200px;top:34%;--h:200px;--r:-12deg;--t:11s;--dl:-5s" src="https://images.pexels.com/photos/35989302/pexels-photo-35989302.jpeg?auto=compress&cs=tinysrgb&w=600" alt="" loading="lazy" decoding="async"><img class="obj" style="right:-130px;bottom:-110px;--h:150px;--r:-16deg;--t:8s;--dl:-2s" src="https://images.pexels.com/photos/6018369/pexels-photo-6018369.jpeg?auto=compress&cs=tinysrgb&w=600" alt="" loading="lazy" decoding="async"></div>
+          <div class="mods" id="mods"></div>
+        </div>
       </div>
     </section>
 
