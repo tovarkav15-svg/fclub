@@ -677,11 +677,11 @@
     (() => {
       const lb = document.getElementById('lbox'), im = lb.querySelector('img'), cap = lb.querySelector('figcaption');
       let last = null;
-      const close = () => { lb.classList.remove('on'); if (last) last.focus(); };
+      const close = () => { lb.classList.remove('on'); if (last) last.focus({ preventScroll: true }); };
       document.querySelectorAll('.shot').forEach((b) => b.addEventListener('click', () => {
         const i = b.querySelector('img'); last = b;
         im.src = i.src; im.alt = i.alt; cap.textContent = b.dataset.cap + ' · нажми, чтобы закрыть';
-        lb.classList.add('on'); lb.focus();
+        lb.classList.add('on'); lb.focus({ preventScroll: true });
       }));
       lb.tabIndex = -1;
       lb.addEventListener('click', close);
