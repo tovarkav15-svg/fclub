@@ -184,28 +184,29 @@
     .htag.last .tag p, .htag.last .tag .no, .htag.last .tag .bc { color: #b7c3d3; }
     .htag.last .tag .bars { background: repeating-linear-gradient(90deg, #fff 0 1px, transparent 1px 3px, #fff 3px 5px, transparent 5px 6px, #fff 6px 7px, transparent 7px 10px); }
 
-    /* для кого: переключатель + чат */
-    .who-box { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 56px; align-items: center; }
-    .who-tabs { display: inline-flex; flex-wrap: wrap; gap: 6px; padding: 6px; border-radius: 999px; background: #f3f4f6; }
-    .who-tabs button { padding: 10px 18px; border-radius: 999px; font-family: var(--head); font-weight: 600; font-size: 15px; color: var(--sub); transition: background .4s, color .4s, box-shadow .4s; }
-    .who-tabs button.on { background: #fff; color: var(--ink); box-shadow: 0 6px 16px -10px rgba(0,0,0,.4); }
-    .verdict { margin-top: 34px; font-size: clamp(34px, 4vw, 56px); }
-    .verdict .tag-box { transition: opacity .4s; }
-    .who-pts { list-style: none; margin-top: 26px; display: grid; gap: 10px; }
-    .who-pts li { position: relative; padding-left: 22px; color: var(--sub); }
-    .who-pts li::before { content: ""; position: absolute; left: 0; top: 11px; width: 7px; height: 7px; background: var(--navy); }
-    .tg { border-radius: 22px; overflow: hidden; background: #eef1f5; box-shadow: 0 0 0 1px var(--line), 0 40px 80px -50px rgba(23,34,49,.7); }
-    .tg-head { display: flex; align-items: center; gap: 12px; padding: 14px 18px; background: #fff; border-bottom: 1px solid var(--line); }
-    .tg-head .ava { width: 38px; height: 38px; border-radius: 50%; display: grid; place-items: center; background: var(--navy); color: #fff; font-family: var(--head); font-weight: 800; }
-    .tg-head b { display: block; font-family: var(--head); font-size: 15px; } .tg-head small { color: var(--blue); font-size: 13px; }
-    .tg-body { display: flex; flex-direction: column; align-items: flex-start; gap: 10px; min-height: 330px; padding: 22px 18px; background-image: radial-gradient(rgba(23,34,49,.06) 1px, transparent 1px); background-size: 16px 16px; }
-    .tg-body .bub { max-width: 86%; font-size: 16px; }
-    .tg-body > * { animation: pop .5s var(--ease) both; }
-    @keyframes pop { from { opacity: 0; transform: translateY(10px) scale(.96); } }
-    .typing { display: inline-flex; gap: 5px; padding: 16px 20px; background: var(--navy); border-radius: 30px; }
-    .typing i { width: 7px; height: 7px; border-radius: 50%; background: var(--time); animation: tdot 1s ease-in-out infinite; }
-    .typing i:nth-child(2) { animation-delay: .15s; } .typing i:nth-child(3) { animation-delay: .3s; }
-    @keyframes tdot { 50% { transform: translateY(-4px); opacity: .5; } }
+    /* результаты участников */
+    .res-grid { display: grid; grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr) minmax(0, 1fr); gap: 16px; }
+    .case-main { grid-row: span 2; position: relative; overflow: hidden; display: flex; flex-direction: column; justify-content: space-between; gap: 30px; padding: 30px; border-radius: 6px; background: var(--navy); color: #fff; box-shadow: 0 30px 60px -36px rgba(23,34,49,.9); }
+    .case-main .who-l { color: #b7c3d3; }
+    .ab { display: grid; grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr); align-items: end; gap: 16px; }
+    .ab .pt small { display: block; margin-bottom: 8px; color: #8fa0b8; }
+    .ab .pt b { display: block; font-family: var(--head); font-weight: 700; font-size: clamp(30px, 3.6vw, 48px); line-height: .95; letter-spacing: -.05em; }
+    .ab .pt span { display: block; margin-top: 10px; font-size: 14px; line-height: 1.45; color: #b7c3d3; }
+    .ab .pt.b b { background: linear-gradient(100deg, #fff, #c9d3e0 60%, #8fa0b8); -webkit-background-clip: text; background-clip: text; color: transparent; }
+    .ab .arr { padding-bottom: 34px; font-family: var(--head); font-size: 34px; color: #8fa0b8; }
+    .case-main .when { display: inline-block; padding: 4px 10px; border-radius: 999px; background: rgba(255,255,255,.1); }
+    .case-main blockquote { font-family: var(--head); font-weight: 600; font-size: clamp(20px, 2vw, 26px); line-height: 1.2; letter-spacing: -.03em; }
+    .case-main .cstar { --s: 120px; right: -30px; top: -30px; opacity: .9; }
+    .src { align-self: flex-start; font-size: 12px; border-bottom: 1px solid currentColor; }
+    .case-main .src { color: #fff; }
+    .qcard { display: flex; flex-direction: column; gap: 14px; padding: 24px; border-radius: 6px; background: #fff; box-shadow: 0 0 0 1px rgba(0,0,0,.07); transition: transform .6s var(--ease), box-shadow .6s var(--ease); }
+    .qcard:hover { transform: translateY(-4px); box-shadow: 0 0 0 1px rgba(0,0,0,.09), 0 24px 50px -32px rgba(0,0,0,.4); }
+    .qcard .num { font-family: var(--head); font-weight: 700; font-size: clamp(34px, 3.4vw, 46px); line-height: .95; letter-spacing: -.06em; }
+    .qcard .lbl { color: var(--mute); }
+    .qcard q { flex: 1; quotes: "«" "»"; font-size: 15px; line-height: 1.5; color: var(--sub); }
+    .qcard .src { color: var(--navy); }
+    .res-note { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 14px; margin-top: 22px; color: var(--mute); }
+    .res-note a { color: var(--navy); border-bottom: 1px solid currentColor; }
 
     /* полоса прогресса и мобильная кнопка */
     .sbar { position: fixed; z-index: 80; left: 0; top: 0; height: 2px; width: 100%; background: var(--navy); transform-origin: 0 50%; transform: scaleX(var(--sp, 0)); }
@@ -278,7 +279,8 @@
       .htag { scroll-snap-align: start; }
       .lookbook .wrap { min-height: 0; padding-top: 80px; padding-bottom: 60px; gap: 40px; }
       .lb-bg::after { background: linear-gradient(90deg, rgba(255,255,255,.9), rgba(255,255,255,.35)), linear-gradient(0deg, rgba(255,255,255,.9) 0%, rgba(255,255,255,0) 50%); }
-      .who-box { grid-template-columns: 1fr; gap: 34px; }
+      .res-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .case-main { grid-row: auto; grid-column: span 2; }
       .mcta { position: fixed; z-index: 75; left: 16px; right: 16px; bottom: 14px; display: flex; justify-content: center; transform: translateY(140%); transition: transform .6s var(--ease); }
       .mcta.show { transform: none; }
       .h1p { width: 24%; } .h2p { width: 28%; } .h3p { width: 24%; } .h4p { width: 20%; }
@@ -296,6 +298,9 @@
       .h3p { left: 3%; bottom: 20px; width: 34%; aspect-ratio: 1/1; }
       .h4p { right: -2%; bottom: 36px; width: 38%; aspect-ratio: 4/3; }
       .mods { grid-template-columns: 1fr; }
+      .res-grid { grid-template-columns: 1fr; }
+      .case-main { grid-column: auto; }
+      .ab { grid-template-columns: 1fr; } .ab .arr { padding: 0; transform: rotate(90deg); justify-self: start; }
       .lookbook .wrap { padding-top: 64px; }
       .receipt { padding: 40px 24px 44px; }
       .rcpt-sh .cstar { --s: 70px; right: -10px; top: -34px; }
@@ -356,7 +361,7 @@
       <nav>
         <a href="#modules">Модули</a>
         <a href="#path">Путь</a>
-        <a href="#who">Для кого</a>
+        <a href="#results">Результаты</a>
         <a href="#price">Цена</a>
         <a href="#faq">Вопросы</a>
       </nav>
@@ -424,23 +429,32 @@
       </div>
     </section>
 
-    <!-- ДЛЯ КОГО -->
-    <section class="sec" id="who">
+    <!-- РЕЗУЛЬТАТЫ -->
+    <section class="sec" id="results">
       <div class="wrap">
         <div class="shead">
-          <div><span class="mono kick fade">03 / для кого</span><h2 class="grad fade" style="--d:1">Выбери, кто ты — и посмотри, что даст клуб</h2></div>
+          <div><span class="mono kick fade">03 / результаты</span><h2 class="grad fade" style="--d:1">Что меняется после входа в клуб</h2></div>
+          <p class="fade" style="--d:2">Реальные отзывы участников Wake Up — клуба Артёма Федонко. Цитаты без приукрашивания, у каждой — ссылка на оригинал со скриншотами.</p>
         </div>
-        <div class="who-box">
-          <div class="fade">
-            <div class="who-tabs" role="tablist"><button class="on" role="tab" data-i="0">Я новичок</button><button role="tab" data-i="1">Я уже запускал</button><button role="tab" data-i="2">Я эксперт</button></div>
-            <div class="verdict"><span class="tag-box" id="verdict">Начнёшь с основ</span></div>
-            <ul class="who-pts" id="whoPts"></ul>
-          </div>
-          <div class="tg fade" style="--d:1">
-            <div class="tg-head"><span class="ava">F</span><div><b>F-Producers Club</b><small id="tgSt">онлайн</small></div></div>
-            <div class="tg-body" id="tgBody" aria-live="polite"></div>
-          </div>
+        <div class="res-grid">
+          <article class="case-main fade">
+            <span class="cstar" aria-hidden="true"><svg><use href="#cs8"/></svg></span>
+            <div><span class="mono who-l">кейс · @konst4rain</span></div>
+            <div class="ab">
+              <div class="pt"><small class="mono">точка А</small><b>20–30к ₽</b><span>в месяц, работал сам, не понимал, куда двигаться</span></div>
+              <div class="arr" aria-hidden="true">→</div>
+              <div class="pt b"><small class="mono">точка Б</small><b>130к ₽</b><span>за март, своё агентство и план масштабирования до 500к+</span></div>
+            </div>
+            <div><span class="mono when">вступил 29 января · результат через 2 месяца</span></div>
+            <blockquote>«Вывел меня на сотни тысяч за 2 месяца по цене пары походов в кифас»</blockquote>
+            <a class="mono src" href="https://t.me/otzivifedonko/69" target="_blank" rel="noopener">оригинал со скринами →</a>
+          </article>
+            <article class="qcard fade" style="--d:1"><span class="mono lbl">участник Wake Up</span><div><div class="num">≈200к ₽</div><span class="mono lbl">за 2026 год</span></div><q>Заработал почти 200к за 2026, купил себе часы на др</q><a class="mono src" href="https://t.me/otzivifedonko/57" target="_blank" rel="noopener">оригинал со скринами →</a></article>
+            <article class="qcard fade" style="--d:2"><span class="mono lbl">@linkbta</span><div><div class="num">1 неделя</div><span class="mono lbl">чтобы окупить вход</span></div><q>Зашёл без ожиданий, но на следующей неделе окупил вход: закрыл двух клиентов на 1к и 4к. Инфа реально годная, без воды, можно сразу использовать.</q><a class="mono src" href="https://t.me/otzivifedonko/59" target="_blank" rel="noopener">оригинал со скринами →</a></article>
+            <article class="qcard fade" style="--d:3"><span class="mono lbl">участник Wake Up</span><div><div class="num">10+</div><span class="mono lbl">окупленных подписок</span></div><q>Применил на своём бизнесе. Уже сейчас после вступления я окупил 10+ подписок.</q><a class="mono src" href="https://t.me/otzivifedonko/65" target="_blank" rel="noopener">оригинал со скринами →</a></article>
+            <article class="qcard fade" style="--d:4"><span class="mono lbl">Андрей (Dreiko)</span><div><div class="num">Mac + Москва</div><span class="mono lbl">на свои деньги</span></div><q>Смог поднять доход и завести невероятные знакомства… приобрёл новый Mac и второй телефон, а также съездил в Москву на свои средства</q><a class="mono src" href="https://t.me/otzivifedonko/66" target="_blank" rel="noopener">оригинал со скринами →</a></article>
         </div>
+        <div class="res-note mono fade"><span>результаты индивидуальны и зависят от того, сколько ты внедряешь</span><a href="https://t.me/otzivifedonko" target="_blank" rel="noopener">все отзывы — @otzivifedonko →</a></div>
       </div>
     </section>
 
@@ -595,35 +609,6 @@
       setTimeout(() => eif.classList.add('sparkle'), 3500);
     }
 
-
-    /* ---------- для кого: переключатель и чат ---------- */
-    const PERS = [
-      { v: 'Начнёшь с основ', pts: ['Профессия продюсера по шагам — без воды', 'Шаблоны, чтобы не начинать с пустого листа', 'Чат, где можно задать любой «глупый» вопрос'],
-        chat: [['me', 'Я никогда не продюсировал. Мне подойдёт?', '10:02'], ['', 'Да. Всё идёт от основ до первого запуска по понятной схеме.', '10:04'], ['me', 'А если ничего не получится?', '10:05'], ['', 'Разберём твой запуск в чате и найдём, где просело 🤝', '10:06']] },
-      { v: 'Соберёшь систему', pts: ['Воронки и прогревы, которые можно повторять', 'Разборы реальных запусков', 'Аналитика: видно, что работает, а что нет'],
-        chat: [['me', 'Запуски есть, но каждый раз с нуля', '18:31'], ['', '<div class="rp"><b>F-Producers Club</b>шаблоны · разборы · чат</div>Соберёшь систему и перестанешь начинать с нуля', '18:33'], ['me', 'а по трафику что-то будет?', '18:34'], ['', 'Отдельный модуль: посевы, Telegram Ads и бесплатные источники.', '18:35']] },
-      { v: 'Найдёшь своего продюсера', pts: ['Поймёшь, как продюсер упакует твой продукт', 'Узнаешь, что прописать в договоре', 'Перестанешь бояться отдавать запуск в чужие руки'],
-        chat: [['me', 'Зачем это мне, я же эксперт?', '21:17'], ['', 'Поймёшь, как продюсер упакует и продаст твой продукт — и с кем работать.', '21:20'], ['me', 'и как не остаться ни с чем?', '21:21'], ['', 'В модуле «Договор» — модели оплаты и шаблон договора.', '21:22']] }
-    ];
-    const tgBody = $('#tgBody'), tgSt = $('#tgSt'), tabs = $$('.who-tabs button');
-    let wi = 0, wTimers = [], wAuto = true;
-    const bub = (who, txt, tm) => `<div class="bub${who ? ' me' : ''}">${txt} <span class="tm">${tm}</span></div>`;
-    const showWho = (i) => {
-      wi = i; wTimers.forEach(clearTimeout); wTimers = [];
-      tabs.forEach((b, k) => { b.classList.toggle('on', k === i); b.setAttribute('aria-selected', k === i); });
-      $('#verdict').textContent = PERS[i].v;
-      $('#whoPts').innerHTML = PERS[i].pts.map((x) => `<li>${x}</li>`).join('');
-      tgBody.innerHTML = '';
-      let t = 200;
-      PERS[i].chat.forEach(([who, txt, tm]) => {
-        if (!who && !reduce) { wTimers.push(setTimeout(() => { tgSt.textContent = 'печатает…'; tgBody.insertAdjacentHTML('beforeend', '<div class="typing"><i></i><i></i><i></i></div>'); }, t)); t += 1100; }
-        wTimers.push(setTimeout(() => { tgBody.querySelector('.typing')?.remove(); tgSt.textContent = 'онлайн'; tgBody.insertAdjacentHTML('beforeend', bub(who, txt, tm)); }, t));
-        t += reduce ? 0 : 900;
-      });
-    };
-    tabs.forEach((b) => b.addEventListener('click', () => { wAuto = false; showWho(+b.dataset.i); }));
-    new IntersectionObserver(([e], o) => { if (!e.isIntersecting) return; o.disconnect(); showWho(0);
-      if (!reduce) setInterval(() => { if (wAuto) showWho((wi + 1) % PERS.length); }, 11000); }, { threshold: .3 }).observe($('.tg'));
 
     /* ---------- вопросы раскрываются при наведении ---------- */
     if (matchMedia('(hover: hover)').matches) $$('.faq details').forEach((d) => {
