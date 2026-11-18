@@ -144,6 +144,33 @@
     .pg-foot .mono { color: var(--mute); }
     .pg-foot a { font-size: 14px; font-weight: 600; color: var(--navy); border-bottom: 1.5px solid currentColor; }
 
+
+    /* гриф «секретно» */
+    .fk { font-style: normal; filter: blur(5px); opacity: .7; -webkit-user-select: none; user-select: none; pointer-events: none; }
+    .rd { display: inline-block; width: var(--w); height: .95em; margin: 0 .1em; vertical-align: -.12em; background: var(--navy); border-radius: 2px; position: relative; overflow: hidden; }
+    .rd::after { content: ""; position: absolute; inset: 0; background: linear-gradient(100deg, transparent 30%, rgba(255,255,255,.22) 50%, transparent 70%); transform: translateX(-100%); animation: rdsh 4.5s ease-in-out infinite; }
+    @keyframes rdsh { 60%, 100% { transform: translateX(100%); } }
+    .pg-chips .x { color: var(--mute); background: repeating-linear-gradient(135deg, #f3f4f6 0 5px, #eceef1 5px 6px); }
+    .pg-stamp { position: absolute; top: 22px; right: 26px; z-index: 2; padding: 6px 12px 5px; font-size: 12px; font-weight: 600; letter-spacing: .22em; text-transform: uppercase; color: var(--navy); border: 2px solid var(--navy); border-radius: 4px; transform: rotate(-7deg); opacity: .78; -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='40'%3E%3Cfilter id='n'%3E%3CfeTurbulence baseFrequency='.9' numOctaves='2'/%3E%3CfeColorMatrix values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 -2.2 1.6'/%3E%3C/filter%3E%3Crect width='120' height='40' filter='url(%23n)'/%3E%3C/svg%3E"); mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='40'%3E%3Cfilter id='n'%3E%3CfeTurbulence baseFrequency='.9' numOctaves='2'/%3E%3CfeColorMatrix values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 -2.2 1.6'/%3E%3C/filter%3E%3Crect width='120' height='40' filter='url(%23n)'/%3E%3C/svg%3E"); animation: stamp .55s cubic-bezier(.3,1.4,.5,1) both .25s; }
+    @keyframes stamp { from { opacity: 0; transform: rotate(-7deg) scale(1.7); } }
+    .pg-top { padding-right: 190px; }
+    .pg-steps li.sec { background: repeating-linear-gradient(135deg, transparent 0 7px, rgba(23,34,49,.028) 7px 8px); cursor: not-allowed; }
+    .pg-steps li.sec .n { color: var(--navy); }
+    .pg-steps li.sec .f b { display: inline-flex; align-items: center; gap: 6px; padding: 4px 9px 3px; font-weight: 600; font-size: 10px; letter-spacing: .16em; text-transform: uppercase; color: var(--navy); border: 1px solid rgba(23,34,49,.35); border-radius: 3px; transition: background .25s, color .25s; }
+    .pg-steps li.sec .f svg { width: 11px; height: 11px; }
+    .pg-steps li.sec.deny .f b { background: var(--navy); color: #fff; }
+    .pg-steps li.sec.deny { animation: pgin .7s var(--ease) forwards, deny .35s ease 1; }
+    @keyframes deny { 25% { translate: -3px 0; } 50% { translate: 3px 0; } 75% { translate: -2px 0; } }
+    .pg-steps li.sec .fk { filter: blur(4.5px); }
+    .pw-side li.sec { color: var(--mute); }
+    .pw-side li .fk { filter: blur(3.5px); }
+    .pw-tc .fk { filter: blur(3.5px); }
+    .pw-head b .fk { filter: blur(6px); }
+    .pw-lock { position: absolute; inset: 0; z-index: 2; display: grid; place-items: center; padding-top: 70px; font-size: 11px; letter-spacing: .24em; text-transform: uppercase; color: rgba(255,255,255,.75); background: repeating-linear-gradient(135deg, rgba(13,20,29,.55) 0 10px, rgba(13,20,29,.7) 10px 20px); opacity: 0; transition: opacity .5s; }
+    .pw-vid.lock .pw-lock { opacity: 1; }
+    .pw-vid.lock .play { opacity: 0; }
+    @media (max-width: 700px) { .pg-stamp { position: static; display: inline-block; margin-bottom: 14px; } .pg-top { padding-right: 0; } .pgt .main { display: none; } .pg-steps li.sec { grid-template-columns: 42px 1fr auto; } .pg-steps li.sec .f { display: inline-flex; } .pg-steps li.sec .f b { padding: 5px 7px; } .pg-steps li.sec .f b span { display: none; } }
+
     /* платформа участников */
     #platform { overflow: hidden; background: linear-gradient(180deg, #fff, #f6f7f9 30%, #f6f7f9 70%, #fff); }
     .pl { display: grid; grid-template-columns: minmax(0, .9fr) minmax(0, 1.2fr); gap: 56px; align-items: center; }
@@ -544,8 +571,8 @@
       <div class="wrap">
         <div class="hang" aria-hidden="true"><i class="cord"></i><img src="https://images.pexels.com/photos/14272792/pexels-photo-14272792.jpeg?auto=compress&cs=tinysrgb&w=500" alt="" loading="lazy" decoding="async"></div>
         <div class="shead">
-          <div><span class="mono kick fade">01 / программа</span><h2 class="grad fade" style="--d:1">Три направления — одна система</h2></div>
-          <p class="fade" style="--d:2">Программа клуба — та же, что на платформе участников. Каждое направление разбито на шаги, в каждом шаге — видеоурок с таймкодами.</p>
+          <div><span class="mono kick fade">01 / программа · частично засекречено</span><h2 class="grad fade" style="--d:1">Что внутри — знают только свои</h2></div>
+          <p class="fade" style="--d:2">Направления и число шагов — не секрет. Всё остальное открывается только по личному коду участника.</p>
         </div>
         <div class="pg fade" style="--d:1">
           <div class="pg-tabs" role="tablist" aria-label="Направления обучения" id="pgTabs"></div>
@@ -579,12 +606,12 @@
                 <div class="pw-side"><span class="mono">продюсирование · шаги</span><ol id="pwSteps"></ol></div>
                 <div class="pw-main">
                   <div class="pw-head"><div><span class="mono" id="pwNum">шаг 1.1</span><b id="pwTitle">Что такое продюсирование?</b></div><span class="pw-fav" id="pwFav"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M6 3h12a1 1 0 0 1 1 1v17l-7-4.5L5 21V4a1 1 0 0 1 1-1z"/></svg></span></div>
-                  <div class="pw-vid"><span class="mono">видеоурок</span><svg class="px" data-star viewBox="0 0 9 9"></svg><span class="play">▶</span><span class="tl"><b id="pwTl"></b></span></div>
-                  <div class="pw-tcs"><span class="mono">таймкоды · пример</span>
+                  <div class="pw-vid" id="pwVid"><span class="mono">видеоурок</span><span class="pw-lock mono" aria-hidden="true">classified · доступ по коду</span><svg class="px" data-star viewBox="0 0 9 9"></svg><span class="play">▶</span><span class="tl"><b id="pwTl"></b></span></div>
+                  <div class="pw-tcs"><span class="mono">таймкоды · скрыто до входа</span>
                     <div class="pw-tc"><span class="mono">0:00</span>вступление</div>
-                    <div class="pw-tc"><span class="mono">4:20</span>главная мысль шага</div>
-                    <div class="pw-tc"><span class="mono">11:05</span>разбор на примере</div>
-                    <div class="pw-tc"><span class="mono">17:40</span>что сделать после урока</div>
+                    <div class="pw-tc"><span class="mono">4:20</span><i class="fk" data-n="18"></i></div>
+                    <div class="pw-tc"><span class="mono">11:05</span><i class="fk" data-n="17"></i></div>
+                    <div class="pw-tc"><span class="mono">17:40</span><i class="fk" data-n="23"></i></div>
                   </div>
                   <div class="pw-prog"><span class="mono">прогресс</span><i><b id="pwProg"></b></i><span class="mono" id="pwCount">0 / 7</span></div>
                 </div>
@@ -787,31 +814,55 @@
       el.style.clipPath = `polygon(${pts.join(',')})`;
     });
 
-    /* ---------- программа: три направления (как на платформе) ---------- */
+    /* ---------- программа: видно направления и число шагов, а большинство шагов — под грифом ----------
+       Настоящие названия скрытых шагов на сайт не попадают вообще: под размытием — случайные буквы. */
     const TRACKS = [
-      { t: 'Продюсирование', main: true, d: 'Главное направление клуба. Путь продюсера: от понимания профессии и первого клиента до запуска и масштабирования.', tags: ['профиль', 'клиенты', 'созвоны', 'запуск'],
-        s: ['Что такое продюсирование?', 'Оформление профиля', 'Поиск клиентов', 'Как правильно отписывать клиентам?', 'Закрытие клиента на созвоне', 'Работа с клиентом / запуск', 'Масштабирование продюсирования'] },
-      { t: 'Инфобизнес', d: 'Свой инфобизнес без «инфоцыганства»: канал, трафик, копирайтинг, запуски — и как не забросить всё на полпути.', tags: ['канал', 'трафик', 'посты', 'запуски'],
-        s: ['Концепт инфобизнеса: что это', 'Как не стать инфоцыганом', 'Как вести канал?', 'Как лить трафик в канал?', 'Посты / копирайтинг', 'Запуск', 'Как не забросить канал и делать запуски повторно?'] },
-      { t: 'Продажи в звонках', d: 'Продажи голосом: что это за профессия и где искать лидов.', tags: ['концепт', 'лиды', 'созвоны'], soon: true,
-        s: ['Концепт продаж в звонках', 'Где искать лидов'] },
+      { t: 'Продюсирование', main: true, d: 'Главное направление клуба. Путь продюсера — от понимания профессии до {9} и {13}.', tags: ['профиль', 'клиенты'], more: 2,
+        s: ['Что такое продюсирование?', null, null, null, 'Закрытие клиента на созвоне', null, null] },
+      { t: 'Инфобизнес', d: 'Свой инфобизнес без «инфоцыганства»: {6}, {7}, {11} — и {16}.', tags: ['канал'], more: 3,
+        s: [null, 'Как не стать инфоцыганом', null, null, null, null, null] },
+      { t: 'Продажи в звонках', d: 'Продажи голосом: что это за профессия и {14}. Новые шаги уже готовятся.', tags: ['концепт'], more: 2, soon: true,
+        s: ['Концепт продаж в звонках', null] },
     ];
+    const ABC = 'абвгдеёжзиклмнопрстуфхцчшщэюя', GLY = '█▓▒░#%&@$/<>*+=';
+    const rng = (n) => () => ((n = (n * 9301 + 49297) % 233280) / 233280);
+    const fake = (seed, len) => { const r = rng(seed * 131 + 17); let o = ''; while (o.length < len) { const w = 3 + Math.floor(r() * 7); o += (o ? ' ' : '') + Array.from({ length: w }, () => ABC[Math.floor(r() * ABC.length)]).join(''); } return o.slice(0, len); };
+    const redact = (d) => d.replace(/\{(\d+)\}/g, (m, n) => `<span class="rd" style="--w:${n}ch" title="засекречено"></span>`);
     const stepWord = (n) => (n % 10 === 1 && n % 100 !== 11 ? 'шаг' : n % 10 >= 2 && n % 10 <= 4 && (n % 100 < 12 || n % 100 > 14) ? 'шага' : 'шагов');
+    const LOCK = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 10V7a5 5 0 0 1 10 0v3" fill="none" stroke="currentColor" stroke-width="2"/><rect x="5" y="10" width="14" height="11" rx="2" fill="currentColor"/></svg>';
     const pgTabs = $('#pgTabs'), pgPanel = $('#pgPanel'), pg = pgTabs.parentElement;
-    pgTabs.innerHTML = TRACKS.map((x, k) => `<button class="pgt" type="button" role="tab" id="pgt${k}" aria-controls="pgPanel" aria-selected="false"><span class="on">0${k + 1}</span><b>${x.t}</b><span class="mono">${x.s.length} ${stepWord(x.s.length)}${x.soon ? ' · ещё в работе' : ''} · видео</span>${x.main ? '<span class="mono main">главное</span>' : ''}<i class="bar"></i></button>`).join('');
+    pgTabs.innerHTML = TRACKS.map((x, k) => {
+      const hid = x.s.filter((v) => !v).length;
+      return `<button class="pgt" type="button" role="tab" id="pgt${k}" aria-controls="pgPanel" aria-selected="false"><span class="on">0${k + 1}</span><b>${x.t}</b><span class="mono">${x.s.length} ${stepWord(x.s.length)} · ${hid} под грифом</span>${x.main ? '<span class="mono main">главное</span>' : ''}<i class="bar"></i></button>`;
+    }).join('');
     let pgCur = -1, pgTimer = 0;
     const pgShow = (k) => {
       if (k === pgCur) return;
       pgCur = k;
-      const x = TRACKS[k];
+      const x = TRACKS[k], open = x.s.filter(Boolean).length;
       [...pgTabs.querySelectorAll('.pgt')].forEach((b, n) => { b.setAttribute('aria-selected', n === k); b.tabIndex = n === k ? 0 : -1; });
       pgPanel.setAttribute('aria-labelledby', 'pgt' + k);
-      pgPanel.innerHTML = `<div class="pg-top mono"><span>направление 0${k + 1} / 03</span><span>${x.s.length} ${stepWord(x.s.length)}</span></div>
-        <h3>${x.t}</h3><p>${x.d}</p><div class="pg-chips">${x.tags.map((g) => `<span class="mono">${g}</span>`).join('')}</div>
-        <ol class="pg-steps">${x.s.map((t, n) => `<li style="--i:${n}"><span class="n">1.${n + 1}</span><span class="t">${t}</span><span class="f mono"><i>▶</i>видео · таймкоды</span></li>`).join('')}${x.soon ? `<li class="soon" style="--i:${x.s.length}"><span class="n"></span><span class="t">Следующие шаги появятся на платформе</span></li>` : ''}</ol>
-        <div class="pg-foot"><span class="mono">шаги идут по порядку · отмечай пройденное</span><a href="https://tovarkav15-svg.github.io/clubplatform/" target="_blank" rel="noopener">Платформа участников ↗</a></div>`;
+      pgPanel.innerHTML = `<span class="pg-stamp mono" aria-hidden="true">classified · ${x.s.length - open}/${x.s.length}</span>
+        <div class="pg-top mono"><span>направление 0${k + 1} / 03</span><span>открыто ${open} из ${x.s.length}</span></div>
+        <h3>${x.t}</h3><p>${redact(x.d)}</p>
+        <div class="pg-chips">${x.tags.map((g) => `<span class="mono">${g}</span>`).join('')}<span class="mono x">+${x.more} · скрыто</span></div>
+        <ol class="pg-steps">${x.s.map((t, n) => t
+          ? `<li style="--i:${n}"><span class="n">1.${n + 1}</span><span class="t">${t}</span><span class="f mono"><i>▶</i>открыто для превью</span></li>`
+          : `<li class="sec" style="--i:${n}" aria-label="Шаг 1.${n + 1} засекречен"><span class="n">1.${n + 1}</span><span class="t"><i class="fk" aria-hidden="true">${fake(k * 10 + n, 16 + ((k + n * 7) % 16))}</i></span><span class="f mono"><b>${LOCK}<span>secret guide</span></b></span></li>`).join('')}${x.soon ? `<li class="soon" style="--i:${x.s.length}"><span class="n"></span><span class="t">Следующие шаги появятся на платформе</span></li>` : ''}</ol>
+        <div class="pg-foot"><span class="mono">названия скрытых шагов видят только участники</span><a href="#price">Получить доступ →</a></div>`;
     };
     pgShow(0);
+    // при наведении гриф «шумит», но ничего не выдаёт
+    pgPanel.addEventListener('pointerover', (e) => {
+      const li = e.target.closest('li.sec'); if (!li || li.dataset.busy) return;
+      li.dataset.busy = 1;
+      const fk = li.querySelector('.fk'), lab = li.querySelector('.f span'), orig = fk.textContent; let t = 0;
+      lab.textContent = 'access denied'; li.classList.add('deny');
+      const iv = setInterval(() => {
+        fk.textContent = [...orig].map((c) => (c === ' ' ? ' ' : Math.random() < .6 ? GLY[Math.floor(Math.random() * GLY.length)] : c)).join('');
+        if (++t > 14) { clearInterval(iv); fk.textContent = orig; setTimeout(() => { lab.textContent = 'secret guide'; li.classList.remove('deny'); delete li.dataset.busy; }, 700); }
+      }, 45);
+    });
     // направления сами листаются, пока человек их не трогает
     const pgAuto = () => { clearTimeout(pgTimer); if (!reduce && !pg.classList.contains('hold')) pgTimer = setTimeout(() => { pgShow((pgCur + 1) % TRACKS.length); pgAuto(); }, 9000); };
     const pgHold = () => { pg.classList.add('hold'); clearTimeout(pgTimer); };
@@ -826,17 +877,20 @@
     if (reduce) pg.classList.add('hold');
     if ('IntersectionObserver' in window) new IntersectionObserver((es) => es.forEach((e) => { if (e.isIntersecting && !pgTimer) pgAuto(); }), { threshold: .3 }).observe(pg);
 
-    /* ---------- платформа: живой макет урока ---------- */
+    /* ---------- платформа: живой макет урока, закрытые шаги — под грифом ---------- */
     const pwSteps = $('#pwSteps');
     if (pwSteps) {
       const P = TRACKS[0].s;
-      pwSteps.innerHTML = P.map((t, n) => `<li><i></i>1.${n + 1} ${t}</li>`).join('');
+      $$('.pw-tc .fk').forEach((el, n) => { el.textContent = fake(90 + n, +el.dataset.n); });
+      pwSteps.innerHTML = P.map((t, n) => (t ? `<li><i></i>1.${n + 1} ${t}</li>` : `<li class="sec"><i></i>1.${n + 1} <span class="fk">${fake(50 + n, 14 + (n % 3) * 5)}</span></li>`)).join('');
       const items = [...pwSteps.querySelectorAll('li')], tcs = $$('.pw-tc'), TL = [3, 26, 62, 94];
       let st = 0, tc = 0;
       const paintPw = () => {
-        items.forEach((li, n) => { li.classList.toggle('done', n < st); li.classList.toggle('cur', n === st % P.length); });
-        $('#pwNum').textContent = `шаг 1.${(st % P.length) + 1}`;
-        $('#pwTitle').textContent = P[st % P.length];
+        const cur = st % P.length, open = !!P[cur];
+        items.forEach((li, n) => { li.classList.toggle('done', n < st); li.classList.toggle('cur', n === cur); });
+        $('#pwNum').textContent = `шаг 1.${cur + 1}${open ? '' : ' · secret guide'}`;
+        $('#pwTitle').innerHTML = open ? P[cur] : `<span class="fk">${fake(70 + cur, 22)}</span>`;
+        $('#pwVid').classList.toggle('lock', !open);
         tcs.forEach((el, n) => el.classList.toggle('on', n === tc));
         $('#pwTl').style.setProperty('--p', TL[tc] + '%');
         $('#pwProg').style.setProperty('--p', (Math.min(st, P.length) / P.length * 100) + '%');
